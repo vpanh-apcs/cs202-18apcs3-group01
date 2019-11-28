@@ -33,39 +33,57 @@ void CPEOPLE::Right()
 {
 	position.x += 1;
 }
-void CPEOPLE::move(char key, const vector<bool>& block)
-{
-	if ((key == 'W' || key == 'w') && block[0] == true)
-		Up();
-	else if ((key == 'S' || key == 's') && block[1]==true)
-		Down();
-	else if ((key == 'A' || key == 'a' )&& block[2]==true)
-		Left();
-	else if ((key == 'D' || key == 'd') && block[3] == true)
-		Right();
-}
+
 Pos CPEOPLE::getPos()
 {
 	return position;
 }
-vector<bool> CPEOPLE::blockedDirection(const vector<Obstacle*>& a)
+void CPEOPLE::move(char key, const vector<bool>& block)
+{
+	if ((key == 'W' || key == 'w') && block[0] == false)
+		Up();
+	else if ((key == 'S' || key == 's') && block[1]==false)
+		Down();
+	else if ((key == 'A' || key == 'a' )&& block[2]==false)
+		Left();
+	else if ((key == 'D' || key == 'd') && block[3] == false)
+		Right();
+}
+bool CPEOPLE::blocked(Obstacle* a)
+{
+	if (position == a->getPos())
+		return true;
+	return false;
+}
+vector<bool> CPEOPLE::blockedDirection(const vector<Obstacle*>& a) //list cac cay
 {
 	vector<bool> block{ false,false,false,false }; //  [0] Up , [1] Down , [2] Left, [3] Right
 	for (int i = 0; i < a.size(); i++)
 	{
-		if (position.y == a[i]->getPos().y - 1) //blocked when Up
+		if (position.x == a[i]->getPos().x && position.y == a[i]->getPos().y - 1) //blocked when Up
 			block[0]=true;
-		if (position.y == a[i]->getPos().y + 1)//blocked when Down
+		if (position.x == a[i]->getPos().x && position.y == a[i]->getPos().y + 1)//blocked when Down
 			block[1]=true;
-		if (position.x == a[i]->getPos().x + 1)//blocked when Left
+		if (position.y == a[i]->getPos().y && position.x == a[i]->getPos().x + 1)//blocked when Left
 			block[2] = true;
-		if (position.x == a[i]->getPos().x - 1)//blocked when Right
+		if (position.y == a[i]->getPos().y && position.x == a[i]->getPos().x - 1)//blocked when Right
 			block[3] = true;
 	}
 	return block;
 }
-bool CPEOPLE::hit()
+bool CPEOPLE::hit(Obstacle* a)
 {
+	if (position == a->getPos())
+		return true;
+	return false;
+}
+bool CPEOPLE::hit(const vector<Obstacle*>& a)
+{
+	for (int i = 0; i < a.size(); i++)
+	{
+		if (a[i]->getPos() == position)
+			return true;
+	}
 	return false;
 }
 void CPEOPLE::save(ofstream &file)

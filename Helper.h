@@ -18,6 +18,8 @@ struct Pos
 	int y;
 	Pos();
 	Pos(int xt, int yt);
+public:
+	bool operator==(const Pos& p);
 };
 int Random(int start, int end);
 

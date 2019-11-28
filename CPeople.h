@@ -15,8 +15,9 @@ public:
 	void move(char key,const vector<bool>& block);
 	Pos getPos();
 	vector<bool> blockedDirection(const vector<Obstacle*>& a);
-	bool hit();
-	bool blocked();
+	bool blocked(Obstacle* a);
+	bool hit(const vector<Obstacle*>& a);
+	bool hit(Obstacle* a);
 	void save(ofstream &file);
 	void load(ifstream &file);
 };
