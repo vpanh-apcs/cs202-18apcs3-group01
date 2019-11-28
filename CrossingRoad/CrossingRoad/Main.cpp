@@ -3,8 +3,7 @@
 int main()
 {
 	FixConsoleWindow();
-	Startup a;
-	a.run();
+	Startup::mainMenu();
 	system("pause");
 	return 0;
 }
