@@ -17,7 +17,7 @@ void FixConsoleWindow() {
 
 int Random(int start, int end)
 {
-	srand(unsigned(time(NULL)));
+	srand(time(NULL));
 	return start + rand() % (end - start + 1);
 }
 

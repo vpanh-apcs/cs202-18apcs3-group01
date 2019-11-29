@@ -3,8 +3,7 @@
 int main()
 {
 	FixConsoleWindow();
-	Startup::drawTitle();
-	//Startup::mainMenu();
+	Startup::mainMenu();
 	system("pause");
 	return 0;
 }
