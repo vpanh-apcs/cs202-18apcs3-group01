@@ -1,5 +1,4 @@
-﻿#include "CPeople.h"
-//#include "
+﻿#include "Route.h"
 
 class CGAME 
 {
@@ -9,11 +8,14 @@ class CGAME
 	//CBIRD* ac;
 	//CPEOPLE cn;
 	//vector<Obstacle> obstacles;
-	Pos topleft, bottomright;
-	int map[15][15];
+	int level;
+	Pos tl, br;
+	int map[10][10];
+	Route* routes[10];
+	CPEOPLE people;
 public:
 	CGAME(); //Chuẩn bị dữ liệu cho tất cả các đối tượng
-	void drawGame() {}; //Thực hiện vẽ trò chơi ra màn hình sau khi có dữ liệu
+	void drawGame(); //Thực hiện vẽ trò chơi ra màn hình sau khi có dữ liệu
 	~CGAME() {}; // Hủy tài nguyên đã cấp phát
 	CPEOPLE getPeople() {};//Lấy thông tin người
 	//CVEHICLE* getVehicle();//Lấy danh sách các xe

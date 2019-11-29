@@ -2,16 +2,26 @@
 
 class Obstacle
 {
+protected:
 	Pos position;
-	int direction;
+	bool direction = 0;
 	int hitbox;
-	virtual void show(Pos start, Pos end) = 0;
 public:
+	Obstacle() {};
 	Obstacle(Pos a);
-	~Obstacle();
-	void move();
-	virtual void save();
-	virtual void load();
+	~Obstacle() {};
+	void move();	
+	virtual void show() {};
+	virtual void save() {};
+	virtual void load() {};
+	Pos getPos();
+};
+
+class TREE : public Obstacle
+{
+public:
+	TREE(Pos positiont);
+	void show();
 };
 
 class CVEHICLE : public Obstacle
@@ -24,7 +34,9 @@ class CANIMAL : public Obstacle
 
 class CTRUCK : public CVEHICLE
 { 
-
+public:
+	CTRUCK(Pos a);
+	void show();
 };
 
 class CCAR : public CVEHICLE

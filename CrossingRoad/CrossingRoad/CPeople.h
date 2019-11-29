@@ -7,14 +7,14 @@ class CPEOPLE
 	int attempt;
 	int highscore;
 	int moves;
-	void show();
 public:
-	void showinfo();
-	CPEOPLE();
-	void GetInfo();
-	void move(int Direction);
-	Pos getPos();
-	void hit();
-	void save(ostream &file);
-	void load(ostream &file);
+	void show();
+	void showinfo() {};
+	CPEOPLE() {};
+	void GetInfo() {};
+	void move(int Direction) {};
+	Pos getPos() {};
+	void hit() {};
+	void save(ostream file) {};
+	void load(ostream file) {};
 };
