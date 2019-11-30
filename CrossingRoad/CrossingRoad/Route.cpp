@@ -99,7 +99,6 @@ void Duong::draw()
 void Duong::move()
 {
 	{
-		Sleep(400);
 		int queuestart = 0;
 		int queueend = 5;
 		int random = Random(queuestart, queueend);

@@ -45,6 +45,7 @@ void CGAME::routesMove()
 			routes[i]->move();
 			routes[i]->draw();
 		}
+		Sleep(500);
 	}
 };
 
