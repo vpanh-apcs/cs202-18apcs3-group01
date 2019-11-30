@@ -1,8 +1,13 @@
 #include "Startup.h"
+#include <Windows.h>
+
+void textcolor(int color) {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
+}
 
 void Startup::drawTitle()
 {
-<<<<<<< HEAD
+
 	ifstream FileTitle1, FileTitle2;
 	FileTitle1.open("tmp1.txt");
 	FileTitle2.open("tmp2.txt");
@@ -70,7 +75,7 @@ void Startup::mainMenu()
 }
 
 void Startup::CreateMenu(vector<string> text, int& ChooseCase, Pos topLeft_Menu) {
-	DrawBoard(text, 50, topLeft_Menu);
+	//DrawBoard(text, 0, topLeft_Menu);
 	int nText = (int)text.size();
 	while (true) {
 		textcolor(15);
@@ -105,8 +110,39 @@ void Startup::CreateMenu(vector<string> text, int& ChooseCase, Pos topLeft_Menu)
 			break;
 		}
 	}
-=======
-	CGAME a;
-	a.startGame();
->>>>>>> Phuc
+
+	/*CGAME a;
+	a.startGame();*/
+}
+
+void Startup::DrawBoard(vector<string> text, int Len, Pos p)
+{
+	--p.x; --p.y;
+	int nText = (int)text.size(), length = 0;
+	for (int i = 0; i < nText; ++i)
+		length = max(length, text[i].size());
+
+	/*
+	218, 196, 191
+	179,    , 179
+	195, 196, 180
+	179,    , 179
+	195, 196, 180
+	179,    , 179
+	192, 196, 217
+	*/
+	GotoXY(p.x, p.y++);
+	cout << char(218) << setw(length + 1ll) << setfill(char(196)) << char(191);
+	GotoXY(p.x, p.y++);
+	cout << char(179) << text[0] <<
+		setw(length - text[0].size() - 1ll) << setfill(' ') << char(179);
+	
+	for (int i = 1; i < nText - 1; ++i) {
+		GotoXY(p.x, p.y++);
+		cout << char(195) << setw(length + 1ll) << setfill(char(196)) << char(180);
+		GotoXY(p.x, p.y++);
+		cout << setw(length + 1ll) << setfill(' ') << char(179) << text[i] << char(179);
+	}
+	GotoXY(p.x, p.y++);
+	cout << char(192) << setw(length + 1ll) << setfill(char(196)) << char(217);
 }
