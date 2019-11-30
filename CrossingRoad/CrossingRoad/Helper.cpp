@@ -32,3 +32,8 @@ Pos::Pos(int xt, int yt)
 	x = xt;
 	y = yt;
 }
+
+void textcolor(int k)
+{
+	cout << "XX";
+}
