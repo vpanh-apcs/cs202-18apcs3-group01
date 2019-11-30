@@ -16,18 +16,24 @@ LeDuong::LeDuong(Pos startt, Pos endt)
 {
 	start = startt;
 	end = endt;
+	int queuestart = 0;
+	int queueend = 5;
 	for (int i = start.y; i < end.y; i++)
 	{
-		int random = Random(0, queue);
-		if (random == 0)
+		int random = Random(queuestart, queueend);
+		if (random < 3)
 		{
 			TREE* temp = new TREE(Pos(start.x, start.y - 1));
 			trees.push_back(temp);
+			queuestart++;
 		}
-		if (queue == 0)
-			queue = 3;
 		else
-			queue--;
+			queueend--;
+		if (queuestart == queueend)
+		{
+			queuestart = 0;
+			queueend = 5;
+		}
 		for (int i = trees.size() - 1; i >= 0; i--)
 		{
 			trees[i]->move();
@@ -35,17 +41,18 @@ LeDuong::LeDuong(Pos startt, Pos endt)
 				trees.erase(trees.begin());
 		}
 	}
-	draw();
 }
 
 Duong::Duong(Pos startt, Pos endt)
 {
 	start = startt;
 	end = endt;
+	int queuestart = 0;
+	int queueend = 5;
 	for (int i = start.y; i < end.y; i++)
 	{
-		int random = Random(0, queue);
-		if (random == 0)
+		int random = Random(queuestart, queueend);
+		if (random < 3)
 		{
 			int randoma = Random(0, 3);
 			randoma = 0;
@@ -58,11 +65,15 @@ Duong::Duong(Pos startt, Pos endt)
 			case(3): temp = new CDINOSAUR(Pos(start.x, start.y - 1));*/
 			}
 			obstacles.push_back(temp);
+			queuestart++;
 		}
-		if (queue == 0)
-			queue = 3;
 		else
-			queue--;
+			queueend--;
+		if (queuestart == queueend)
+		{
+			queuestart = 0;
+			queueend = 5;
+		}
 		for (int i = obstacles.size() - 1; i >= 0; i--)
 		{
 			obstacles[i]->move();
@@ -70,7 +81,6 @@ Duong::Duong(Pos startt, Pos endt)
 				obstacles.erase(obstacles.begin());
 		}
 	}
-	draw();
 }
 
 void Duong::draw()
@@ -90,8 +100,10 @@ void Duong::move()
 {
 	{
 		Sleep(400);
-		int random = Random(0, queue);
-		if (random == 0)
+		int queuestart = 0;
+		int queueend = 5;
+		int random = Random(queuestart, queueend);
+		if (random < 3)
 		{
 			int randoma = Random(0, 3);
 			randoma = 0;
@@ -104,17 +116,20 @@ void Duong::move()
 				case(3): temp = new CDINOSAUR(Pos(start.x, start.y - 1));*/
 			}
 			obstacles.push_back(temp);
+			queuestart++;
 		}
-		if (queue == 0)
-			queue = 3;
 		else
-			queue--;
+			queueend--;
+		if (queuestart == queueend)
+		{
+			queuestart = 0;
+			queueend = 5;
+		}
 		for (int i = obstacles.size() - 1; i >= 0; i--)
 		{
 			obstacles[i]->move();
 			if (obstacles[i]->getPos().y >= end.y)
 				obstacles.erase(obstacles.begin());
 		}
-		draw();
 	}
 }

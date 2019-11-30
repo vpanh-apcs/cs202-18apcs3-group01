@@ -13,6 +13,7 @@ class CGAME
 	int map[10][10];
 	Route* routes[10];
 	CPEOPLE people;
+	bool stop = true;
 public:
 	CGAME(); //Chuẩn bị dữ liệu cho tất cả các đối tượng
 	void drawGame(); //Thực hiện vẽ trò chơi ra màn hình sau khi có dữ liệu
@@ -22,7 +23,7 @@ public:
 	//CANIMAL* getAnimal(); //Lấy danh sách các thú
 	void resetGame() {}; // Thực hiện thiết lập lại toàn bộ dữ liệu như lúc đầu
 	void exitGame(HANDLE) {}; // Thực hiện thoát Thread
-	void startGame() {}; // Thực hiện bắt đầu vào trò chơi
+	void startGame(); // Thực hiện bắt đầu vào trò chơi
 	void loadGame(ostream) {}; // Thực hiện tải lại trò chơi đã lưu
 	void saveGame(ostream) {}; // Thực hiện lưu lại dữ liệu trò chơi
 	void pauseGame(HANDLE) {}; // Tạm dừng Thread
@@ -30,5 +31,5 @@ public:
 	//void updatePosPeople(char); //Thực hiện điều khiển di chuyển của CPEOPLE
 	//void updatePosVehicle(); //Thực hiện cho CTRUCK & CCAR di chuyển
 	//void updatePosAnimal();//Thực hiện cho CDINAUSOR & CBIRD di chuyển
-	void run() {};
+	void routesMove();
 };

@@ -35,3 +35,21 @@ void CGAME::drawGame()
 	for (int i = 0; i < br.x; i++)
 		routes[i]->draw();
 };
+
+void CGAME::routesMove()
+{
+	while (stop)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			routes[i]->move();
+			routes[i]->draw();
+		}
+	}
+};
+
+void CGAME::startGame()
+{
+	thread trdRoutes(&CGAME::routesMove, *this);
+	trdRoutes.join();
+}

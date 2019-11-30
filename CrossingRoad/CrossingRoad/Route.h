@@ -6,7 +6,6 @@ class Route
 protected:
 	bool direction = 0;
 	Pos start, end;
-	int queue = 3;
 public:
 	void updateMap(int map[11][11]) {};
 	virtual void draw() = 0;

@@ -3,5 +3,5 @@
 void Startup::run()
 {
 	CGAME a;
-	a.run();
+	a.startGame();
 }
