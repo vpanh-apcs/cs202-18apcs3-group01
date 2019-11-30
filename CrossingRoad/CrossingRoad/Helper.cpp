@@ -3,8 +3,8 @@
 void GotoXY(int x, int y)
 {
 	COORD coord;
-	coord.X = x;
-	coord.Y = y;
+	coord.X = y;
+	coord.Y = x;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 };
 
@@ -17,7 +17,7 @@ void FixConsoleWindow() {
 
 int Random(int start, int end)
 {
-	srand(time(NULL));
+	srand(rand() + time(NULL));
 	return start + rand() % (end - start + 1);
 }
 

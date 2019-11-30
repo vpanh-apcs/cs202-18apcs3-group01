@@ -2,6 +2,7 @@
 
 void Startup::drawTitle()
 {
+<<<<<<< HEAD
 	ifstream FileTitle1, FileTitle2;
 	FileTitle1.open("tmp1.txt");
 	FileTitle2.open("tmp2.txt");
@@ -104,4 +105,8 @@ void Startup::CreateMenu(vector<string> text, int& ChooseCase, Pos topLeft_Menu)
 			break;
 		}
 	}
+=======
+	CGAME a;
+	a.startGame();
+>>>>>>> Phuc
 }
