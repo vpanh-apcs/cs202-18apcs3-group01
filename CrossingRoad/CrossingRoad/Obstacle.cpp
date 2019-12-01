@@ -15,5 +15,10 @@ void Obstacle::move() {
 Obstacle::Obstacle(Pos pos)
 {
 	position = pos;
-	
+}
+
+Obstacle::Obstacle(Pos pos, bool directiont)
+{
+	position = pos;
+	direction = directiont;
 }

@@ -5,10 +5,11 @@ class Obstacle
 protected:
 	Pos position;
 	bool direction = 0;
-	int hitbox;
+	int hitbox = 1;
 public:
-	Obstacle() {};
+	Obstacle() = default;
 	Obstacle(Pos a);
+	Obstacle(Pos a, bool directiont);
 	~Obstacle() {};
 	void move();	
 	virtual void show() {};
@@ -26,6 +27,10 @@ public:
 
 class CVEHICLE : public Obstacle
 {
+	int speed;
+public:
+	CVEHICLE() = default;
+	CVEHICLE(Pos a, bool directiont);
 };
 
 class CANIMAL : public Obstacle
@@ -35,7 +40,7 @@ class CANIMAL : public Obstacle
 class CTRUCK : public CVEHICLE
 { 
 public:
-	CTRUCK(Pos a);
+	CTRUCK(Pos a, bool directiont);
 	void show();
 };
 

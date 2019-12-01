@@ -8,8 +8,9 @@ class CGAME
 	//CBIRD* ac;
 	//CPEOPLE cn;
 	//vector<Obstacle> obstacles;
-	int level;
-	Pos tl, br;
+	int level = 1;
+	Pos tl = Pos(0, 0);
+	Pos br = Pos(10, 10);
 	int map[10][10];
 	Route* routes[10];
 	CPEOPLE people;
@@ -18,7 +19,7 @@ public:
 	CGAME(); //Chuẩn bị dữ liệu cho tất cả các đối tượng
 	void drawGame(); //Thực hiện vẽ trò chơi ra màn hình sau khi có dữ liệu
 	~CGAME() {}; // Hủy tài nguyên đã cấp phát
-	CPEOPLE getPeople() {};//Lấy thông tin người
+	//CPEOPLE getPeople() {};//Lấy thông tin người
 	//CVEHICLE* getVehicle();//Lấy danh sách các xe
 	//CANIMAL* getAnimal(); //Lấy danh sách các thú
 	void resetGame() {}; // Thực hiện thiết lập lại toàn bộ dữ liệu như lúc đầu

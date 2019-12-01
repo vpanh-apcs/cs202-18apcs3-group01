@@ -7,9 +7,9 @@ protected:
 	bool direction = 0;
 	Pos start, end;
 public:
-	void updateMap(int map[11][11]) {};
+	virtual void updateMap(int map[10][10]) = 0;
 	virtual void draw() = 0;
-	virtual void move() = 0;
+	virtual void move() {};
 };
 
 class LeDuong : public Route
@@ -18,15 +18,16 @@ class LeDuong : public Route
 	TrafficLight trafficlight;
 public:
 	LeDuong(Pos startt, Pos endt);
+	void updateMap(int map[10][10]);
 	void draw();
-	void move() {};
 };
 
 class Duong : public Route
 {
 	vector<Obstacle*> obstacles;
 public:
-	Duong(Pos startt, Pos endt);
+	Duong(Pos startt, Pos endt, bool directiont);
+	void updateMap(int map[10][10]);
 	void move();
 	void draw();
 };

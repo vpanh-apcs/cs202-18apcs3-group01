@@ -9,6 +9,6 @@ TREE::TREE(Pos positiont)
 
 void TREE::show() 
 { 
-	GotoXY(position.x, position.y); 
+	GotoXY(position.y, position.x); 
 	cout << "T"; 
 }
