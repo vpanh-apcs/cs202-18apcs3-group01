@@ -1,20 +1,21 @@
 #include "Obstacle.h"
-
 class CPEOPLE
 {
 	string name;
 	Pos position;
-	int attempt;
 	int highscore;
-	int moves;
+	bool deadstate;
 public:
-	void show();
-	void showinfo() {};
-	CPEOPLE() {};
-	void GetInfo() {};
-	void move(int Direction) {};
-	Pos getPos() {};
-	void hit() {};
-	void save(ostream file) {};
-	void load(ostream file) {};
+	CPEOPLE();
+	void Up();
+	void Down();
+	void Left();
+	void Right();
+	void showinfo();
+	void move(char key);
+	Pos getPos();
+	bool blocked(Obstacle* a);
+	bool hit(Obstacle* a);
+	void save(ofstream &file);
+	void load(ifstream &file);
 };
