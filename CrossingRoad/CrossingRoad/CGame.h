@@ -14,7 +14,7 @@ class CGAME
 	int map[10][10];
 	Route* routes[10];
 	CPEOPLE people = CPEOPLE(Pos(19,25));
-	bool stop = true;
+	bool stop = false;
 public:
 	CGAME(); //Chuẩn bị dữ liệu cho tất cả các đối tượng
 	void drawGame(); //Thực hiện vẽ trò chơi ra màn hình sau khi có dữ liệu
@@ -27,7 +27,7 @@ public:
 	void startGame(); // Thực hiện bắt đầu vào trò chơi
 	void loadGame(ostream) {}; // Thực hiện tải lại trò chơi đã lưu
 	void saveGame(ostream) {}; // Thực hiện lưu lại dữ liệu trò chơi
-	void pauseGame(HANDLE) {}; // Tạm dừng Thread
+	void pauseGame(); // Tạm dừng Thread
 	void resumeGame(HANDLE) {}; //Quay lai Thread
 	//void updatePosPeople(char); //Thực hiện điều khiển di chuyển của CPEOPLE
 	//void updatePosVehicle(); //Thực hiện cho CTRUCK & CCAR di chuyển

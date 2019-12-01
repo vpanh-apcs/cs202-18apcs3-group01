@@ -21,23 +21,15 @@ LeDuong::LeDuong(Pos startt, Pos endt)
 {
 	start = startt;
 	end = endt;
-	int queuestart = 0;
-	int queueend = 5;
+	int queue = 4;
 	for (int i = start.y; i < end.y; i++)
 	{
-		int random = Random(queuestart, queueend);
-		if (random < 3)
+		int random = Random(0, queue);
+		if (random > 0)
 		{
 			TREE* temp = new TREE(Pos(start.x, start.y - 1));
 			trees.push_back(temp);
-			queuestart++;
-		}
-		else
-			queueend--;
-		if (queuestart == queueend)
-		{
-			queuestart = 0;
-			queueend = 5;
+			queue--;
 		}
 		for (int j = trees.size() - 1; j >= 0; j--)
 		{
@@ -71,10 +63,10 @@ void Duong::draw()
 
 void Duong::move()
 {
-	int queuestart = 0;
-	int queueend = 5;
+	int queuestart = 1;
+	int queueend = 2;
 	int random = Random(queuestart, queueend);
-	if (random < 3)
+	if (random < 2)
 	{
 		int randoma = Random(0, 3);
 		randoma = 0;
@@ -87,21 +79,19 @@ void Duong::move()
 			case(3): temp = new CDINOSAUR(Pos(start.x, start.y - 1));*/
 		}
 		obstacles.push_back(temp);
-		queuestart++;
+		queuestart++; queueend++;
 	}
 	else
-		queueend--;
-	if (queuestart == queueend)
 	{
-		queuestart = 0;
-		queueend = 5;
+		queueend--;
+		queuestart--;
 	}
-		for (int i = obstacles.size() - 1; i >= 0; i--)
-		{
-			obstacles[i]->move();
-			if ((obstacles[i]->getPos().y >= end.y)|| (obstacles[i]->getPos().y < start.y))
-				obstacles.erase(obstacles.begin());
-		}
+	for (int i = obstacles.size() - 1; i >= 0; i--)
+	{
+		obstacles[i]->move();
+		if ((obstacles[i]->getPos().y >= end.y)|| (obstacles[i]->getPos().y < start.y))
+			obstacles.erase(obstacles.begin());
+	}
 }
 
 void Duong::updateMap(int map[10][10], int row, int column)

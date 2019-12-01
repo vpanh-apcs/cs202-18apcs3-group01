@@ -14,8 +14,8 @@ CTRUCK::CTRUCK(Pos a, bool directiont)
 
 void CTRUCK::show()
 {
-	GotoXY(position.y, position.x);
-	cout << "A";
+	GotoXY(position.y*2, position.x*2);
+	cout << "AA";
 }
 
 

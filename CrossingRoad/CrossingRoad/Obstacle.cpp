@@ -6,8 +6,8 @@ Pos Obstacle::getPos()
 };
 
 void Obstacle::move() {
-	GotoXY(position.y, position.x);
-	cout << ' ';
+	GotoXY(position.y*2, position.x*2);
+	cout << "  ";
 	if (direction == 0)
 		position.y++;
 	else

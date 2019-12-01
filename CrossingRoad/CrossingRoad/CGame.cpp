@@ -30,13 +30,14 @@ CGAME::CGAME()
  
 void CGAME::drawGame()
 {
+	system("CLS");
 	for (int i = 0; i < br.x - tl.x; i++)
 		routes[i]->draw();
 };
 
 void CGAME::routesMove()
 {	
-	while (stop)
+	while (!this->stop)
 	{
 		for (int i = 0; i < br.x - tl.x; i++)
 		{
@@ -44,23 +45,32 @@ void CGAME::routesMove()
 			routes[i]->draw();
 			routes[i]->updateMap(map,tl.x,tl.y);
 		}
-		GotoXY(0, 0);
-		for (int i = 0; i < 10; i++)
-		{
-			for (int j = 0; j < 10; j++)
-			{
-				cout << map[i][j];
-			}
-			cout << endl;
-		}
-		Sleep(500);
+		Sleep(300);
 	}
 };
 
-void CGAME::controller()
+void CGAME::pauseGame()
 {
+	GotoXY(tl.y*2 - 10, tl.x*2);
+	cout << "Paused" << endl;
 	int temp;
-	char key = NULL;
+	char key = 'a';
+	while (key != 'p')
+	{
+		temp = _getch();
+		key = (char)temp;
+	}
+	GotoXY(tl.y * 2 - 10, tl.x * 2);
+	cout << "      " << endl;
+	startGame();
+}
+
+void CGAME::controller()
+{	
+	thread trdRoutes(&CGAME::routesMove, this);
+	
+	int temp;
+	char key = 'a';
 	people.show();
 	while (key != 'p')
 	{
@@ -69,18 +79,23 @@ void CGAME::controller()
 		switch (key)
 		{
 		case'w': case'a': case's': case'd':
-			people.move(key); 
-			people.show(); 
+			people.move(key);
+			people.show();
 			break;
 		}
 	}
+	stop = true;
+	pauseGame();
+	trdRoutes.join();
 }
+
+
 
 void CGAME::startGame()
 {
-	system("CLS");
-	thread getKey(&CGAME::controller, *this);
-	thread trdRoutes(&CGAME::routesMove, *this);
-	trdRoutes.join();
-	getKey.detach();
+	stop = false;
+	
+	thread getKey(&CGAME::controller, this);
+	
+	getKey.join();
 }
