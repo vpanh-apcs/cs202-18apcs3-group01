@@ -5,17 +5,17 @@ class CPEOPLE
 	Pos position;
 	int highscore;
 	bool deadstate;
-public:
-	CPEOPLE();
 	void Up();
 	void Down();
 	void Left();
 	void Right();
+	void unshow();
+public:
+	CPEOPLE(Pos t);
+	void show();
 	void showinfo();
 	void move(char key);
 	Pos getPos();
-	bool blocked(Obstacle* a);
-	bool hit(Obstacle* a);
 	void save(ofstream &file);
 	void load(ifstream &file);
 };

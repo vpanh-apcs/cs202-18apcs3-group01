@@ -17,7 +17,7 @@ void FixConsoleWindow() {
 
 int Random(int start, int end)
 {
-	srand(rand() + time(NULL));
+	srand(time(NULL));
 	return start + rand() % (end - start + 1);
 }
 
@@ -32,7 +32,12 @@ Pos::Pos(int xt, int yt)
 	x = xt;
 	y = yt;
 }
-
+bool Pos:: operator==(const Pos& p)
+{
+	if (x == p.x && y == p.y)
+		return true;
+	return false;
+}
 void DrawBoard(int x, int y, int width, int height)//height %6 =0
 {
 	//char goc1 = 218, goc2 = 191, goc3 = 217, goc4 = 192, doc = 179, ngang = 196;

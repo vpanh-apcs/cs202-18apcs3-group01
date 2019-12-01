@@ -9,11 +9,11 @@ class CGAME
 	//CPEOPLE cn;
 	//vector<Obstacle> obstacles;
 	int level = 1;
-	Pos tl = Pos(0, 0);
-	Pos br = Pos(10, 10);
+	Pos tl = Pos(20, 20);
+	Pos br = Pos(30, 30);
 	int map[10][10];
 	Route* routes[10];
-	CPEOPLE people;
+	CPEOPLE people = CPEOPLE(Pos(19,25));
 	bool stop = true;
 public:
 	CGAME(); //Chuẩn bị dữ liệu cho tất cả các đối tượng
@@ -33,4 +33,5 @@ public:
 	//void updatePosVehicle(); //Thực hiện cho CTRUCK & CCAR di chuyển
 	//void updatePosAnimal();//Thực hiện cho CDINAUSOR & CBIRD di chuyển
 	void routesMove();
+	void controller();
 };

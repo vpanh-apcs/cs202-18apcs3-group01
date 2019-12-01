@@ -1,24 +1,19 @@
 #include "Route.h"
 void LeDuong::draw()
 {
-	GotoXY(start.y, start.x);
-	for (int i = start.y; i < end.y; i++)
-	{
-		cout << "_";
-	}
 	for (int i = 0; i < trees.size(); i++)
 	{
 		trees[i]->show();
 	}
 }
 
-void LeDuong::updateMap(int map[10][10])
+void LeDuong::updateMap(int map[10][10], int row, int column)
 {
-	for (int i = start.y; i < end.y; i++)
-		map[start.x][i] = 0;
+	for (int i = 0; i < end.y - start.y; i++)
+		map[start.x - row][i] = 0;
 	for (int i = 0; i < trees.size(); i++)
 	{
-		map[trees[i]->getPos().x][trees[i]->getPos().y] = 3;
+		map[trees[i]->getPos().x-row][trees[i]->getPos().y-column] = 3;
 	}
 }
 
@@ -44,10 +39,10 @@ LeDuong::LeDuong(Pos startt, Pos endt)
 			queuestart = 0;
 			queueend = 5;
 		}
-		for (int i = trees.size() - 1; i >= 0; i--)
+		for (int j = trees.size() - 1; j >= 0; j--)
 		{
-			trees[i]->move();
-			if (trees[i]->getPos().y >= end.y)
+			trees[j]->move();
+			if (trees[j]->getPos().y >= end.y)
 				trees.erase(trees.begin());
 		}
 	}
@@ -68,11 +63,6 @@ Duong::Duong(Pos startt, Pos endt, bool directiont)
 
 void Duong::draw()
 {
-	GotoXY(start.y, start.x);
-	for (int i = start.y; i < end.y; i++)
-	{
-		cout << "_";
-	}
 	for (int i = 0; i < obstacles.size(); i++)
 	{
 		obstacles[i]->show();
@@ -81,7 +71,6 @@ void Duong::draw()
 
 void Duong::move()
 {
-
 	int queuestart = 0;
 	int queueend = 5;
 	int random = Random(queuestart, queueend);
@@ -115,12 +104,12 @@ void Duong::move()
 		}
 }
 
-void Duong::updateMap(int map[10][10])
+void Duong::updateMap(int map[10][10], int row, int column)
 {
-	for (int i = start.y; i < end.y; i++)
-		map[start.x][i] = 0;
+	for (int i = 0; i < end.y - start.y; i++)
+		map[start.x - row][i] = 0;
 	for (int i = 0; i < obstacles.size(); i++)
 	{
-		map[obstacles[i]->getPos().x][obstacles[i]->getPos().y] = 2;
+		map[obstacles[i]->getPos().x - row][obstacles[i]->getPos().y - column] = 2;
 	}
 }

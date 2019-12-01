@@ -1,5 +1,4 @@
 #include "Startup.h"
-#include <Windows.h>
 
 void textcolor(int color) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);

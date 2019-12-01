@@ -6,6 +6,10 @@
 #include<vector>
 #include<fstream>
 #include<stdio.h>
+#include <Windows.h>
+#include <conio.h>
+#include <math.h>
+#include <iomanip>
 using namespace std;
 
 const int size = 4;
@@ -23,6 +27,8 @@ struct Pos
 	Pos();
 	Pos(int xt,int yt);
 };
+
+void DrawBoard(int x, int y, int width, int height);
 
 
 

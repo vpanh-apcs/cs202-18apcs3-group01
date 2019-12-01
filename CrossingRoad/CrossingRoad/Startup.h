@@ -1,10 +1,4 @@
 #include "CGame.h"
-#include <fstream>
-#include <string>
-#include <Windows.h>
-#include <conio.h>
-#include <math.h>
-#include <iomanip>
 
 class Startup
 {

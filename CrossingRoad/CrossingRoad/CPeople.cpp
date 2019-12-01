@@ -1,8 +1,8 @@
 #include "CPeople.h"
-CPEOPLE::CPEOPLE()
+CPEOPLE::CPEOPLE(Pos t)
 {
 	name = "player";
-	position = Pos(0, 0);
+	position = t;
 	highscore = 0;
 	deadstate = false;
 }
@@ -17,21 +17,34 @@ void CPEOPLE::showinfo()
 	GotoXY(x, x + 1);
 	cout << "Score : " << highscore;
 }
+
+void CPEOPLE::show()
+{
+	GotoXY(position.y, position.x);
+	cout << "P";
+}
+
+void CPEOPLE::unshow()
+{
+	GotoXY(position.y, position.x);
+	cout << " ";
+}
+
 void CPEOPLE::Up()
-{
-	position.y += 1;
-}
-void CPEOPLE::Down()
-{
-	position.y -= 1;
-}
-void CPEOPLE::Left()
 {
 	position.x -= 1;
 }
-void CPEOPLE::Right()
+void CPEOPLE::Down()
 {
 	position.x += 1;
+}
+void CPEOPLE::Left()
+{
+	position.y -= 1;
+}
+void CPEOPLE::Right()
+{
+	position.y += 1;
 }
 
 Pos CPEOPLE::getPos()
@@ -40,29 +53,13 @@ Pos CPEOPLE::getPos()
 }
 void CPEOPLE::move(char key)
 {
-	while (deadstate)
+	switch (key)
 	{
-		if (key == 'W' || key == 'w')
-			Up();
-		else if (key == 'S' || key == 's')
-			Down();
-		else if (key == 'A' || key == 'a')
-			Left();
-		else if (key == 'D' || key == 'd')
-			Right();
+	case 'W': case 'w': unshow(); Up(); break;
+	case 'A': case 'a': unshow(); Left(); break;
+	case 'S': case 's': unshow(); Down(); break;
+	case 'D': case 'd': unshow(); Right(); break;
 	}
-}
-bool CPEOPLE::blocked(Obstacle* a)
-{
-	if (position == a->getPos())
-		return true;
-	return false;
-}
-bool CPEOPLE::hit(Obstacle* a)
-{
-	if (position == a->getPos())
-		return true;
-	return false;
 }
 void CPEOPLE::save(ofstream &file)
 {

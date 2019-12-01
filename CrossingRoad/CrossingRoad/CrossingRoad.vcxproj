@@ -130,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CGame.cpp" />
+    <ClCompile Include="CPeople.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MovingObstacle.cpp" />
