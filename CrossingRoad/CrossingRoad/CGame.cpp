@@ -79,8 +79,8 @@ void CGAME::controller()
 void CGAME::startGame()
 {
 	system("CLS");
-	thread trdRoutes(&CGAME::routesMove, *this);
 	thread getKey(&CGAME::controller, *this);
+	thread trdRoutes(&CGAME::routesMove, *this);
 	trdRoutes.join();
 	getKey.detach();
 }
