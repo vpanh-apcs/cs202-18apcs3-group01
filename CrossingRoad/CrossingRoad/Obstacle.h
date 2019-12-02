@@ -1,4 +1,4 @@
-#include "Helper.h"
+#include "GameSetting.h"
 
 class Obstacle
 {

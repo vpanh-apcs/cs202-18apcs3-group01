@@ -1,10 +1,11 @@
 #include "CGame.h"
 
-CGAME::CGAME(Pos locationt, int heightt, int widtht)
+CGAME::CGAME()
 {	
-	location = locationt;
-	height = heightt;
-	width = widtht;
+	GameSetting a;
+	location = a.getGameLocation();
+	height = a.getGameHeight();
+	width = a.getGameWidth();
 	for (int i = 0; i < height; i++)
 		for (int j = 0; j < width; j++)
 			map[i][j] = 0;
@@ -29,7 +30,6 @@ CGAME::CGAME(Pos locationt, int heightt, int widtht)
  
 void CGAME::drawGame()
 {
-	system("CLS");
 	for (int i = 0; i < height; i++)
 		routes[i]->draw();
 };
@@ -38,66 +38,63 @@ void CGAME::routesMove()
 {	
 	while (!stop)
 	{
-		for (int i = 0; i < 10; i++)
+		switch (key)
+		{
+		case 'p': case 'e':
+			pauseGame();
+			key = '0';
+			break;
+		}
+		for (int i = 0; i < height; i++)
 		{
 			routes[i]->move();
-			routes[i]->draw();
 			routes[i]->updateMap(map);
 		}
-		GotoXY(0, 15);
+		/*GotoXY(0, 15);
 		for (int i = 0; i < height; i++)
 		{
 			for (int j = 0; j < width; j++)
 				cout << map[i][j];
 			cout << endl;
-		}
-		Sleep(300);
+		}*/
+		Sleep(200);
 	}
 };
 
 void CGAME::pauseGame()
 {
-	int temp;
-	char key = 'a';
-	while (key != 'p')
+	key = '0';
+	while ((key != 'p') && (key != 'e'))
 	{
-		temp = _getch();
-		key = (char)temp;
 	}
-	startGame();
+	if (key == 'e')
+		stop = true;
 }
 
-void CGAME::controller()
+void CGAME::getKey()
 {	
-	
-	
 	int temp;
-	char key = 'a';
-	people.show();
-	while (key != 'p')
+	while (!stop)
 	{
 		temp = _getch();
-		key = (char)temp;
+		key = (char)temp;	
 		switch (key)
 		{
 		case'w': case'a': case's': case'd':
 			people.move(key);
 			people.show();
+			key = '0';
 			break;
 		}
 	}
-	stop = true;
-	pauseGame();
-	
 }
-
-
 
 void CGAME::startGame()
 {
 	stop = false;
+	drawGame();
+	thread getKey(&CGAME::getKey, this);
 	thread trdRoutes(&CGAME::routesMove, this);
-	thread getKey(&CGAME::controller, this);
 	trdRoutes.join();
 	getKey.join();
 }

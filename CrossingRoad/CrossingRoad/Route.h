@@ -8,8 +8,8 @@ protected:
 	int index, length;
 public:
 	virtual void updateMap(int map[10][10]) = 0;
-	virtual void draw() = 0;
 	virtual void move() {};
+	virtual void draw() {};
 };
 
 class LeDuong : public Route

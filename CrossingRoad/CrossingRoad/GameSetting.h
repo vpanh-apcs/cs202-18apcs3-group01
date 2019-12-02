@@ -10,7 +10,7 @@ public:
 	int getGameWidth();
 	void setGameWidth(int a);
 	int getGameHeight();
-	void setGameHeight(int a);
+	void setGameHeight(int a);                                                                                         
 	int getGameSize();
 	void setGameSize(int a);
 	Pos getGameLocation();

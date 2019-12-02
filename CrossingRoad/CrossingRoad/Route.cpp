@@ -19,10 +19,8 @@ LeDuong::LeDuong(int indext, int lengtht)
 
 void LeDuong::draw()
 {
-	for (int i = 0; i < trees.size(); i++)
-	{
+	for (int i = trees.size() - 1; i >= 0; i--)
 		trees[i]->show();
-	}
 }
 
 void LeDuong::updateMap(int map[10][10])
@@ -42,15 +40,27 @@ Duong::Duong(int indext, int lengtht , bool directiont)
 	length = lengtht;
 	direction = directiont;
 	for (int i = 0; i < length; i++)
-		move();
-}
-
-void Duong::draw()
-{
-	/*for (int i = 0; i < obstacles.size(); i++)
 	{
-		obstacles[i]->show();
-	}*/
+		int random = Random(0, 3);
+		if (random < 2)
+		{
+			int randoma = Random(0, 3);
+			randoma = 0;
+			Obstacle* temp;
+			switch (randoma)
+			{
+			case(0): temp = new CTRUCK(Pos(index, direction == 0 ? -1 : length), direction);
+				/*case(1): temp = new CCAR(Pos(start.x, start.y - 1));
+				case(2): temp = new CBIRD(Pos(start.x, start.y - 1));
+				case(3): temp = new CDINOSAUR(Pos(start.x, start.y - 1));*/
+			}
+			obstacles.push_back(temp);
+		}
+		for (int j = obstacles.size() - 1; j >= 0; j--)
+		{
+			obstacles[j]->move();
+		}
+	}
 }
 
 void Duong::move()
@@ -72,14 +82,22 @@ void Duong::move()
 	}
 	for (int i = obstacles.size() - 1; i >= 0; i--)
 	{
-		
-		obstacles[i]->move();
 		obstacles[i]->unshow();
+		obstacles[i]->move();
 		if ((obstacles[i]->getPos().y >= length) || (obstacles[i]->getPos().y < 0))
+		{
+			delete obstacles[i];
 			obstacles.erase(obstacles.begin());
+		}
 		else
 			obstacles[i]->show();
 	}
+}
+
+void Duong::draw()
+{
+	for (int j = obstacles.size() - 1; j >= 0; j--)
+		obstacles[j]->show();
 }
 
 void Duong::updateMap(int map[10][10])

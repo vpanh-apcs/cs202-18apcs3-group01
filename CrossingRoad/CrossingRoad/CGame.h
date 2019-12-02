@@ -13,12 +13,14 @@ class CGAME
 	Pos location;
 	int map[10][10];
 	Route* routes[10];
-	CPEOPLE people = CPEOPLE(Pos(19,25));
+	CPEOPLE people = CPEOPLE(Pos(15,15));
 	bool stop = false;
+	char key = '0';
 public:
-	CGAME(Pos locationt, int heightt, int widtht); //Chuẩn bị dữ liệu cho tất cả các đối tượng
+	//int map[10][10];
+	CGAME(); //Chuẩn bị dữ liệu cho tất cả các đối tượng
 	void drawGame(); //Thực hiện vẽ trò chơi ra màn hình sau khi có dữ liệu
-	~CGAME() { delete[] routes; }; // Hủy tài nguyên đã cấp phát
+	~CGAME() {}; // Hủy tài nguyên đã cấp phát
 	//CPEOPLE getPeople() {};//Lấy thông tin người
 	//CVEHICLE* getVehicle();//Lấy danh sách các xe
 	//CANIMAL* getAnimal(); //Lấy danh sách các thú
@@ -33,5 +35,5 @@ public:
 	//void updatePosVehicle(); //Thực hiện cho CTRUCK & CCAR di chuyển
 	//void updatePosAnimal();//Thực hiện cho CDINAUSOR & CBIRD di chuyển
 	void routesMove();
-	void controller();
+	void getKey();
 };
