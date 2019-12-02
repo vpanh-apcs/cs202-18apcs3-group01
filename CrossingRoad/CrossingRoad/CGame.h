@@ -9,16 +9,16 @@ class CGAME
 	//CPEOPLE cn;
 	//vector<Obstacle> obstacles;
 	int level = 1;
-	Pos tl = Pos(20, 20);
-	Pos br = Pos(30, 30);
+	int width, height;
+	Pos location;
 	int map[10][10];
 	Route* routes[10];
 	CPEOPLE people = CPEOPLE(Pos(19,25));
 	bool stop = false;
 public:
-	CGAME(); //Chuẩn bị dữ liệu cho tất cả các đối tượng
+	CGAME(Pos locationt, int heightt, int widtht); //Chuẩn bị dữ liệu cho tất cả các đối tượng
 	void drawGame(); //Thực hiện vẽ trò chơi ra màn hình sau khi có dữ liệu
-	~CGAME() {}; // Hủy tài nguyên đã cấp phát
+	~CGAME() { delete[] routes; }; // Hủy tài nguyên đã cấp phát
 	//CPEOPLE getPeople() {};//Lấy thông tin người
 	//CVEHICLE* getVehicle();//Lấy danh sách các xe
 	//CANIMAL* getAnimal(); //Lấy danh sách các thú

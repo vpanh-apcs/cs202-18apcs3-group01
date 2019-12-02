@@ -1,29 +1,28 @@
 #include "CGame.h"
 
-CGAME::CGAME()
+CGAME::CGAME(Pos locationt, int heightt, int widtht)
 {	
-	for (int i = 0; i < br.x - tl.x; i++)
-		for (int j = 0; j < br.y - tl.y; j++)
+	location = locationt;
+	height = heightt;
+	width = widtht;
+	for (int i = 0; i < height; i++)
+		for (int j = 0; j < width; j++)
 			map[i][j] = 0;
-
-	int temp = 4, direction = 0;
-	for (int i = 0; i < br.x - tl.x; i++)
+	int direction = 0;
+	int queue = 0;
+	for (int i = 0; i < width; i++)
 	{
-		int random = Random(0, temp);
-		if (random == 0)
+		if (queue == 0)
 		{
-			routes[i] = new LeDuong(Pos(tl.x + i, tl.y), Pos(tl.x + i, br.y));
-			temp = 4;
+			routes[i] = new LeDuong(i, width);
 			direction = Random(0, 1);
+			queue = Random(1, 3);
 		}
 		else
 		{
-			routes[i] = new Duong(Pos(tl.x + i, tl.y), Pos(tl.x + i, br.y), direction);
+			queue--;
+			routes[i] = new Duong(i, width, direction);
 		}
-		if (temp == 0) 
-			temp = 4; 
-		else 
-			temp--;
 	}
 	GotoXY(0, 0);
 };
@@ -31,19 +30,26 @@ CGAME::CGAME()
 void CGAME::drawGame()
 {
 	system("CLS");
-	for (int i = 0; i < br.x - tl.x; i++)
+	for (int i = 0; i < height; i++)
 		routes[i]->draw();
 };
 
 void CGAME::routesMove()
 {	
-	while (!this->stop)
+	while (!stop)
 	{
-		for (int i = 0; i < br.x - tl.x; i++)
+		for (int i = 0; i < 10; i++)
 		{
 			routes[i]->move();
 			routes[i]->draw();
-			routes[i]->updateMap(map,tl.x,tl.y);
+			routes[i]->updateMap(map);
+		}
+		GotoXY(0, 15);
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+				cout << map[i][j];
+			cout << endl;
 		}
 		Sleep(300);
 	}
@@ -51,8 +57,6 @@ void CGAME::routesMove()
 
 void CGAME::pauseGame()
 {
-	GotoXY(tl.y*2 - 10, tl.x*2);
-	cout << "Paused" << endl;
 	int temp;
 	char key = 'a';
 	while (key != 'p')
@@ -60,14 +64,12 @@ void CGAME::pauseGame()
 		temp = _getch();
 		key = (char)temp;
 	}
-	GotoXY(tl.y * 2 - 10, tl.x * 2);
-	cout << "      " << endl;
 	startGame();
 }
 
 void CGAME::controller()
 {	
-	thread trdRoutes(&CGAME::routesMove, this);
+	
 	
 	int temp;
 	char key = 'a';
@@ -86,7 +88,7 @@ void CGAME::controller()
 	}
 	stop = true;
 	pauseGame();
-	trdRoutes.join();
+	
 }
 
 
@@ -94,8 +96,8 @@ void CGAME::controller()
 void CGAME::startGame()
 {
 	stop = false;
-	
+	thread trdRoutes(&CGAME::routesMove, this);
 	thread getKey(&CGAME::controller, this);
-	
+	trdRoutes.join();
 	getKey.join();
 }

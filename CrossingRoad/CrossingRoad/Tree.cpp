@@ -7,8 +7,8 @@ TREE::TREE(Pos positiont)
 	hitbox = 1;
 };
 
-void TREE::show() 
+void TREE::show()
 { 
-	GotoXY(position.y*2, position.x*2); 
-	cout << "TT"; 
+	GotoXY(position.y, position.x);
+	cout << "T"; 
 }

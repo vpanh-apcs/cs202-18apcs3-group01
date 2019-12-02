@@ -12,9 +12,7 @@
 #include <iomanip>
 using namespace std;
 
-const int size = 4;
-const int with = 0;
-const int height = 0;
+const int unitsize = 4;
 
 int Random(int start, int end);
 void GotoXY(int x, int y);

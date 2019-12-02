@@ -20,15 +20,15 @@ void CPEOPLE::showinfo()
 
 void CPEOPLE::show()
 {
-	GotoXY(position.y*2, position.x*2);
-	cout << "PP";
-	GotoXY(position.y * 2, position.x * 2);
+	GotoXY(position.y, position.x);
+	cout << "P";
+	GotoXY(position.y, position.x);
 }
 
 void CPEOPLE::unshow()
 {
-	GotoXY(position.y*2, position.x*2);
-	cout << "  ";
+	GotoXY(position.y, position.x);
+	cout << " ";
 }
 
 void CPEOPLE::Up()

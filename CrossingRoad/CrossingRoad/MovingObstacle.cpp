@@ -12,11 +12,18 @@ CTRUCK::CTRUCK(Pos a, bool directiont)
 	direction = directiont;
 }
 
+void CTRUCK::unshow()
+{
+	GotoXY(direction == 0 ? position.y - 1 : position.y + 1, position.x);
+	cout << " ";
+}
+
 void CTRUCK::show()
 {
-	GotoXY(position.y*2, position.x*2);
-	cout << "AA";
+	GotoXY(position.y, position.x);
+	cout << "A";
 }
+
 
 
 //CCAR::CCAR(Pos a)

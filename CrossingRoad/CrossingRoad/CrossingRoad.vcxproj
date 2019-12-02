@@ -117,9 +117,8 @@
   <ItemGroup>
     <ClInclude Include="CGame.h" />
     <ClInclude Include="CPeople.h" />
-    <ClInclude Include="Header.h" />
+    <ClInclude Include="GameSetting.h" />
     <ClInclude Include="Helper.h" />
-    <ClInclude Include="MainHeader.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Route.h" />
     <ClInclude Include="Startup.h" />
@@ -131,6 +130,7 @@
   <ItemGroup>
     <ClCompile Include="CGame.cpp" />
     <ClCompile Include="CPeople.cpp" />
+    <ClCompile Include="GameSetting.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MovingObstacle.cpp" />

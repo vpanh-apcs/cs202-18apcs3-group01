@@ -11,7 +11,9 @@ public:
 	Obstacle(Pos a);
 	Obstacle(Pos a, bool directiont);
 	~Obstacle() {};
-	void move();	
+	void move();
+	virtual void unshow() {};
+	virtual void midair() {};
 	virtual void show() {};
 	virtual void save() {};
 	virtual void load() {};
@@ -27,9 +29,10 @@ public:
 
 class CVEHICLE : public Obstacle
 {
-	int speed;
 public:
 	CVEHICLE() = default;
+	virtual void unshow() {};
+	virtual void show() {};
 	CVEHICLE(Pos a, bool directiont);
 };
 
@@ -42,6 +45,7 @@ class CTRUCK : public CVEHICLE
 public:
 	CTRUCK(Pos a, bool directiont);
 	void show();
+	void unshow();
 };
 
 class CCAR : public CVEHICLE
