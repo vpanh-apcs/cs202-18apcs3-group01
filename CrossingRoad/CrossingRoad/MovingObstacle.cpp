@@ -1,30 +1,51 @@
 #include "Obstacle.h"
-
-CVEHICLE::CVEHICLE(Pos a, bool directiont)
-{
-	position = a;
-	direction = directiont;
-}
-
-CTRUCK::CTRUCK(Pos a, bool directiont)
-{
-	position = a;
-	direction = directiont;
-}
-
-void CTRUCK::unshow()
+#include"GameSetting.h"
+void Obstacle::unshow()
 {
 	GotoXY(direction == 0 ? position.y - 1 : position.y + 1, position.x);
 	cout << " ";
 }
 
-void CTRUCK::show()
+void Obstacle::show()
 {
-	GotoXY(position.y, position.x);
-	cout << "A";
+	Pos newPos=MoveOnMap(position);
+	GotoXY(newPos.x, newPos.y);
 }
 
+Pos Obstacle::MoveOnMap(Pos p)
+{
+	GameSetting a;
+	Pos tmp;
+	tmp.x = a.getGameLocation().x + (1 + p.x)*a.getGameSize();
+	tmp.y = a.getGameLocation().y + (2 + p.y)*a.getGameSize();
+	return tmp;
+}
 
+void TREE::show()
+{
+	Obstacle::show();
+	cout << "T";
+}
+void CCAR::show()
+{
+	Obstacle::show();
+	cout << "C";
+}
+void CTRUCK::show()
+{
+	Obstacle::show();
+	cout << "U";
+}
+void CBIRD::show()
+{
+	Obstacle::show();
+	cout << "I";
+}
+void CDINOSAUR::show()
+{
+	Obstacle::show();
+	cout << "O";
+}
 
 //CCAR::CCAR(Pos a)
 //{
