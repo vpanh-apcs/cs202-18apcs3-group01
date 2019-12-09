@@ -9,3 +9,6 @@ Phúc CGame
 
 Phúc's note:
 0 đường, 1 người, 2 vạch qua đường, 3 cây + đèn giao thông, 4 obstacle.
+
+nhat's note:
+

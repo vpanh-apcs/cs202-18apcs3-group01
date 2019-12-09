@@ -83,13 +83,13 @@ void Duong::move()
 		}
 		obstacles.push_back(temp);
 	}
-	for (int i = obstacles.size() - 1; i >= 0; i--)
+	for (int i = 0; i < obstacles.size(); i++)
 	{
 		obstacles[i]->unshow();
 		obstacles[i]->move();
 		if ((obstacles[i]->getPos().y >= length) || (obstacles[i]->getPos().y < 0))
 		{
-			delete obstacles[i];
+			//delete obstacles[i];
 			obstacles.erase(obstacles.begin());
 		}
 		else

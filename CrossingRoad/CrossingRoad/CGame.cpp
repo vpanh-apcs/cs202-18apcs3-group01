@@ -39,10 +39,20 @@ void CGAME::routesMove()
 {	
 	while (!stop)
 	{	
+		/*for (int i = 0; i < height; i++)
+			routes[i]->updateMap(map);*/
+		
 		for (int i = 0; i < height; i++)
 		{
 			routes[i]->move();
 			routes[i]->updateMap(map);
+			GotoXY(0, 15);
+			for (int i = 0; i < height; i++)
+			{
+				for (int j = 0; j < width; j++)
+					cout << map[i][j];
+				cout << endl;
+			}
 		}
 		switch (key)
 		{
@@ -51,13 +61,7 @@ void CGAME::routesMove()
 			key = '0';
 			break;
 		}
-		/*GotoXY(0, 15);
-		for (int i = 0; i < height; i++)
-		{
-			for (int j = 0; j < width; j++)
-				cout << map[i][j];
-			cout << endl;
-		}*/
+		
 		Sleep(200);
 	}
 };

@@ -3,7 +3,7 @@ void Obstacle::unshow()
 {
 	Pos newPos = MoveOnMap(position);
 	GotoXY(newPos.y, newPos.x);
-	cout << "  ";
+	cout << " ";
 }
 
 void Obstacle::show()
