@@ -2,8 +2,8 @@
 
 int main()
 {
-	/*FixConsoleWindow();
-	Startup::mainMenu();*/
+	FixConsoleWindow();
+	//Startup::mainMenu();
 	CGAME a;
 	a.startGame();
 	system("pause");

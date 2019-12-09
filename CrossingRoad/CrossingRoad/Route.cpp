@@ -4,14 +4,17 @@ LeDuong::LeDuong(int indext, int lengtht)
 {
 	index = indext;
 	length = lengtht;
+	int queue = 3;
 	for (int i = 0; i < length; i++)
 	{
-		int random = Random(0, 3);
-		if (random < 2)
+		if (queue > 1)
 		{
+			queue--;
 			TREE* temp = new TREE(Pos(index, -1));
 			trees.push_back(temp);
 		}
+		queue--;
+		if (queue == -1) queue = Random(2, 3);
 		for (int j = trees.size() - 1; j >= 0; j--)
 			trees[j]->move();
 	}
@@ -23,7 +26,7 @@ void LeDuong::draw()
 		trees[i]->show();
 }
 
-void LeDuong::updateMap(int map[10][10])
+void LeDuong::updateMap(int map[10][20])
 {
 	for (int i = 0; i < length; i++)
 		map[index][i] = 0;
@@ -100,7 +103,7 @@ void Duong::draw()
 		obstacles[j]->show();
 }
 
-void Duong::updateMap(int map[10][10])
+void Duong::updateMap(int map[10][20])
 {
 	for (int i = 0; i < length; i++)
 		map[index][i] = 0;

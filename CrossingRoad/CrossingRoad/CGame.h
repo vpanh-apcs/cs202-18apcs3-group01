@@ -11,10 +11,11 @@ class CGAME
 	int level = 1;
 	int width, height;
 	Pos location;
-	int map[10][10];
-	Route* routes[10];
-	CPEOPLE people = CPEOPLE(Pos(15,15));
+	int map[20][20];
+	Route* routes[20];
+	CPEOPLE people = CPEOPLE(Pos(0,0));
 	bool stop = false;
+	bool process = true;
 	char key = '0';
 public:
 	//int map[10][10];

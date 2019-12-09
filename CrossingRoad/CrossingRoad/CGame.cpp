@@ -6,6 +6,7 @@ CGAME::CGAME()
 	location = a.getGameLocation();
 	height = a.getGameHeight();
 	width = a.getGameWidth();
+	people = CPEOPLE(Pos(0, 0));
 	for (int i = 0; i < height; i++)
 		for (int j = 0; j < width; j++)
 			map[i][j] = 0;
@@ -37,18 +38,18 @@ void CGAME::drawGame()
 void CGAME::routesMove()
 {	
 	while (!stop)
-	{
+	{	
+		for (int i = 0; i < height; i++)
+		{
+			routes[i]->move();
+			routes[i]->updateMap(map);
+		}
 		switch (key)
 		{
 		case 'p': case 'e':
 			pauseGame();
 			key = '0';
 			break;
-		}
-		for (int i = 0; i < height; i++)
-		{
-			routes[i]->move();
-			routes[i]->updateMap(map);
 		}
 		/*GotoXY(0, 15);
 		for (int i = 0; i < height; i++)
