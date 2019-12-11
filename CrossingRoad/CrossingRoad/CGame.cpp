@@ -1,4 +1,5 @@
 #include "CGame.h"
+#include "Display.h"
 
 CGAME::CGAME()
 {	
@@ -46,6 +47,9 @@ void CGAME::routesMove()
 		{
 			routes[i]->move();
 			routes[i]->updateMap(map);
+			for (int i = 0; i < height; ++i) {
+
+			}
 			GotoXY(0, 15);
 			for (int i = 0; i < height; i++)
 			{
@@ -96,10 +100,16 @@ void CGAME::getKey()
 
 void CGAME::startGame()
 {
-	stop = false;
-	drawGame();
-	thread getKey(&CGAME::getKey, this);
-	thread trdRoutes(&CGAME::routesMove, this);
-	trdRoutes.join();
-	getKey.join();
+	Display* dis = Display::getInstance();
+	// Game loop
+	while (dis->mWindow.isOpen()) {
+		stop = false;
+		drawGame();
+		thread getKey(&CGAME::getKey, this);
+		thread trdRoutes(&CGAME::routesMove, this);
+		dis->mWindow.clear();
+		trdRoutes.join();
+		getKey.join();
+		dis->mWindow.display();
+	}
 }
