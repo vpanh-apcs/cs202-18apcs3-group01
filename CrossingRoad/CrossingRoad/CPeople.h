@@ -16,6 +16,6 @@ public:
 	void showinfo();
 	void move(char key);
 	Pos getPos();
-	void save(ofstream &file);
+	void save(ofstream& file);
 	void load(ifstream &file);
 };

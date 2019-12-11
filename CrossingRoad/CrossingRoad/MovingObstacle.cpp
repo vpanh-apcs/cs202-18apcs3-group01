@@ -1,15 +1,15 @@
 #include "Obstacle.h"
 void Obstacle::unshow()
 {
-	Pos newPos = MoveOnMap(position);
-	GotoXY(newPos.y, newPos.x);
+	//Pos newPos = MoveOnMap(position);
+	GotoXY(position.y, position.x);
 	cout << " ";
 }
 
 void Obstacle::show()
 {
-	Pos newPos = MoveOnMap(position);
-	GotoXY(newPos.y, newPos.x);
+	//Pos newPos = MoveOnMap(position);
+	GotoXY(position.y, position.x);
 }
 
 Pos Obstacle::MoveOnMap(Pos p)

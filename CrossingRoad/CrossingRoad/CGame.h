@@ -10,7 +10,6 @@ class CGAME
 	//vector<Obstacle> obstacles;
 	int level = 1;
 	int width, height;
-	Pos location;
 	int map[20][20];
 	Route* routes[20];
 	CPEOPLE people = CPEOPLE(Pos(0,0));
@@ -28,8 +27,8 @@ public:
 	void resetGame() {}; // Thực hiện thiết lập lại toàn bộ dữ liệu như lúc đầu
 	void exitGame(HANDLE) {}; // Thực hiện thoát Thread
 	void startGame(); // Thực hiện bắt đầu vào trò chơi
-	void loadGame(ostream) {}; // Thực hiện tải lại trò chơi đã lưu
-	void saveGame(ostream) {}; // Thực hiện lưu lại dữ liệu trò chơi
+	void loadGame(); // Thực hiện tải lại trò chơi đã lưu
+	void saveGame(); // Thực hiện lưu lại dữ liệu trò chơi
 	void pauseGame(); // Tạm dừng Thread
 	void resumeGame(HANDLE) {}; //Quay lai Thread
 	//void updatePosPeople(char); //Thực hiện điều khiển di chuyển của CPEOPLE

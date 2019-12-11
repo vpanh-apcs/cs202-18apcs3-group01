@@ -62,20 +62,14 @@ void CPEOPLE::move(char key)
 	case 'D': case 'd': unshow(); Right(); break;
 	}
 }
-void CPEOPLE::save(ofstream &file)
+void CPEOPLE::save(ofstream& file)
 {
-	file.open( name + ".txt");
-	if (file.fail())
-		return;
 	file << name << endl;
 	file << position.x << " " << position.y << endl;
 	file << highscore << endl;
-	file << deadstate << endl;
-	file.close();
 }
 void CPEOPLE::load(ifstream &file)
 {
-	file.open(name + "txt");
 	if (file.fail())
 		return;
 	while (!file.eof())
@@ -85,5 +79,4 @@ void CPEOPLE::load(ifstream &file)
 		file >> highscore;
 		file >> deadstate;
 	}
-	file.close();
 }

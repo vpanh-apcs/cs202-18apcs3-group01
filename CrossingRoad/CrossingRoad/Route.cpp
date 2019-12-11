@@ -19,13 +19,11 @@ LeDuong::LeDuong(int indext, int lengtht)
 			trees[j]->move();
 	}
 }
-
 void LeDuong::draw()
 {
 	for (int i = trees.size() - 1; i >= 0; i--)
 		trees[i]->show();
 }
-
 void LeDuong::updateMap(int map[10][20])
 {
 	for (int i = 0; i < length; i++)
@@ -35,7 +33,18 @@ void LeDuong::updateMap(int map[10][20])
 		map[index][trees[i]->getPos().y] = 3;
 	}
 }
+void LeDuong::save(ofstream& file)
+{
+	file << 0 << " " << trees.size() << endl;
+	for (int i = 0; i < trees.size(); i++)
+	{
+		trees[i]->save(file);
+	}
+}
+void LeDuong::load(ifstream& file)
+{
 
+}
 
 Duong::Duong(int indext, int lengtht , bool directiont)
 {
@@ -65,7 +74,6 @@ Duong::Duong(int indext, int lengtht , bool directiont)
 		}
 	}
 }
-
 void Duong::move()
 {
 	int random = Random(0, 3);
@@ -96,13 +104,11 @@ void Duong::move()
 			obstacles[i]->show();
 	}
 }
-
 void Duong::draw()
 {
 	for (int j = obstacles.size() - 1; j >= 0; j--)
 		obstacles[j]->show();
 }
-
 void Duong::updateMap(int map[10][20])
 {
 	for (int i = 0; i < length; i++)
@@ -110,5 +116,13 @@ void Duong::updateMap(int map[10][20])
 	for (int i = 0; i < obstacles.size(); i++)
 	{
 		map[index][obstacles[i]->getPos().y] = 4;
+	}
+}
+void Duong::save(ofstream& file)
+{
+	file << 1 << " " << obstacles.size() << endl;
+	for (int i = 0; i < obstacles.size(); i++)
+	{
+		obstacles[i]->save(file);
 	}
 }

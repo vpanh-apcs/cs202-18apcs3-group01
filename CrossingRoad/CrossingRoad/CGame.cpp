@@ -3,7 +3,6 @@
 CGAME::CGAME()
 {	
 	GameSetting a;
-	location = a.getGameLocation();
 	height = a.getGameHeight();
 	width = a.getGameWidth();
 	people = CPEOPLE(Pos(0, 0));
@@ -61,13 +60,13 @@ void CGAME::routesMove()
 			key = '0';
 			break;
 		}
-		
 		Sleep(200);
 	}
 };
 
 void CGAME::pauseGame()
 {
+	saveGame();
 	key = '0';
 	while ((key != 'p') && (key != 'e'))
 	{
@@ -103,3 +102,42 @@ void CGAME::startGame()
 	trdRoutes.join();
 	getKey.join();
 }
+
+void CGAME::saveGame()
+{
+	ofstream file;
+	time_t tt;
+	struct tm* ti;
+	time(&tt);
+	ti = localtime(&tt);
+	string path = "temp.txt";
+	file.open(path, ios::out|ios::app);
+	file << asctime(ti);
+	people.save(file);
+	file << width << " " << height << endl;
+	for (int i = 0; i < height; i++)
+		routes[i]->save(file);
+	file.close();
+}
+
+void CGAME::loadGame()
+{
+	int inttemp;
+	ifstream file;
+	string temp;
+	getline(file, temp);
+	string path = "temp.txt";
+	file.open(path);
+	people.load(file);
+	file >> width >> height;
+	for (int i = 0; i < height; i++)
+	{
+		file >> inttemp;
+		/*if (inttemp == 0)
+			routes[i] = new LeDuong
+		routes[i]->load(file);*/
+	}
+	file.close();
+}
+
+

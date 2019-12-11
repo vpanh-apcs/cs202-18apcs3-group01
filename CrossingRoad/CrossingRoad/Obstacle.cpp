@@ -46,62 +46,37 @@ CANIMAL::CANIMAL(Pos a, bool directiont) : Obstacle(a, directiont) {}
 
 void TREE::save(ofstream& file)
 {
-	file.open("Tree.txt");
-	Obstacle::save(file);
-	file.close();
+	file << 3 << " " << position.x << " " << position.y << endl;
 }
 void CCAR::save(ofstream& file)
 {
-	file.open("Car.txt");
-	Obstacle::save(file);
-	file.close();
+	file << 6 << " " << position.x << " " << position.y << endl;
 }
 void CTRUCK::save(ofstream& file)
 {
-	file.open("Truck.txt");
-	Obstacle::save(file);
-	file.close();
+	file << 5 << " " << position.x << " " << position.y << endl;
 }
 void CBIRD::save(ofstream& file)
 {
-	file.open("Bird.txt");
-	Obstacle::save(file);
-	file.close();
+	file << 7 << " " << position.x << " " << position.y << endl;
 }
 void CDINOSAUR::save(ofstream& file)
 {
-	file.open("DINOSAUR.txt");
-	Obstacle::save(file);
-	file.close();
+	file << 8 << " " << position.x << " " << position.y << endl;
 }
 
 void TREE::load(ifstream& file)
 {
-	file.open("Tree.txt");
-	Obstacle::load(file);
-	file.close();
 }
 void CCAR::load(ifstream& file)
 {
-	file.open("Car.txt");
-	Obstacle::load(file);
-	file.close();
 }
 void CTRUCK::load(ifstream& file)
 {
-	file.open("Truck.txt");
-	Obstacle::load(file);
-	file.close();
 }
 void CBIRD::load(ifstream& file)
 {
-	file.open("Bird.txt");
-	Obstacle::load(file);
-	file.close();
 }
 void CDINOSAUR::load(ifstream& file)
 {
-	file.open("DINOSAUR.txt");
-	Obstacle::load(file);
-	file.close();
 }
