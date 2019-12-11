@@ -3,7 +3,7 @@ CPEOPLE::CPEOPLE(Pos t)
 {
 	name = "player";
 	position = t;
-	highscore = 0;
+	score = 0;
 	deadstate = false;
 }
 void CPEOPLE::showinfo()
@@ -15,7 +15,7 @@ void CPEOPLE::showinfo()
 	GotoXY(x, x - 1);
 	cout << "Location : " << position.x << "--" << position.y;
 	GotoXY(x, x + 1);
-	cout << "Score : " << highscore;
+	cout << "Score : " << score;
 }
 
 void CPEOPLE::show()
@@ -52,25 +52,61 @@ Pos CPEOPLE::getPos()
 {
 	return position;
 }
-void CPEOPLE::move(char key)
+bool CPEOPLE::getDead()
 {
-	switch (key)
+	return deadstate;
+}
+void CPEOPLE::setDead(bool dead)
+{
+	deadstate = dead;
+}
+
+string CPEOPLE::getName()
+{
+	return name;
+}
+void CPEOPLE::setName(string s)
+{
+	name = s;
+}
+int CPEOPLE::getScore()
+{
+	return score;
+}
+void CPEOPLE::setScore(int scr)
+{
+	score = scr;
+}
+void CPEOPLE::move(char key, int map[20][20])
+{
+	if (!deadstate)
 	{
-	case 'W': case 'w': unshow(); Up(); break;
-	case 'A': case 'a': unshow(); Left(); break;
-	case 'S': case 's': unshow(); Down(); break;
-	case 'D': case 'd': unshow(); Right(); break;
+		Pos lstPos = position;
+		switch (key)
+		{
+		case 'W':  unshow(); Up(); break;
+		case 'A':  unshow(); Left(); break;
+		case 'S':  unshow(); Down(); break;
+		case 'D':  unshow(); Right(); break;
+		}
+		GotoXY(40, 2);
+		cout << lstPos.x << " " << lstPos.y;
+		GotoXY(40, 4);
+		cout << position.x << " " << position.y;
+		if (position.x < 0 || position.x >20 || position.y < 0 || position.y>20 || map[position.x][position.y] == 3)
+			position = lstPos; // blocked
 	}
+
 }
 void CPEOPLE::save(ofstream& file)
 {
 	file << name << endl;
 	file << position.x << " " << position.y << endl;
-	file << highscore << endl;
+	file << score << endl;
 }
 void CPEOPLE::load(ifstream &file)
 {
 	file >> name;
 	file >> position.x >> position.y;
-	file >> highscore;
+	file >> score;
 }

@@ -50,13 +50,13 @@ void CGAME::routesMove()
 		{
 			routes[i]->move();
 			routes[i]->updateMap(map);
-			GotoXY(0, 15);
+			/*GotoXY(0, 15);
 			for (int i = 0; i < height; i++)
 			{
 				for (int j = 0; j < width; j++)
 					cout << map[i][j];
 				cout << endl;
-			}
+			}*/
 		}
 		switch (key)
 		{
@@ -90,13 +90,28 @@ void CGAME::getKey()
 	int temp;
 	while (!stop)
 	{
-		temp = _getch();
-		key = (char)temp;	
+		temp = toupper(_getch());
+		key = (char)temp;
 		switch (key)
 		{
-		case'w': case'a': case's': case'd':
-			people.move(key);
+		case'W': case'A': case'S': case'D':
+			people.move(key, map);
 			people.show();
+			GotoXY(0, 15);
+			/*for (int i = 0; i < height; i++)
+			{
+				for (int j = 0; j < width; j++)
+					cout << map[i][j];
+				cout << endl;
+			}*/
+
+			if (map[people.getPos().x][people.getPos().y] == 4)
+			{
+				GotoXY(40, 10);
+				people.setDead(true);
+				cout << "Deadth";
+				stop = true;
+			}
 			key = '0';
 			break;
 		}
@@ -107,7 +122,7 @@ void CGAME::startGame()
 {
 	stop = false;
 	drawGame();
-	system("pause");
+	//system("pause");
 	thread getKey(&CGAME::getKey, this);
 	thread trdRoutes(&CGAME::routesMove, this);
 	trdRoutes.join();

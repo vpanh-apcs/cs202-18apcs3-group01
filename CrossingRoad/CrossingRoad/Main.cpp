@@ -2,11 +2,11 @@
 
 int main()
 {
-	/*FixConsoleWindow();
-	Startup::mainMenu();*/
-	/*CGAME a;
+	FixConsoleWindow();
+	//Startup::mainMenu();
+	CGAME a;
 	a.init();
-	a.startGame();*/
+	a.startGame();
 
 	/*CGAME b;
 	b.loadGame();
