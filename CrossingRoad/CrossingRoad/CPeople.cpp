@@ -70,13 +70,7 @@ void CPEOPLE::save(ofstream& file)
 }
 void CPEOPLE::load(ifstream &file)
 {
-	if (file.fail())
-		return;
-	while (!file.eof())
-	{
-		file >> name;
-		file >> position.x >> position.y;
-		file >> highscore;
-		file >> deadstate;
-	}
+	file >> name;
+	file >> position.x >> position.y;
+	file >> highscore;
 }

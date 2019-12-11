@@ -2,6 +2,10 @@
 
 CGAME::CGAME()
 {	
+};
+ 
+void CGAME::init()
+{
 	GameSetting a;
 	height = a.getGameHeight();
 	width = a.getGameWidth();
@@ -11,23 +15,25 @@ CGAME::CGAME()
 			map[i][j] = 0;
 	int direction = 0;
 	int queue = 0;
-	for (int i = 0; i < width; i++)
+	for (int i = 0; i < height; i++)
 	{
 		if (queue == 0)
 		{
-			routes[i] = new LeDuong(i, width);
+			routes[i] = new LeDuong(i,width);
+			routes[i]->init();
 			direction = Random(0, 1);
 			queue = Random(1, 3);
 		}
 		else
 		{
 			queue--;
-			routes[i] = new Duong(i, width, direction);
+			routes[i] = new Duong(i,width,direction);
+			routes[i]->init();
 		}
 	}
 	GotoXY(0, 0);
-};
- 
+}
+
 void CGAME::drawGame()
 {
 	for (int i = 0; i < height; i++)
@@ -36,11 +42,10 @@ void CGAME::drawGame()
 
 void CGAME::routesMove()
 {	
+	for (int i = 0; i < height; i++)
+			routes[i]->updateMap(map);
 	while (!stop)
 	{	
-		/*for (int i = 0; i < height; i++)
-			routes[i]->updateMap(map);*/
-		
 		for (int i = 0; i < height; i++)
 		{
 			routes[i]->move();
@@ -66,10 +71,15 @@ void CGAME::routesMove()
 
 void CGAME::pauseGame()
 {
-	saveGame();
+	
 	key = '0';
 	while ((key != 'p') && (key != 'e'))
 	{
+		if (key == 'o')
+		{
+			saveGame();
+			key = '0';
+		}
 	}
 	if (key == 'e')
 		stop = true;
@@ -97,6 +107,7 @@ void CGAME::startGame()
 {
 	stop = false;
 	drawGame();
+	system("pause");
 	thread getKey(&CGAME::getKey, this);
 	thread trdRoutes(&CGAME::routesMove, this);
 	trdRoutes.join();
@@ -125,17 +136,19 @@ void CGAME::loadGame()
 	int inttemp;
 	ifstream file;
 	string temp;
-	getline(file, temp);
 	string path = "temp.txt";
 	file.open(path);
+	getline(file, temp, '\n');
 	people.load(file);
 	file >> width >> height;
 	for (int i = 0; i < height; i++)
 	{
 		file >> inttemp;
-		/*if (inttemp == 0)
-			routes[i] = new LeDuong
-		routes[i]->load(file);*/
+		if (inttemp == 0)
+			routes[i] = new LeDuong(i,width);
+		else
+			routes[i] = new Duong(i,width,0);
+		routes[i]->load(file);
 	}
 	file.close();
 }

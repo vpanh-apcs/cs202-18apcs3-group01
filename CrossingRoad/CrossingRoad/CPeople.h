@@ -1,4 +1,4 @@
-#include "Obstacle.h"
+#include "ObstacleFactory.h"
 class CPEOPLE
 {
 	string name;

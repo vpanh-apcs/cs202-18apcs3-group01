@@ -41,8 +41,8 @@ CVEHICLE::CVEHICLE(Pos a, bool directiont) :Obstacle(a, directiont) {}
 CTRUCK::CTRUCK(Pos a, bool directiont) :CVEHICLE(a, directiont) {}
 CCAR::CCAR(Pos a, bool directiont) : CVEHICLE(a, directiont) {}
 CANIMAL::CANIMAL(Pos a, bool directiont) : Obstacle(a, directiont) {}
-//CDINOSAUR::CDINOSAUR(Pos a, bool directiont) : CANIMAL(a, directiont) {}
-//CBIRD::CBIRD(Pos a, bool directiont) : CANIMAL(a, directiont) {}
+CDINOSAUR::CDINOSAUR(Pos a, bool directiont) : CANIMAL(a, directiont) {}
+CBIRD::CBIRD(Pos a, bool directiont) : CANIMAL(a, directiont) {}
 
 void TREE::save(ofstream& file)
 {

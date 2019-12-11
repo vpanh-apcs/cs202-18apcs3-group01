@@ -19,6 +19,7 @@ class CGAME
 public:
 	//int map[10][10];
 	CGAME(); //Chuẩn bị dữ liệu cho tất cả các đối tượng
+	void init();
 	void drawGame(); //Thực hiện vẽ trò chơi ra màn hình sau khi có dữ liệu
 	~CGAME() {}; // Hủy tài nguyên đã cấp phát
 	//CPEOPLE getPeople() {};//Lấy thông tin người
