@@ -1,0 +1,44 @@
+﻿  CGame.cpp
+D:\Cs202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(75,45): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\Cs202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(86,27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Cs202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(100,80): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+D:\Cs202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(100,59): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+          and
+          [
+              T=float
+          ]
+D:\Cs202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(104,65): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+          with
+          [
+              T=unsigned int
+          ]
+D:\Cs202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(105,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Cs202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(105,29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\Cs202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(167,23): warning C4018: '<=': signed/unsigned mismatch
+D:\Cs202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(199,57): warning C4806: '==': unsafe operation: no value of type 'bool' promoted to type 'int' can equal the given constant
+  Route.cpp
+D:\Cs202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Route.cpp(35,20): warning C4018: '<': signed/unsigned mismatch
+D:\Cs202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Route.cpp(43,20): warning C4018: '<': signed/unsigned mismatch
+D:\Cs202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Route.cpp(53,20): warning C4018: '<': signed/unsigned mismatch
+D:\Cs202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Route.cpp(99,20): warning C4018: '<': signed/unsigned mismatch
+D:\Cs202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Route.cpp(121,20): warning C4018: '<': signed/unsigned mismatch
+D:\Cs202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Route.cpp(129,20): warning C4018: '<': signed/unsigned mismatch
+D:\Cs202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Route.cpp(139,20): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  CrossingRoad.vcxproj -> D:\Cs202\cs202-18apcs3-group01\CrossingRoad\Debug\CrossingRoad.exe
