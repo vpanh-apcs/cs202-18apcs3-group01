@@ -5,7 +5,6 @@ class CPEOPLE
 	string name;
 	Pos position;
 	int score;
-	bool deadstate;
 	void Up();
 	void Down();
 	void Left();
@@ -18,7 +17,6 @@ public:
 	void move(char key,int map[20][20]);
 	Pos getPos();
 	bool getDead();
-	void setDead(bool dead);
 	string getName();
 	void setName(string s);
 	int getScore();

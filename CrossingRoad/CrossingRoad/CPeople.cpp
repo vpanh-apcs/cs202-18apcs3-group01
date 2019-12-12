@@ -5,7 +5,6 @@ CPEOPLE::CPEOPLE(Pos t)
 	name = "player";
 	position = t;
 	score = 0;
-	deadstate = false;
 }
 void CPEOPLE::showinfo()
 {
@@ -53,14 +52,6 @@ Pos CPEOPLE::getPos()
 {
 	return position;
 }
-bool CPEOPLE::getDead()
-{
-	return deadstate;
-}
-void CPEOPLE::setDead(bool dead)
-{
-	deadstate = dead;
-}
 
 string CPEOPLE::getName()
 {
@@ -80,8 +71,6 @@ void CPEOPLE::setScore(int scr)
 }
 void CPEOPLE::move(char key, int map[20][20])
 {
-	if (!deadstate)
-	{
 		Pos lstPos = position;
 		switch (key)
 		{
@@ -96,7 +85,6 @@ void CPEOPLE::move(char key, int map[20][20])
 		cout << position.x << " " << position.y;
 		if (position.x < 0 || position.x >game.getGameHeight() || position.y < 0 || position.y>game.getGameWidth() || map[position.x][position.y] == 3)
 			position = lstPos; // blocked
-	}
 
 }
 void CPEOPLE::save(ofstream& file)
