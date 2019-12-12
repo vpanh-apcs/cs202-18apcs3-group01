@@ -4,14 +4,17 @@
 class Route
 {
 protected:
-	bool direction = 0;
 	int index, length;
 	friend class CGAME;
 public:
-	virtual void updateMap(int map[20][20]) = 0;
+	//virtual void init(int indext, int lengtht) {};
+	//virtual void init(int indext, int lengtht, bool direction) {};
+	virtual void init() = 0;
+	virtual void updateMap(int map[][20]) = 0;
 	virtual void move() {};
 	virtual void draw() {};
-	virtual int getType() = 0;
+	virtual void save(ofstream& file) = 0;
+	virtual void load(ifstream& file) = 0;
 };
 
 class LeDuong : public Route
@@ -20,19 +23,25 @@ class LeDuong : public Route
 	TrafficLight trafficlight;
 public:
 	LeDuong(int indext, int lengtht);
-	void updateMap(int map[20][20]);
+	void init();
+	void updateMap(int map[][20]);
 	void draw();
+	void save(ofstream& file);
+	void load(ifstream& file);
 	int getType() { return 1; }
 };
 
 class Duong : public Route
 {
+	bool direction = 0;
 	vector<Obstacle*> obstacles;
 public:
-	Duong(int indext, int lengtht, bool directiont);
-	void updateMap(int map[20][20]);
+	Duong(int indext, int lengtht, bool direction);
+	void init();
 	void move();
-	void draw();
+	void updateMap(int map[][20]);
+	void save(ofstream& file);
+	void load(ifstream& file);
 	int getType() { return 2; }
 };
 

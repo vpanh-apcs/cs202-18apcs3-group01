@@ -15,7 +15,7 @@
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
-      <Platform>x64</Platform>
+      <Platform>x64</Platform
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -89,6 +89,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -128,6 +129,7 @@
     <ClInclude Include="GameSetting.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="ObstacleFactory.h" />
     <ClInclude Include="Route.h" />
     <ClInclude Include="Startup.h" />
     <ClInclude Include="TrafficLight.h" />
@@ -143,6 +145,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MovingObstacle.cpp" />
     <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="ObstacleFactory.cpp" />
     <ClCompile Include="Route.cpp" />
     <ClCompile Include="Startup.cpp" />
     <ClCompile Include="Tree.cpp" />

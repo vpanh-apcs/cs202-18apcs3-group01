@@ -1,11 +1,10 @@
-#include "Obstacle.h"
-
+#include "ObstacleFactory.h"
 
 class CPEOPLE
 {
 	string name;
 	Pos position;
-	int highscore;
+	int score;
 	bool deadstate;
 	void Up();
 	void Down();
@@ -16,8 +15,14 @@ public:
 	CPEOPLE(Pos t);
 	void show();
 	void showinfo();
-	void move(char key);
+	void move(char key,int map[20][20]);
 	Pos getPos();
-	void save(ofstream &file);
+	bool getDead();
+	void setDead(bool dead);
+	string getName();
+	void setName(string s);
+	int getScore();
+	void setScore(int scr);
+	void save(ofstream& file);
 	void load(ifstream &file);
 };

@@ -44,6 +44,7 @@ public:
 
 class CANIMAL : public Obstacle
 {
+public:
 	CANIMAL() = default;
 	CANIMAL(Pos a, bool directiont);
 	//virtual void unshow() {};
