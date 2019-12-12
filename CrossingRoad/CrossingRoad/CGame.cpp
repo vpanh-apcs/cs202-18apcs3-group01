@@ -78,7 +78,7 @@ void CGAME::displaySFML() {
 			lane.setRepeated(true);
 			rLane.setTexture(&lane);
 			rLane.setPosition(0, i * 32);
-			rLane.setScale(2.0f, 2.0f);
+			rLane.setScale(2.0f, 2.0f);+
 			window.draw(rLane);
 			for (int j = 0; j < width; j++) {
 				if (map[i][j] == 0) continue;
@@ -114,6 +114,7 @@ void CGAME::routesMove()
 		{
 			routes[i]->move();
 			routes[i]->updateMap(map);
+
 			//GotoXY(0, 15);
 			/*for (int i = 0; i < height; ++i) {
 				for (int j = 0; j < width; ++j) {

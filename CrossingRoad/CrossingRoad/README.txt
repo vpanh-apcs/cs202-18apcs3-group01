@@ -8,8 +8,7 @@ Thịnh vẽ + Obstacle
 Phúc CGame
 
 Phúc's note:
-0 đường, 1 người, 2 vạch qua đường, 3 cây, 4 đèn 
-giao thông, 5 truck, 6 car, 7 bird, 8 dinosaur.
+0 đường, 1 người, 2 vạch qua đường, 3 cây, 4 đèn giao thông, 5 truck, 6 car, 7 bird, 8 dinosaur.
 
 nhat's note:
 
