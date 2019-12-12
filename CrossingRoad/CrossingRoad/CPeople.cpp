@@ -1,4 +1,5 @@
 #include "CPeople.h"
+GameSetting game;
 CPEOPLE::CPEOPLE(Pos t)
 {
 	name = "player";
@@ -93,7 +94,7 @@ void CPEOPLE::move(char key, int map[20][20])
 		cout << lstPos.x << " " << lstPos.y;
 		GotoXY(40, 4);
 		cout << position.x << " " << position.y;
-		if (position.x < 0 || position.x >20 || position.y < 0 || position.y>20 || map[position.x][position.y] == 3)
+		if (position.x < 0 || position.x >game.getGameHeight() || position.y < 0 || position.y>game.getGameWidth() || map[position.x][position.y] == 3)
 			position = lstPos; // blocked
 	}
 
