@@ -1,5 +1,6 @@
 #include "GameSetting.h"
 
+
 class Obstacle
 {
 protected:

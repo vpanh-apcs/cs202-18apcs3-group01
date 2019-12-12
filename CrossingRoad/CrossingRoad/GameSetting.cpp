@@ -1,6 +1,6 @@
 #include "GameSetting.h"
 
-int GameSetting::GameHeight = 10;
+int GameSetting::GameHeight = 20;
 int GameSetting::GameWidth = 20;
 int GameSetting::GameSize = 1;
 Pos GameSetting::GameLocation = Pos(0, 0);

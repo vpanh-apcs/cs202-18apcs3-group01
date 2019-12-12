@@ -125,7 +125,6 @@
   <ItemGroup>
     <ClInclude Include="CGame.h" />
     <ClInclude Include="CPeople.h" />
-    <ClInclude Include="Display.h" />
     <ClInclude Include="GameSetting.h" />
     <ClInclude Include="Helper.h" />
     <ClInclude Include="Obstacle.h" />
@@ -139,7 +138,6 @@
   <ItemGroup>
     <ClCompile Include="CGame.cpp" />
     <ClCompile Include="CPeople.cpp" />
-    <ClCompile Include="Display.cpp" />
     <ClCompile Include="GameSetting.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="Main.cpp" />

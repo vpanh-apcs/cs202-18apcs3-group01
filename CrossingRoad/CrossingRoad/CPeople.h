@@ -1,4 +1,6 @@
 #include "Obstacle.h"
+
+
 class CPEOPLE
 {
 	string name;

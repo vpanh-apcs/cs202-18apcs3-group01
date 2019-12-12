@@ -1,4 +1,7 @@
 #include "Helper.h"
+#include <SFML/Graphics.hpp>
+#include <windows.h>
+#include <limits>
 
 class GameSetting
 {
@@ -7,12 +10,13 @@ class GameSetting
 	static int GameSize;
 	static Pos GameLocation;
 public:
-	int getGameWidth();
+    int getGameWidth();
 	void setGameWidth(int a);
-	int getGameHeight();
+    int getGameHeight();
 	void setGameHeight(int a);                                                                                         
 	int getGameSize();
 	void setGameSize(int a);
 	Pos getGameLocation();
 	void setGameLocation(int a);
 };
+
