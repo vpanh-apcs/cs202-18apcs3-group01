@@ -60,6 +60,11 @@ void CGAME::displaySFML() {
 		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::EventType::Closed)
 				window.close();
+			if (event.type == sf::Event::KeyPressed) {
+				if (event.key.code == sf::Keyboard::Key::P)
+					stop = !stop;
+				
+			}
 		}
 
 		window.clear();
@@ -72,7 +77,7 @@ void CGAME::displaySFML() {
 			if (typeLane == 1) lane.loadFromFile("image/grass.png");
 			else {
 				lane.loadFromFile("image/road.png");
-				direction = routes[i]->direction;
+				direction = routes[i]->getDirection();
 			}
 
 			lane.setRepeated(true);
@@ -170,7 +175,7 @@ void CGAME::getKey()
 				cout << endl;
 			}*/
 
-			if (map[people.getPos().x][people.getPos().y] == 4)
+			if (!map[people.getPos().x][people.getPos().y] == 4)
 			{
 				GotoXY(40, 10);
 				people.setDead(true);
@@ -202,13 +207,14 @@ void CGAME::startGame()
 void CGAME::saveGame()
 {
 	ofstream file;
-	time_t tt;
-	struct tm* ti;
-	time(&tt);
-	ti = localtime(&tt);
+	time_t init = time(0);
+	struct tm currentTime;
+	localtime_s(&currentTime, &init);
 	string path = "temp.txt";
 	file.open(path, ios::out|ios::app);
-	file << asctime(ti);
+	char str[26];
+	asctime_s(str, sizeof str, &currentTime);
+	file << str;
 	people.save(file);
 	file << width << " " << height << endl;
 	for (int i = 0; i < height; i++)

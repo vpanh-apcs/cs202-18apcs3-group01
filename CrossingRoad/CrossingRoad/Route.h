@@ -15,6 +15,8 @@ public:
 	virtual void draw() {};
 	virtual void save(ofstream& file) = 0;
 	virtual void load(ifstream& file) = 0;
+	virtual int getType() = 0;
+	virtual bool getDirection() { return false; }
 };
 
 class LeDuong : public Route
@@ -24,7 +26,7 @@ class LeDuong : public Route
 public:
 	LeDuong(int indext, int lengtht);
 	void init();
-	void updateMap(int map[][20]);
+	void updateMap(int map[10][20]);
 	void draw();
 	void save(ofstream& file);
 	void load(ifstream& file);
@@ -37,9 +39,11 @@ class Duong : public Route
 	vector<Obstacle*> obstacles;
 public:
 	Duong(int indext, int lengtht, bool direction);
+	bool getDirection() { return direction; }
 	void init();
 	void move();
-	void updateMap(int map[][20]);
+	void draw();
+	void updateMap(int map[10][20]);
 	void save(ofstream& file);
 	void load(ifstream& file);
 	int getType() { return 2; }
