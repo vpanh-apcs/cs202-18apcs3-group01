@@ -8,13 +8,12 @@ CPEOPLE::CPEOPLE(Pos t)
 }
 void CPEOPLE::showinfo()
 {
-	int x = 35;
-	DrawBoard(30, 30, 40, 20);
-	GotoXY(x, x - 3);
+	int x = 10;
+	int y = 1;
+	DrawBoard(x, y, 40, 20);
+	GotoXY(x+1, y + 3);
 	cout << "Name : " << name;
-	GotoXY(x, x - 1);
-	cout << "Location : " << position.x << "--" << position.y;
-	GotoXY(x, x + 1);
+	GotoXY(x+1, y + 6);
 	cout << "Score : " << score;
 }
 
@@ -53,6 +52,11 @@ Pos CPEOPLE::getPos()
 	return position;
 }
 
+void CPEOPLE::setPos(Pos p)
+{
+	position = p;
+}
+
 string CPEOPLE::getName()
 {
 	return name;
@@ -65,9 +69,17 @@ int CPEOPLE::getScore()
 {
 	return score;
 }
-void CPEOPLE::setScore(int scr)
+void CPEOPLE::setScore(int level)
 {
-	score = scr;
+	int temp = (position.x + (level-1) * 19) * level * 100;
+	//GotoXY(4, 2);
+	//cout << level;
+	//GotoXY(4, 4);
+	//cout << score;
+	//GotoXY(4, 6);
+	//cout << temp;
+	if (temp > score)
+		score = temp;
 }
 void CPEOPLE::move(char key, int map[20][20])
 {
@@ -80,10 +92,10 @@ void CPEOPLE::move(char key, int map[20][20])
 	case 'S':  unshow(); Down(); break;
 	case 'D':  unshow(); Right(); break;
 	}
-	/*show();
-	GotoXY(40, 2);
+	//show();
+	/*GotoXY(20, 2);
 	cout << lstPos.x << " " << lstPos.y;
-	GotoXY(40, 4);
+	GotoXY(20, 4);
 	cout << position.x << " " << position.y;*/
 	if (position.x < 0 || position.x >=game.getGameHeight() || position.y < 0 || position.y>=game.getGameWidth() || map[position.x][position.y] == 3)
 		position = lstPos;

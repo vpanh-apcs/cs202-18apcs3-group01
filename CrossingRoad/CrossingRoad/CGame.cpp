@@ -44,7 +44,7 @@ void CGAME::displaySFML()
 	sf::RenderWindow window(sf::VideoMode(640, 640), "Crossing Road");
 	while (window.isOpen()) 
 	{
-		
+		//updateLevel();
 		sf::Event event;
 		while (window.pollEvent(event)) 
 		{
@@ -62,15 +62,28 @@ void CGAME::displaySFML()
 				case sf::Keyboard::Key::S: people.move('S', map); people.updateMap(map); break;
 				case sf::Keyboard::Key::W: people.move('W', map); people.updateMap(map); break;
 				case sf::Keyboard::Key::D: people.move('D', map); people.updateMap(map); break;
+				}
 					/*people.move(char(event.key.code), map);
 					people.show();*/
-					/*if (map[people.getPos().x][people.getPos().y] == 4)
-					{
-						deadGame();
-
-					}
-					break;*/
+				/*GotoXY(10, 10);
+				cout << people.getPos().x;*/
+				if (!map[people.getPos().y][people.getPos().x] == 4)
+				{
+					// ko nhan key nua neu khong people van di chuyen duoc 
+					// do da bo phan` check dead cua people 
+					deadGame();
 				}
+
+				people.setScore(level);
+
+				if (people.getPos().x == 19)
+				{
+					nextLevel();
+				}
+				
+				//break;
+				
+			
 				//while (event.type != sf::Event::KeyReleased) {};
 			}
 		}
@@ -140,10 +153,30 @@ void CGAME::routesMove()
 				cout << map[i][j];
 			cout << endl;
 		}*/
-		Sleep(100);
+		//Sleep(500);
+		//570-level*70<0 ? Sleep(1) : Sleep(570-level*70);
+		(7 - level) * 101 <= 0 ?   Sleep(1):Sleep((7 - level ) * 101);
 	}
-
 };
+
+void CGAME::nextLevel()
+{
+	//GotoXY(5, 1);
+	//cout << "Pass"<<endl;
+	/*GotoXY(10, 0);
+	cout << level << "  speed : "<< (7 - level) * 101 <<endl;*/
+	people.showinfo();
+	people.unshow();
+	people.setPos(Pos(0, Random(0, 19)));
+	level++;
+//	Sleep(500);
+	people.updateMap(map);
+	people.show();
+	//displaySFML();
+
+	/*GotoXY(10, 2);
+	cout << level << "  speed : " << (7 - level) * 101 << endl;*/
+}
 
 void CGAME::pauseGame()
 {
@@ -186,7 +219,6 @@ void CGAME::saveGame()
 		routes[i]->save(file);
 	file.close();
 }
-
 void CGAME::loadGame()
 {
 	int inttemp;
@@ -210,3 +242,7 @@ void CGAME::loadGame()
 }
 
 
+void CGAME::test()
+{
+
+}
