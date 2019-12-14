@@ -143,12 +143,10 @@
     <ClCompile Include="GameSetting.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MovingObstacle.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="ObstacleFactory.cpp" />
     <ClCompile Include="Route.cpp" />
     <ClCompile Include="Startup.cpp" />
-    <ClCompile Include="Tree.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -71,22 +71,29 @@ void CPEOPLE::setScore(int scr)
 }
 void CPEOPLE::move(char key, int map[20][20])
 {
-		Pos lstPos = position;
-		switch (key)
-		{
-		case 'W':  unshow(); Up(); break;
-		case 'A':  unshow(); Left(); break;
-		case 'S':  unshow(); Down(); break;
-		case 'D':  unshow(); Right(); break;
-		}
-		GotoXY(40, 2);
-		cout << lstPos.x << " " << lstPos.y;
-		GotoXY(40, 4);
-		cout << position.x << " " << position.y;
-		if (position.x < 0 || position.x >game.getGameHeight() || position.y < 0 || position.y>game.getGameWidth() || map[position.x][position.y] == 3)
-			position = lstPos; // blocked
-
+	map[position.x][position.y] = 0;
+	Pos lstPos = position;
+	switch (key)
+	{
+	case 'W':  unshow(); Up(); break;
+	case 'A':  unshow(); Left(); break;
+	case 'S':  unshow(); Down(); break;
+	case 'D':  unshow(); Right(); break;
+	}
+	/*show();
+	GotoXY(40, 2);
+	cout << lstPos.x << " " << lstPos.y;
+	GotoXY(40, 4);
+	cout << position.x << " " << position.y;*/
+	if (position.x < 0 || position.x >=game.getGameHeight() || position.y < 0 || position.y>=game.getGameWidth() || map[position.x][position.y] == 3)
+		position = lstPos;
 }
+
+void CPEOPLE::updateMap(int map[20][20])
+{
+	map[position.x][position.y] = 1;
+}
+
 void CPEOPLE::save(ofstream& file)
 {
 	file << name << endl;

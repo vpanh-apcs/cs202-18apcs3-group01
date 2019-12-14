@@ -8,30 +8,37 @@ LeDuong::LeDuong(int indext, int lengtht)
 }
 void LeDuong::init()
 {
-	int queue = 3;
 	for (int i = 0; i < length; i++)
 	{
-		if (queue > 1)
+		if ((queue == 5) && (TF == false))
 		{
-			queue--;
-			TREE* temp = new TREE(Pos(index, -1));
-			trees.push_back(temp);
+			trafficlight = TrafficLight(Pos(index, -1), 4);
+			TF = true;
 		}
-		queue--;
-		if (queue == -1) queue = Random(2, 3);
+		else
+		{
+			if (queue == 0)
+			{
+				TREE* temp = new TREE(Pos(index, -1));
+				trees.push_back(temp);
+				queue = Random(3, 6);
+			}
+		}
+		if (queue > 0) queue--;
 		for (int j = trees.size() - 1; j >= 0; j--)
+		{
 			trees[j]->move();
+		}
+		trafficlight.move();
 	}
 }
-void LeDuong::draw()
-{
-	for (int i = trees.size() - 1; i >= 0; i--)
-		trees[i]->show();
-}
+
 void LeDuong::updateMap(int map[10][20])
 {
 	for (int i = 0; i < length; i++)
-		map[index][i] = 0;
+		map[index][i] = map[index][i] == 1 ? 1 : 0;
+	if (TF)
+		map[index][trafficlight.getPos().y] = 4;
 	for (int i = 0; i < trees.size(); i++)
 	{
 		map[index][trees[i]->getPos().y] = 3;
@@ -65,24 +72,14 @@ Duong::Duong(int indext, int lengtht, bool directiont)
 }
 void Duong::init()
 {
-	
 	for (int i = 0; i < length; i++)
 	{
-		int random = Random(0, 3);
-		if (random < 2)
+		if ((queue == 0) && (obstacles.size() < 5))
 		{
-			int randoma = Random(0, 3);
-			randoma = 0;
-			Obstacle* temp;
-			switch (randoma)
-			{
-			case(0): temp = new CTRUCK(Pos(index, direction == 0 ? -1 : length), direction);
-				/*case(1): temp = new CCAR(Pos(start.x, start.y - 1));
-				case(2): temp = new CBIRD(Pos(start.x, start.y - 1));
-				case(3): temp = new CDINOSAUR(Pos(start.x, start.y - 1));*/
-			}
-			obstacles.push_back(temp);
+			obstacles.push_back(ObstacleFactory::getRandomMovingObstacle(Pos(index, direction == 0 ? -1 : length), direction));
+			queue = Random(1, 10);
 		}
+		if (queue > 0) queue--;
 		for (int j = obstacles.size() - 1; j >= 0; j--)
 		{
 			obstacles[j]->move();
@@ -91,33 +88,29 @@ void Duong::init()
 }
 void Duong::move()
 {
-	int random = Random(0, 3);
-	if (random < 2)
+	if ((queue == 0)&&(obstacles.size()<5))
 	{
 		obstacles.push_back(ObstacleFactory::getRandomMovingObstacle(Pos(index, direction == 0 ? -1 : length), direction));
+		queue = Random(1, 10);
 	}
+	if (queue > 0) queue--;
 	for (int i = 0; i < obstacles.size(); i++)
 	{
-		obstacles[i]->unshow();
+		//obstacles[i]->unshow();
 		obstacles[i]->move();
 		if ((obstacles[i]->getPos().y >= length) || (obstacles[i]->getPos().y < 0))
 		{
 			//delete obstacles[i];
 			obstacles.erase(obstacles.begin());
 		}
-		else
-			obstacles[i]->show();
+		//else
+			//obstacles[i]->show();
 	}
-}
-void Duong::draw()
-{
-	for (int j = obstacles.size() - 1; j >= 0; j--)
-		obstacles[j]->show();
 }
 void Duong::updateMap(int map[10][20])
 {
 	for (int i = 0; i < length; i++)
-		map[index][i] = 0;
+		map[index][i] = map[index][i]==1 ? 1 : 0;
 	for (int i = 0; i < obstacles.size(); i++)
 	{
 		map[index][obstacles[i]->getPos().y] = 4;

@@ -59,13 +59,7 @@
     <ClCompile Include="Route.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Tree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Obstacle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MovingObstacle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CPeople.cpp">

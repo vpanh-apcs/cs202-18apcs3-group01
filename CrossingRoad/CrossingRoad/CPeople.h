@@ -14,9 +14,9 @@ public:
 	CPEOPLE(Pos t);
 	void show();
 	void showinfo();
+	void updateMap(int map[20][20]);
 	void move(char key,int map[20][20]);
 	Pos getPos();
-	bool getDead();
 	string getName();
 	void setName(string s);
 	int getScore();

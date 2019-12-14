@@ -9,20 +9,20 @@ void CGAME::init()
 	GameSetting a;
 	height = a.getGameHeight();
 	width = a.getGameWidth();
-	people = CPEOPLE(Pos(0, 0));
 	for (int i = 0; i < height; i++)
 		for (int j = 0; j < width; j++)
 			map[i][j] = 0;
-	int direction = 0;
-	int queue = 0;
-	for (int i = 0; i < height; i++)
+	routes[0] = new LeDuong(0, width);
+	int direction = Random(0, 1);
+	int queue = Random(2, 3);
+	for (int i = 1; i < height; i++)
 	{
 		if (queue == 0)
 		{
 			routes[i] = new LeDuong(i,width);
 			routes[i]->init();
 			direction = Random(0, 1);
-			queue = Random(1, 3);
+			queue = Random(2, 3);
 		}
 		else
 		{
@@ -48,24 +48,30 @@ void CGAME::displaySFML()
 		sf::Event event;
 		while (window.pollEvent(event)) 
 		{
-			if (event.type == sf::Event::EventType::Closed) window.close();
+			if (event.type == sf::Event::EventType::Closed)
+			{
+				window.close();
+				stop = true;
+			}
 			if (event.type == sf::Event::KeyPressed) 
 			{
 				switch (event.key.code)
 				{
 				case sf::Keyboard::Key::P: pauseGame(); break;
-				case sf::Keyboard::Key::A: 
-				case sf::Keyboard::Key::S: 
-				case sf::Keyboard::Key::W: 
-				case sf::Keyboard::Key::D:
-					people.move(event.key.code, map);
-					if (!map[people.getPos().x][people.getPos().y] == 4)
+				case sf::Keyboard::Key::A: people.move('A', map); people.updateMap(map); break;
+				case sf::Keyboard::Key::S: people.move('S', map); people.updateMap(map); break;
+				case sf::Keyboard::Key::W: people.move('W', map); people.updateMap(map); break;
+				case sf::Keyboard::Key::D: people.move('D', map); people.updateMap(map); break;
+					/*people.move(char(event.key.code), map);
+					people.show();*/
+					/*if (map[people.getPos().x][people.getPos().y] == 4)
 					{
-						stop = true;
 						deadGame();
+
 					}
-					break;
+					break;*/
 				}
+				//while (event.type != sf::Event::KeyReleased) {};
 			}
 		}
 		drawGame();
@@ -114,15 +120,27 @@ void CGAME::routesMove()
 {	
 	for (int i = 0; i < height; i++)
 		routes[i]->updateMap(map);
+	bool signal = false;
 	while (!stop)
 	{
 		while (pause) {}
 		for (int i = 0; i < height; i++)
 		{
-			routes[i]->move();
+			if ((routes[i]->getType() == 1) || (routes[i]->getType() == 2) && (signal == false))
+			{
+				routes[i]->move();
+				signal = routes[i]->getSignal();
+			}
 			routes[i]->updateMap(map);
 		}	
-		Sleep(200);
+		/*GotoXY(0, 25);
+		for (int i = 0; i < height; i++)
+		{
+			for (int j = 0; j < width; j++)
+				cout << map[i][j];
+			cout << endl;
+		}*/
+		Sleep(100);
 	}
 
 };
@@ -144,6 +162,7 @@ void CGAME::startGame()
 {
 	stop = false;
 	pause = false;
+	people.updateMap(map);
 	thread trdRoutes(&CGAME::routesMove, this);
 	thread displayWinForm(&CGAME::displaySFML, this);
 	displayWinForm.join();

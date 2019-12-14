@@ -12,7 +12,7 @@ class CGAME
 	int width, height;
 	int map[20][20];
 	Route* routes[20];
-	CPEOPLE people = CPEOPLE(Pos(0,0));
+	CPEOPLE people = CPEOPLE(Pos(0,10));
 	bool stop;
 	bool pause;
 	char key = '0';
