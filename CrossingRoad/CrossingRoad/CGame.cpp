@@ -55,17 +55,19 @@ void CGAME::displaySFML()
 				window.close();
 				stop = true;
 			}
-			if (event.type == sf::Event::KeyPressed) 
+			if ((event.type == sf::Event::KeyPressed)&&(!stop)&&(!pause)) 
 			{
 				switch (event.key.code)
 				{
 				case sf::Keyboard::Key::P: pauseGame(); break;
 				case sf::Keyboard::Key::A: people.move('A', map); break;
 				case sf::Keyboard::Key::S:
-					people.setScore(level);
+					
+					people.setScore(level);people.showinfo();
 					if (people.getPos().x == 19)
 					{
 						nextLevel();
+						Sleep(0);
 					}
 					else
 						people.move('S', map); 
@@ -85,7 +87,10 @@ void CGAME::displaySFML()
 				}
 				*/
 				//break;
-				
+				if (map[people.getPos().x][people.getPos().y] >= 4)
+				{
+					//deadGame();
+				}
 			
 				//while (event.type != sf::Event::KeyReleased) {};
 			}
@@ -107,12 +112,30 @@ void CGAME::displaySFML()
 			rLane.setPosition(0, i * 32);
 			rLane.setScale(2.0f, 2.0f);
 			window.draw(rLane);
-			for (int j = 0; j < width; j++) {
+			for (int j = 0; j < width; j++) 
+			{
 				if (map[i][j] == 0) continue;
 				sf::Texture texture;
-				switch (map[i][j]) {
+				switch (map[i][j]) 
+				{
 				case 3: texture.loadFromFile("image/tree.png"); break;
 				case 4:
+					if (!direction) texture.loadFromFile("image/player_right.png");
+					else texture.loadFromFile("image/player_left.png");
+					break;
+				case 5:
+					if (!direction) texture.loadFromFile("image/player_right.png");
+					else texture.loadFromFile("image/player_left.png");
+					break;
+				case 6:
+					if (!direction) texture.loadFromFile("image/player_right.png");
+					else texture.loadFromFile("image/player_left.png");
+					break;
+				case 7:
+					if (!direction) texture.loadFromFile("image/player_right.png");
+					else texture.loadFromFile("image/player_left.png");
+					break;
+				case 8:
 					if (!direction) texture.loadFromFile("image/player_right.png");
 					else texture.loadFromFile("image/player_left.png");
 					break;
@@ -142,19 +165,19 @@ void CGAME::routesMove()
 		while (pause) {}
 		for (int i = 0; i < height; i++)
 		{
-			if ((routes[i]->getType() == 1) || (routes[i]->getType() == 2) && (signal == false))
-			{
-				routes[i]->move();
+			if (routes[i]->getType() == 1)
 				signal = routes[i]->getSignal();
-			}
+			else
+				if (signal == false)
+					routes[i]->move();
 			routes[i]->updateMap(map);
 		}	
 		if (map[people.getPos().x][people.getPos().y] >= 4)
 		{
-			deadGame();
+			//deadGame();
 		}
 		//570-level*70<0 ? Sleep(1) : Sleep(570-level*70);
-		(7 - level) * 101 <= 0 ?   Sleep(1):Sleep((7 - level ) * 101);
+		(7 - level) * 101 <= 0 ?  Sleep(101) : Sleep((7 - level ) * 101);
 	}
 };
 
@@ -164,11 +187,11 @@ void CGAME::nextLevel()
 	//cout << "Pass"<<endl;
 	/*GotoXY(10, 0);
 	cout << level << "  speed : "<< (7 - level) * 101 <<endl;*/
-	people.showinfo();
+	//people.showinfo();
 	map[people.getPos().x][people.getPos().y] = 0;
 	people.setPos(Pos(0, people.getPos().y));
 	level++;
-	Sleep(500);
+	//Sleep(500);
 	init();
 	people.updateMap(map);
 	
@@ -182,7 +205,8 @@ void CGAME::pauseGame()
 {
 	pause = true;
 	//menu pause game;
-	//Sleep(5000);
+	Sleep(5000);
+	saveGame();
 	pause = false;
 }
 
@@ -215,6 +239,7 @@ void CGAME::saveGame()
 	file << str;
 	people.save(file);
 	file << width << " " << height << endl;
+	file << level << endl;
 	for (int i = 0; i < height; i++)
 		routes[i]->save(file);
 	file.close();
@@ -229,6 +254,7 @@ void CGAME::loadGame()
 	getline(file, temp, '\n');
 	people.load(file);
 	file >> width >> height;
+	file >> level;
 	for (int i = 0; i < height; i++)
 	{
 		file >> inttemp;

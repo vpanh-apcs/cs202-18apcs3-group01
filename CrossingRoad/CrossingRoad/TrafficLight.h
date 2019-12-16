@@ -6,6 +6,11 @@ class TrafficLight : TREE
 public:
 	TrafficLight() = default;
 	TrafficLight(Pos x, int y) : TREE(x), rate(y) {};
+	void save(ofstream& file)
+	{
+		file << position.x << " " << position.y << " " << signal << " " << rate << endl;
+	}
+
 	void changeSignal()
 	{
 		signal = !signal;

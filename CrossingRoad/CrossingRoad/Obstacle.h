@@ -16,6 +16,7 @@ public:
 	virtual void save(ofstream& file) ;
 	virtual void load(ifstream& file) ;
 	virtual Pos getPos();
+	virtual int getType() { return 0; };
 };
 
 class TREE : public Obstacle
@@ -35,6 +36,7 @@ public:
 	virtual void save(ofstream& file) {};
 	virtual void load(ifstream& file) {};
 	CVEHICLE(Pos a, bool directiont);
+	virtual int getType() { return 0; };
 };
 
 class CANIMAL : public Obstacle
@@ -46,6 +48,7 @@ public:
 	virtual void save(ofstream& file) {};
 	virtual void load(ifstream& file) {};
 	virtual void tell() {};
+	virtual int getType() { return 0; };
 };
 
 class CTRUCK : public CVEHICLE
@@ -54,7 +57,7 @@ public:
 	CTRUCK(Pos a, bool directiont);
 	void save(ofstream& file);
 	void load(ifstream& file);
-	//void unshow();
+	int getType() { return 5; };
 };
 
 class CCAR : public CVEHICLE
@@ -63,7 +66,7 @@ public:
 	CCAR(Pos a, bool directiont);
 	void save(ofstream& file);
 	void load(ifstream& file);
-	//void unshow();
+	int getType() { return 6; };
 };
 
 class CBIRD : public CANIMAL
@@ -72,6 +75,7 @@ public:
 	CBIRD(Pos a, bool directiont);
 	void save(ofstream& file);
 	void load(ifstream& file);
+	int getType() { return 7; };
 };
 
 class CDINOSAUR :public CANIMAL
@@ -80,4 +84,5 @@ public:
 	CDINOSAUR(Pos a, bool directiont);
 	void save(ofstream& file);
 	void load(ifstream& file);
+	int getType() { return 8; };
 };
