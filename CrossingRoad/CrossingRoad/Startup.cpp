@@ -7,6 +7,19 @@ Startup::Startup()
 	sf::RenderWindow window(sf::VideoMode(640, 640), "Crossing Road");
 	window.setMouseCursorVisible(false);
 	Menu mainMenu = Menu(640, 640, { "New Game","Load Game","high Scores","Settings","Quit" });
+	sf::Texture background;
+
+	background.loadFromFile("image/background.png");
+	sf::RectangleShape bg;
+	sf::Vector2f bgs;
+	bgs.x = background.getSize().x;
+	bgs.y = background.getSize().y;
+
+	bg.setSize(bgs);
+	bg.setOrigin(bgs.x * 0.5f, bgs.y * 0.5f);
+	bg.setTextureRect(sf::IntRect(0, 0, bgs.x, bgs.y));
+	bg.setTexture(&background);
+	bg.setPosition(window.getSize().x * 0.5f, window.getSize().y * 0.5f);
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -43,6 +56,7 @@ Startup::Startup()
 			mainMenu.moveMenu(event);
 		}
 		window.clear();
+		window.draw(bg);
 		mainMenu.draw(window);
 		window.display();
 	}
