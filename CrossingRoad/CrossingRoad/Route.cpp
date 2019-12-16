@@ -12,7 +12,7 @@ void LeDuong::init(int level)
 	{
 		if ((Random(35, 71)==71) && (TF == false))
 		{
-			trafficlight = TrafficLight(Pos(index, -1), 4);
+			trafficlight = TrafficLight(Pos(index, -1), Random(4,6));
 			TF = true;
 		}
 		else

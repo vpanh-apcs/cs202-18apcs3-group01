@@ -167,9 +167,11 @@ void CGAME::displaySFML()
 				switch (event.key.code)
 				{
 				case sf::Keyboard::Key::P: pauseGame(); break;
-				case sf::Keyboard::Key::A: people.move('A', map); break;
+				case sf::Keyboard::Key::A:
+				case sf::Keyboard::Key::Left:
+					people.move('A', map); break;
 				case sf::Keyboard::Key::S:
-
+				case sf::Keyboard::Key::Down:
 					people.setScore(level); people.showinfo();
 					if (people.getPos().x == 19)
 					{
@@ -179,8 +181,12 @@ void CGAME::displaySFML()
 					else
 						people.move('S', map);
 					break;
-				case sf::Keyboard::Key::W: people.move('W', map); break;
-				case sf::Keyboard::Key::D: people.move('D', map); break;
+				case sf::Keyboard::Key::W: 
+				case sf::Keyboard::Key::Up: 
+					people.move('W', map); break;
+				case sf::Keyboard::Key::D:
+				case sf::Keyboard::Key::Right:
+					people.move('D', map); break;
 				}
 				people.setScore(level);
 				if (map[people.getPos().x][people.getPos().y] >= 4)
@@ -195,8 +201,12 @@ void CGAME::displaySFML()
 			sf::Texture lane;
 			sf::RectangleShape rLane(sf::Vector2f(16 * width, 16));
 			int typeLane = routes[i]->getType();
-			bool direction = 0;
-			if (typeLane == 1) lane.loadFromFile("image/grass.png");
+			bool direction = 0, signal = 0;
+			if (typeLane == 1)
+			{
+				lane.loadFromFile("image/grass.png");
+				signal = routes[i]->getSignal();
+			}
 			else {
 				lane.loadFromFile("image/road.png");
 				direction = routes[i]->getDirection();
@@ -218,8 +228,8 @@ void CGAME::displaySFML()
 				{
 				case 3: texture.loadFromFile("image/tree.png"); break;
 				case 4:
-					if (!direction) texture.loadFromFile("image/player_right.png");
-					else texture.loadFromFile("image/player_left.png");
+					if (!signal) texture.loadFromFile("image/trafficlight_green.png");
+					else texture.loadFromFile("image/trafficlight_red.png");
 					break;
 				case 5:
 					if (!direction) texture.loadFromFile("image/bikeright.png");
@@ -230,12 +240,12 @@ void CGAME::displaySFML()
 					else texture.loadFromFile("image/carleft.png");
 					break;
 				case 7:
-					if (!direction) texture.loadFromFile("image/player_right.png");
-					else texture.loadFromFile("image/player_left.png");
+					if (!direction) texture.loadFromFile("image/birdright.png");
+					else texture.loadFromFile("image/birdleft.png");
 					break;
 				case 8:
-					if (!direction) texture.loadFromFile("image/player_right.png");
-					else texture.loadFromFile("image/player_left.png");
+					if (!direction) texture.loadFromFile("image/horseright.png");
+					else texture.loadFromFile("image/horseleft.png");
 					break;
 				}
 				sf::RectangleShape rect(sf::Vector2f(texture.getSize().x, texture.getSize().y));
@@ -268,8 +278,10 @@ void CGAME::routesMove()
 		for (int i = 0; i < height; i++)
 		{
 			if (routes[i]->getType() == 1)
-
+			{
 				signal = routes[i]->getSignal();
+				routes[i]->move(level);
+			}
 			else
 				if (signal == false)
 					routes[i]->move(level);
