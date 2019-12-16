@@ -36,6 +36,7 @@ void CGAME::init()
 //--------------- display-----------------------------
 void CGAME::levelDisplay(sf::RenderWindow& window)
 {
+
 	sf::Font font;
 	sf::Text Level;
 	font.loadFromFile("futur.ttf");
@@ -73,7 +74,8 @@ void CGAME::displayHighscore(sf::RenderWindow& window)
 }
 void CGAME::displaySFML()
 {
-	Menu pauseMenu = Menu(640, 640, { "Resume","Save Game", "Main Menu" });
+	Menu pauseMenu = Menu(640, 640, { "Resume","Save Game", "Main Menu" }); 
+	TrafficLight a;
 	sf::Texture player;
 	player.loadFromFile("image/player_front.png");
 	sf::RectangleShape rectPlayer(sf::Vector2f(player.getSize().x, player.getSize().y));
@@ -163,7 +165,9 @@ void CGAME::displaySFML()
 				{
 				case 3: texture.loadFromFile("image/tree.png"); break;
 				case 4:
-					if (!direction) texture.loadFromFile("image/trafficlight_green.png");
+					a.adjustSignal();
+					a.changeSignal();
+					if (a.getSignal()) texture.loadFromFile("image/trafficlight_green.png");
 					else texture.loadFromFile("image/trafficlight_red.png");
 					break;
 				case 5:
