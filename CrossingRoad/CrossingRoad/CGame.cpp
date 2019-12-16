@@ -172,11 +172,12 @@ void CGAME::displaySFML()
 					people.move('A', map); break;
 				case sf::Keyboard::Key::S:
 				case sf::Keyboard::Key::Down:
-					people.setScore(level); people.showinfo();
+					people.setScore(level); 
+					people.showinfo();
 					if (people.getPos().x == 19)
 					{
 						nextLevel();
-						Sleep(0);
+						Sleep(200);
 					}
 					else
 						people.move('S', map);
