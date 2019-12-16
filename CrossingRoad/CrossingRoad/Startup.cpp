@@ -44,6 +44,9 @@ Startup::Startup()
 						game->startGame();
 					break;
 				case 2: // High Scores
+					game = highScoreBoard();
+					if (game == NULL)
+						break;
 					break;
 				case 3: // Settings
 					break;
@@ -92,6 +95,47 @@ CGAME* Startup::LoadGame()
 				{
 					CGAME* a = new CGAME();
 					a->loadGame(paths[loadMenu.GetPressedItem()]);
+					window.close();
+					return a;
+				}
+				else return NULL;
+			loadMenu.moveMenu(event);
+		}
+		window.clear();
+		loadMenu.draw(window);
+		window.display();
+	}
+	file.close();
+}
+
+CGAME* Startup::highScoreBoard()
+{
+	string temp;
+	ifstream file;
+	vector<string> tempvector;
+	tempvector.push_back("HIGH SCORE");
+	file.open("highscore.txt");
+	for (int i = 0; i < 5; i++)
+	{
+		file >> temp;
+		tempvector.push_back(temp);
+	}
+	//tempvector.pop_back();
+	tempvector.push_back("Exit");
+	Menu loadMenu = Menu(640, 640, tempvector);
+	sf::RenderWindow window(sf::VideoMode(640, 640), "Crossing Road");
+	window.setMouseCursorVisible(false);
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::EventType::KeyPressed &&
+				event.key.code == sf::Keyboard::Key::Enter)
+				if (loadMenu.GetPressedItem() != tempvector.size() - 1)
+				{
+					CGAME* a = new CGAME();
+					//a->HighscoreBoard();
 					window.close();
 					return a;
 				}
