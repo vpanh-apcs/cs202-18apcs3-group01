@@ -10,7 +10,6 @@ public:
 	{
 		file << position.x << " " << position.y << " " << signal << " " << rate << endl;
 	}
-
 	void changeSignal()
 	{
 		signal = !signal;

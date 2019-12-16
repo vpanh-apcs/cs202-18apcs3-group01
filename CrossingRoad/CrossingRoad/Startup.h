@@ -2,7 +2,12 @@
 
 class Startup
 {
+	CGAME* game = NULL;
 public:
 	Startup();
-	CGAME LoadGame();
+	CGAME* LoadGame();
+	~Startup()
+	{
+		delete game;
+	};
 };

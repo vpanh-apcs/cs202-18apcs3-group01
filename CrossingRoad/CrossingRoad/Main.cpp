@@ -80,6 +80,5 @@ int main()
 	//	break;
 	//}
 	Startup a;
-	system("pause");
 	return 0;
 }

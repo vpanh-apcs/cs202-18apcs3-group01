@@ -31,18 +31,17 @@ Startup::Startup()
 				switch (mainMenu.GetPressedItem())
 				{
 				case 0: // New Game
-				{
-					CGAME a;
-					a.init();
-					a.startGame();
-				}
+					game = new CGAME();
+					game->init();
+					game->startGame();
+					delete game;
+					game = NULL;
 					//window.close();
 					break;
 				case 1: // Load Game
-				{
-					CGAME a = LoadGame();
-					a.startGame();
-				}
+					game = LoadGame();
+					if (game != NULL)
+						game->startGame();
 					break;
 				case 2: // High Scores
 					break;
@@ -62,7 +61,7 @@ Startup::Startup()
 	}
 }
 
-CGAME Startup::LoadGame()
+CGAME* Startup::LoadGame()
 {
 	string temp;
 	ifstream file;
@@ -76,6 +75,9 @@ CGAME Startup::LoadGame()
 		getline(file, temp, '\n');
 		paths.push_back(temp);
 	}
+	tempvector.pop_back();
+	paths.pop_back();
+	tempvector.push_back("Exit");
 	Menu loadMenu = Menu(640, 640, tempvector);
 	sf::RenderWindow window(sf::VideoMode(640, 640), "Crossing Road");
 	window.setMouseCursorVisible(false);
@@ -86,12 +88,14 @@ CGAME Startup::LoadGame()
 		{
 			if (event.type == sf::Event::EventType::KeyPressed &&
 				event.key.code == sf::Keyboard::Key::Enter)
-			{
-				CGAME a;
-				a.loadGame(paths[loadMenu.GetPressedItem()]);
-				window.close();
-				return a;
-			}
+				if (loadMenu.GetPressedItem() != tempvector.size() - 1)
+				{
+					CGAME* a = new CGAME();
+					a->loadGame(paths[loadMenu.GetPressedItem()]);
+					window.close();
+					return a;
+				}
+				else return NULL;
 			loadMenu.moveMenu(event);
 		}
 		window.clear();
