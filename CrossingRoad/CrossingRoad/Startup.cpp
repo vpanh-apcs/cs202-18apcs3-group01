@@ -53,11 +53,14 @@ CGAME Startup::LoadGame()
 	string temp;
 	ifstream file;
 	vector<string> tempvector;
+	vector<string> paths;
 	file.open("SavedGames.txt");
 	while (!file.eof())
 	{
 		getline(file, temp, '\n');
 		tempvector.push_back(temp);
+		getline(file, temp, '\n');
+		paths.push_back(temp);
 	}
 	Menu loadMenu = Menu(640, 640, tempvector);
 	sf::RenderWindow window(sf::VideoMode(640, 640), "Crossing Road");
@@ -71,7 +74,7 @@ CGAME Startup::LoadGame()
 				event.key.code == sf::Keyboard::Key::Enter)
 			{
 				CGAME a;
-				a.loadGame(tempvector[loadMenu.GetPressedItem()]);
+				a.loadGame(paths[loadMenu.GetPressedItem()]);
 				window.close();
 				return a;
 			}

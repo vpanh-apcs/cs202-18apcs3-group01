@@ -239,19 +239,26 @@ void CGAME::startGame()
 
 void CGAME::saveGame()
 {
-	ofstream file;
+	
 	time_t init = time(0);
 	struct tm currentTime;
 	localtime_s(&currentTime, &init);
-	file.open("SavedGames.txt", ios::out | ios::app);
 	char str[26];
 	asctime_s(str, sizeof str, &currentTime);
-	file << str;
+	string info = string(str);
+	info.erase(info.end() - 1);
+	info = people.getName() + " " + to_string(people.getScore()) + " " + to_string(level) + " " + info;
+	string path = people.getName() + to_string(people.getScore()) + to_string(level) +
+		to_string(currentTime.tm_hour) + to_string(currentTime.tm_min) + to_string(currentTime.tm_sec) +
+		to_string(currentTime.tm_mday) + to_string(currentTime.tm_mon) + to_string(currentTime.tm_year);
+	
+	ofstream file;
+	file.open("SavedGames.txt", ios::out | ios::app);
+	file << info << endl;
+	file << path;
 	file.close();
-	string path = string(str);
-	path.erase(path.end()-1); 
-	path += ".txt";
-	file.open(path, ios::out | ios::app);
+
+	file.open(path + ".txt", ios::out | ios::app);
 	file << str;
 	people.save(file);
 	file << width << " " << height << endl;
