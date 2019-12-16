@@ -17,19 +17,6 @@ void CPEOPLE::showinfo()
 	cout << "Score : " << score;
 }
 
-void CPEOPLE::show()
-{
-	GotoXY(position.y, position.x);
-	cout << "P";
-	GotoXY(position.y, position.x);
-}
-
-void CPEOPLE::unshow()
-{
-	GotoXY(position.y, position.x);
-	cout << " ";
-}
-
 void CPEOPLE::Up()
 {
 	position.x -= 1;
@@ -87,17 +74,17 @@ void CPEOPLE::move(char key, int map[20][20])
 	Pos lstPos = position;
 	switch (key)
 	{
-	case 'W':  unshow(); Up(); break;
-	case 'A':  unshow(); Left(); break;
-	case 'S':  unshow(); Down(); break;
-	case 'D':  unshow(); Right(); break;
+	case 'W':  Up(); break;
+	case 'A':  Left(); break;
+	case 'S':  Down(); break;
+	case 'D':  Right(); break;
 	}
 	//show();
 	/*GotoXY(20, 2);
 	cout << lstPos.x << " " << lstPos.y;
 	GotoXY(20, 4);
 	cout << position.x << " " << position.y;*/
-	if (position.x < 0 || position.x >=game.getGameHeight() || position.y < 0 || position.y>=game.getGameWidth() || map[position.x][position.y] == 3)
+	if (position.x < 0 || position.x >=game.getGameHeight() || position.y < 0 || position.y>=game.getGameWidth() || map[position.x][position.y] == 3 || map[position.x][position.y] == 4)
 		position = lstPos;
 }
 
@@ -117,4 +104,29 @@ void CPEOPLE::load(ifstream &file)
 	file >> name;
 	file >> position.x >> position.y;
 	file >> score;
+}
+void CPEOPLE::displayScore(sf::RenderWindow& window)
+{
+	sf::Vector2f wSize(window.getSize());
+
+	sf::Text pName;
+	sf::Text Score;
+	sf::Font font;
+
+	font.loadFromFile("futur.ttf");
+	pName.setFont(font);
+	pName.setScale(0.5, 0.5);
+	pName.setFillColor(sf::Color::White);
+
+	Score.setFont(font);
+	Score.setScale(0.5, 0.5);
+	Score.setFillColor(sf::Color::White);
+
+	Score.setString("Score: " + to_string(score));
+	pName.setString(name);
+
+	pName.setPosition(160.f / 3 + 640, wSize.y * 0.5f);
+	Score.setPosition(160.f / 3 + 640, wSize.y * 0.5f + 30);
+	window.draw(pName);
+	window.draw(Score);
 }

@@ -11,8 +11,6 @@ class CPEOPLE
 	void Right();
 public:
 	CPEOPLE(Pos t);
-	void unshow();
-	void show();
 	void showinfo();
 	void updateMap(int map[20][20]);
 	void move(char key,int map[20][20]);
@@ -24,4 +22,5 @@ public:
 	void setScore(int level);
 	void save(ofstream& file);
 	void load(ifstream &file);
+	void displayScore(sf::RenderWindow& window);
 };

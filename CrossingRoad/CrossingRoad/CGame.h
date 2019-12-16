@@ -1,5 +1,4 @@
 ﻿#include "Route.h"
-
 class CGAME 
 {
 	//CTRUCK* axt;
@@ -26,7 +25,6 @@ public:
 	//CPEOPLE getPeople() {};//Lấy thông tin người
 	//CVEHICLE* getVehicle();//Lấy danh sách các xe
 	//CANIMAL* getAnimal(); //Lấy danh sách các thú
-	void drawGame();
 	void resetGame() {}; // Thực hiện thiết lập lại toàn bộ dữ liệu như lúc đầu
 	void exitGame(HANDLE) {}; // Thực hiện thoát Thread
 	void startGame(); // Thực hiện bắt đầu vào trò chơi
@@ -40,7 +38,9 @@ public:
 	//void updatePosAnimal();//Thực hiện cho CDINAUSOR & CBIRD di chuyển
 	void routesMove();
 	void displaySFML();
-	void updateLevel();
 	void nextLevel();
-	void test();
+
+	void levelDisplay(sf::RenderWindow& window);
+	vector<int> loadHighscore();
+	void displayHighscore(sf::RenderWindow& window);
 };

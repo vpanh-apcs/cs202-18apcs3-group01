@@ -1,9 +1,9 @@
 #include "CGame.h"
 
 CGAME::CGAME()
-{	
+{
 };
- 
+
 void CGAME::init()
 {
 	GameSetting a;
@@ -19,75 +19,121 @@ void CGAME::init()
 	{
 		if (queue == 0)
 		{
-			routes[i] = new LeDuong(i,width);
-			routes[i]->init();
+			routes[i] = new LeDuong(i, width);
+			routes[i]->init(level);
 			direction = Random(0, 1);
 			queue = Random(2, 3);
 		}
 		else
 		{
 			queue--;
-			routes[i] = new Duong(i,width,direction);
-			routes[i]->init();
+			routes[i] = new Duong(i, width, direction);
+			routes[i]->init(level);
 		}
 	}
 	GotoXY(0, 0);
 }
-
-void CGAME::drawGame()
+//--------------- display-----------------------------
+void CGAME::levelDisplay(sf::RenderWindow& window)
 {
-	
+	sf::Font font;
+	sf::Text Level;
+	font.loadFromFile("futur.ttf");
+	Level.setString("LEVEL: " + to_string(level));
+	Level.setFont(font);
+	Level.setFillColor(sf::Color::White);
+	Level.scale(0.75, 0.75);
+	Level.setPosition(160.f / 3 + 640, window.getSize().y * 0.5f - 50);
+	window.draw(Level);
 }
-
-void CGAME::displaySFML() 
+void CGAME::displayHighscore(sf::RenderWindow& window)
 {
-	sf::RenderWindow window(sf::VideoMode(640, 640), "Crossing Road");
-	while (window.isOpen()) 
+	vector<int> hs;
+	float t = window.getSize().y * 0.5f - 50;
+	hs = loadHighscore();
+	sf::Font font;
+	sf::Text temp;
+	font.loadFromFile("futur.ttf");
+	temp.setString("HIGH SCORE");
+	temp.setFont(font);
+	temp.setFillColor(sf::Color::White);
+	temp.scale(0.5, 0.5);
+	temp.setPosition(160.f / 3 + 640, t + 100);
+	window.draw(temp);
+
+	for (int i = 0; i < hs.size(); i++)
+	{
+		font.loadFromFile("futur.ttf");
+		temp.setString(to_string(hs[i]));
+		temp.setFont(font);
+		temp.setFillColor(sf::Color::White);
+		temp.setPosition(160.f / 3 + 640, t + (i + 3) * 50);
+		window.draw(temp);
+	}
+}
+void CGAME::displaySFML()
+{
+	Menu pauseMenu = Menu(640, 640, { "Resume","Save Game", "Main Menu" });
+	sf::Texture player;
+	player.loadFromFile("image/player_front.png");
+	sf::RectangleShape rectPlayer(sf::Vector2f(player.getSize().x, player.getSize().y));
+	rectPlayer.setTextureRect(sf::IntRect(0, 0, player.getSize().x, player.getSize().y));
+	rectPlayer.setScale(2.0f, 2.0f);
+	rectPlayer.setTexture(&player);
+	rectPlayer.setOrigin(player.getSize().x * 0.5f, player.getSize().y);
+	sf::RenderWindow window(sf::VideoMode(800, 640), "Crossing Road");
+	while (window.isOpen())
 	{
 		//updateLevel();
 		sf::Event event;
-		while (window.pollEvent(event)) 
+		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::EventType::Closed)
 			{
 				window.close();
 				stop = true;
 			}
-			if (event.type == sf::Event::KeyPressed) 
+			if (event.type == sf::Event::EventType::KeyPressed && pause)
+			{
+				if (event.key.code == sf::Keyboard::Key::Enter)
+				{
+					switch (pauseMenu.GetPressedItem())
+					{
+					case 0: pauseGame(); break;
+					case 1: saveGame(); break;
+					case 2: window.close(); stop = true; break;
+					}
+				}
+				pauseMenu.moveMenu(event);
+			}
+			
+			if ((event.type == sf::Event::KeyPressed) && (!stop) && (!pause))
 			{
 				switch (event.key.code)
 				{
 				case sf::Keyboard::Key::P: pauseGame(); break;
-				case sf::Keyboard::Key::A: people.move('A', map); people.updateMap(map); break;
-				case sf::Keyboard::Key::S: people.move('S', map); people.updateMap(map); break;
-				case sf::Keyboard::Key::W: people.move('W', map); people.updateMap(map); break;
-				case sf::Keyboard::Key::D: people.move('D', map); people.updateMap(map); break;
+				case sf::Keyboard::Key::A: people.move('A', map); break;
+				case sf::Keyboard::Key::S:
+
+					people.setScore(level); people.showinfo();
+					if (people.getPos().x == 19)
+					{
+						nextLevel();
+						Sleep(0);
+					}
+					else
+						people.move('S', map);
+					break;
+				case sf::Keyboard::Key::W: people.move('W', map); break;
+				case sf::Keyboard::Key::D: people.move('D', map); break;
 				}
-					/*people.move(char(event.key.code), map);
-					people.show();*/
-				/*GotoXY(10, 10);
-				cout << people.getPos().x;*/
-				if (!map[people.getPos().y][people.getPos().x] == 4)
+				people.setScore(level);
+				if (map[people.getPos().x][people.getPos().y] >= 4)
 				{
-					// ko nhan key nua neu khong people van di chuyen duoc 
-					// do da bo phan` check dead cua people 
 					deadGame();
 				}
-
-				people.setScore(level);
-
-				if (people.getPos().x == 19)
-				{
-					nextLevel();
-				}
-				
-				//break;
-				
-			
-				//while (event.type != sf::Event::KeyReleased) {};
 			}
 		}
-		drawGame();
 		window.clear();
 		for (int i = 0; i < height; i++)
 		{
@@ -100,18 +146,39 @@ void CGAME::displaySFML()
 				lane.loadFromFile("image/road.png");
 				direction = routes[i]->getDirection();
 			}
+			sf::Vector2u blocksize;
+			blocksize.x = lane.getSize().x;
+			blocksize.y = lane.getSize().y;
 			lane.setRepeated(true);
+			rLane.setTextureRect(sf::IntRect(0, 0,blocksize.x*width,blocksize.y ));
 			rLane.setTexture(&lane);
 			rLane.setPosition(0, i * 32);
 			rLane.setScale(2.0f, 2.0f);
 			window.draw(rLane);
-			for (int j = 0; j < width; j++) {
+			for (int j = 0; j < width; j++)
+			{
 				if (map[i][j] == 0) continue;
 				sf::Texture texture;
-				switch (map[i][j]) {
-				case 1: texture.loadFromFile("image/player_front.png"); break;
+				switch (map[i][j])
+				{
 				case 3: texture.loadFromFile("image/tree.png"); break;
 				case 4:
+					if (!direction) texture.loadFromFile("image/player_right.png");
+					else texture.loadFromFile("image/player_left.png");
+					break;
+				case 5:
+					if (!direction) texture.loadFromFile("image/bikeright.png");
+					else texture.loadFromFile("image/bikeleft.png");
+					break;
+				case 6:
+					if (!direction) texture.loadFromFile("image/carright.png");
+					else texture.loadFromFile("image/carleft.png");
+					break;
+				case 7:
+					if (!direction) texture.loadFromFile("image/player_right.png");
+					else texture.loadFromFile("image/player_left.png");
+					break;
+				case 8:
 					if (!direction) texture.loadFromFile("image/player_right.png");
 					else texture.loadFromFile("image/player_left.png");
 					break;
@@ -125,12 +192,18 @@ void CGAME::displaySFML()
 				window.draw(rect);
 			}
 		}
+		if (stop == true) displayHighscore(window);
+		levelDisplay(window);
+		people.displayScore(window);
+		rectPlayer.setPosition(people.getPos().y * 32 + 16, people.getPos().x * 32 + 32);
+		window.draw(rectPlayer);
+		if (pause) pauseMenu.draw(window);
 		window.display();
 	}
 }
 
 void CGAME::routesMove()
-{	
+{
 	for (int i = 0; i < height; i++)
 		routes[i]->updateMap(map);
 	bool signal = false;
@@ -139,23 +212,21 @@ void CGAME::routesMove()
 		while (pause) {}
 		for (int i = 0; i < height; i++)
 		{
-			if ((routes[i]->getType() == 1) || (routes[i]->getType() == 2) && (signal == false))
-			{
-				routes[i]->move();
+			if (routes[i]->getType() == 1)
+
 				signal = routes[i]->getSignal();
-			}
+			else
+				if (signal == false)
+					routes[i]->move(level);
 			routes[i]->updateMap(map);
-		}	
-		/*GotoXY(0, 25);
-		for (int i = 0; i < height; i++)
+		}
+		if (map[people.getPos().x][people.getPos().y] >= 4)
 		{
-			for (int j = 0; j < width; j++)
-				cout << map[i][j];
-			cout << endl;
-		}*/
-		//Sleep(500);
+			deadGame();
+		}
 		//570-level*70<0 ? Sleep(1) : Sleep(570-level*70);
-		(7 - level) * 101 <= 0 ?   Sleep(1):Sleep((7 - level ) * 101);
+
+		(7 - level) * 101 <= 0 ? Sleep(101) : Sleep((7 - level) * 101);
 	}
 };
 
@@ -165,13 +236,18 @@ void CGAME::nextLevel()
 	//cout << "Pass"<<endl;
 	/*GotoXY(10, 0);
 	cout << level << "  speed : "<< (7 - level) * 101 <<endl;*/
-	people.showinfo();
-	people.unshow();
-	people.setPos(Pos(0, Random(0, 19)));
+	//people.showinfo();
+	map[people.getPos().x][people.getPos().y] = 0;
+	people.setPos(Pos(0, people.getPos().y));
+	for (size_t i = 0; i < 20; i++)
+	{
+		routes[i]->~Route();
+	}
 	level++;
-//	Sleep(500);
+	//Sleep(500);
+	init();
 	people.updateMap(map);
-	people.show();
+
 	//displaySFML();
 
 	/*GotoXY(10, 2);
@@ -180,10 +256,7 @@ void CGAME::nextLevel()
 
 void CGAME::pauseGame()
 {
-	pause = true;
-	//menu pause game;
-	Sleep(5000);
-	pause = false;
+	pause = !pause;
 }
 
 void CGAME::deadGame()
@@ -209,12 +282,13 @@ void CGAME::saveGame()
 	struct tm currentTime;
 	localtime_s(&currentTime, &init);
 	string path = "temp.txt";
-	file.open(path, ios::out|ios::app);
+	file.open(path, ios::out | ios::app);
 	char str[26];
 	asctime_s(str, sizeof str, &currentTime);
 	file << str;
 	people.save(file);
 	file << width << " " << height << endl;
+	file << level << endl;
 	for (int i = 0; i < height; i++)
 		routes[i]->save(file);
 	file.close();
@@ -229,20 +303,31 @@ void CGAME::loadGame()
 	getline(file, temp, '\n');
 	people.load(file);
 	file >> width >> height;
+	file >> level;
 	for (int i = 0; i < height; i++)
 	{
 		file >> inttemp;
 		if (inttemp == 0)
-			routes[i] = new LeDuong(i,width);
+			routes[i] = new LeDuong(i, width);
 		else
-			routes[i] = new Duong(i,width,0);
+			routes[i] = new Duong(i, width, 0);
 		routes[i]->load(file);
 	}
 	file.close();
 }
-
-
-void CGAME::test()
+vector<int>CGAME::loadHighscore()
 {
-
+	ifstream fin;
+	fin.open("highscore.txt");
+	int x;
+	vector<int>list;
+	for (size_t i = 0; i < 5; i++)
+	{
+		fin >> x;
+		list.push_back(x);
+	}
+	fin.close();
+	return list;
 }
+
+
