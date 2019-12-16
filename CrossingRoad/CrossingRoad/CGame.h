@@ -15,6 +15,7 @@ class CGAME
 	bool stop;
 	bool pause;
 	char key = '0';
+	int highScore[5];
 	
 public:
 	//int map[10][10];
@@ -40,7 +41,10 @@ public:
 	void displaySFML();
 	void nextLevel();
 
-	void levelDisplay(sf::RenderWindow& window);
-	vector<int> loadHighscore();
+	int topScore(int scr);
+	void loadHighscore();
+	void saveHighscore();
+	void infoDisplay(sf::RenderWindow& window);
 	void displayHighscore(sf::RenderWindow& window);
+	void HighscoreBoard();
 };

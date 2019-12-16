@@ -92,12 +92,12 @@ void Duong::init(int level)
 		if ((queue == 0) && (obstacles.size() < level+int(level/1.25)))
 		{
 			obstacles.push_back(ObstacleFactory::getRandomMovingObstacle(Pos(index, direction == 0 ? -1 : length), direction));
-			queue = Random(1, 10);
+			queue = Random(2, 10);
 		}
 		if (queue > 0) queue--;
 		for (int j = obstacles.size() - 1; j >= 0; j--)
 		{
-			obstacles[j]->move();
+			obstacles[j]->move();	
 		}
 	}
 }

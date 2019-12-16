@@ -62,6 +62,7 @@ CGAME::CGAME()
 void CGAME::init()
 {
 	GameSetting a;
+	loadHighscore();
 	height = a.getGameHeight();
 	width = a.getGameWidth();
 	for (int i = 0; i < height; i++)
@@ -88,44 +89,7 @@ void CGAME::init()
 	}
 	GotoXY(0, 0);
 }
-//--------------- display-----------------------------
-void CGAME::levelDisplay(sf::RenderWindow& window)
-{
-	sf::Font font;
-	sf::Text Level;
-	font.loadFromFile("futur.ttf");
-	Level.setString("LEVEL: " + to_string(level));
-	Level.setFont(font);
-	Level.setFillColor(sf::Color::White);
-	Level.scale(0.75, 0.75);
-	Level.setPosition(160.f / 3 + 640, window.getSize().y * 0.5f - 50);
-	window.draw(Level);
-}
-void CGAME::displayHighscore(sf::RenderWindow& window)
-{
-	vector<int> hs;
-	float t = window.getSize().y * 0.5f - 50;
-	hs = loadHighscore();
-	sf::Font font;
-	sf::Text temp;
-	font.loadFromFile("futur.ttf");
-	temp.setString("HIGH SCORE");
-	temp.setFont(font);
-	temp.setFillColor(sf::Color::White);
-	temp.scale(0.5, 0.5);
-	temp.setPosition(160.f / 3 + 640, t + 100);
-	window.draw(temp);
 
-	for (int i = 0; i < hs.size(); i++)
-	{
-		font.loadFromFile("futur.ttf");
-		temp.setString(to_string(hs[i]));
-		temp.setFont(font);
-		temp.setFillColor(sf::Color::White);
-		temp.setPosition(160.f / 3 + 640, t + (i + 3) * 50);
-		window.draw(temp);
-	}
-}
 void CGAME::displaySFML()
 {
 	Menu pauseMenu = Menu(640, 640, { "Resume","Save Game", "Main Menu" });
@@ -258,8 +222,7 @@ void CGAME::displaySFML()
 			}
 		}
 		if (stop == true) displayHighscore(window);
-		levelDisplay(window);
-		people.displayScore(window);
+		infoDisplay(window);
 		rectPlayer.setPosition(people.getPos().y * 32 + 16, people.getPos().x * 32 + 32);
 		window.draw(rectPlayer);
 		if (pause) pauseMenu.draw(window);
@@ -342,18 +305,134 @@ void CGAME::startGame()
 	trdRoutes.join();
 }
 
-vector<int>CGAME::loadHighscore()
+//highscore
+
+void CGAME::saveHighscore()
+{
+	ofstream fout;
+	fout.open("highscore.txt");
+	for (size_t i = 0; i < 5; i++)
+	{
+		fout << highScore[i] << endl;
+	}
+	fout.close();
+}
+void CGAME::loadHighscore()
 {
 	ifstream fin;
 	fin.open("highscore.txt");
 	int x;
-	vector<int>list;
 	for (size_t i = 0; i < 5; i++)
 	{
 		fin >> x;
-		list.push_back(x);
+		highScore[i]=x;
 	}
 	fin.close();
-	return list;
 }
 
+
+
+int CGAME::topScore(int scr)
+{
+	if (scr > highScore[4])
+	{
+		if (highScore[0] <= scr)
+		{
+			highScore[0] = scr;
+			return 1;
+		}
+		else
+		{
+			for (int i = 4; i >= 0; i--)
+			{
+				if (highScore[i] > scr)
+				{
+					highScore[i + 1] = scr;
+					return i + 2;
+				}
+			}
+		}
+	}
+	return NULL;
+}
+
+//--------------- display-----------------------------
+void CGAME::infoDisplay(sf::RenderWindow& window)
+{
+	sf::Font font;
+	sf::Text Level;
+	font.loadFromFile("futur.ttf");
+	Level.setString("LEVEL: " + to_string(level));
+	Level.setFont(font);
+	Level.setFillColor(sf::Color::White);
+	Level.scale(0.75, 0.75);
+	Level.setPosition(160.f / 3 + 640, window.getSize().y * 0.5f - 300);
+	window.draw(Level);
+	people.display(window);
+}
+void CGAME::displayHighscore(sf::RenderWindow& window)
+{
+	//vector<int> hs;
+	float t = window.getSize().y * 0.5f - 200;
+	//hs = loadHighscore();
+	sf::Font font;
+	sf::Text temp;
+	font.loadFromFile("futur.ttf");
+	temp.setString("HIGH SCORE");
+	temp.setFont(font);
+	temp.setFillColor(sf::Color::White);
+	temp.scale(0.5, 0.5);
+	temp.setPosition(160.f / 3 + 640, t + 100);
+	window.draw(temp);
+	int top = topScore(people.getScore());
+	for (int i = 0; i < 5; i++)
+	{
+		font.loadFromFile("futur.ttf");
+		temp.setString(to_string(highScore[i]));
+		temp.setFont(font);
+		temp.setFillColor(sf::Color::White);
+		temp.setPosition(160.f / 3 + 640, t + (i + 3) * 50);
+		window.draw(temp);
+	}
+
+	if (top != NULL)
+	{
+		if (top == 1)
+			temp.setString("New highest score ");
+		else
+			temp.setString("You get top " + to_string(top));
+		saveHighscore();
+	}
+	else
+	{
+		temp.setString("Try the next time");
+	}
+
+	temp.setPosition(160.f / 3 + 640 - 40, t + (5 + 3) * 50);
+	window.draw(temp);
+}
+void CGAME::HighscoreBoard()
+{
+	loadHighscore();
+	sf::RenderWindow window(sf::VideoMode(800, 640), "Crossing Road");
+	sf::Font font;
+	sf::Text temp;
+	float t = window.getSize().y * 0.5f - 200;
+	font.loadFromFile("futur.ttf");
+	temp.setString("HIGH SCORE");
+	temp.setFont(font);
+	temp.setFillColor(sf::Color::White);
+	temp.scale(0.5, 0.5);
+	temp.setPosition(160.f / 3 + 300, t + 100);
+	window.draw(temp);
+	int top = topScore(people.getScore());
+	for (int i = 0; i < 5; i++)
+	{
+		font.loadFromFile("futur.ttf");
+		temp.setString(to_string(highScore[i]));
+		temp.setFont(font);
+		temp.setFillColor(sf::Color::White);
+		temp.setPosition(160.f / 3 + 300, t + (i + 3) * 50);
+		window.draw(temp);
+	}
+}

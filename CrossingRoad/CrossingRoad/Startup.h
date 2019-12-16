@@ -6,6 +6,7 @@ class Startup
 public:
 	Startup();
 	CGAME* LoadGame();
+	CGAME* highScoreBoard();
 	~Startup()
 	{
 		delete game;

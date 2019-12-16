@@ -105,7 +105,7 @@ void CPEOPLE::load(ifstream &file)
 	file >> position.x >> position.y;
 	file >> score;
 }
-void CPEOPLE::displayScore(sf::RenderWindow& window)
+void CPEOPLE::display(sf::RenderWindow& window)
 {
 	sf::Vector2f wSize(window.getSize());
 
@@ -125,8 +125,8 @@ void CPEOPLE::displayScore(sf::RenderWindow& window)
 	Score.setString("Score: " + to_string(score));
 	pName.setString(name);
 
-	pName.setPosition(160.f / 3 + 640, wSize.y * 0.5f);
-	Score.setPosition(160.f / 3 + 640, wSize.y * 0.5f + 30);
+	pName.setPosition(160.f / 3 + 640, wSize.y * 0.5f - 250);
+	Score.setPosition(160.f / 3 + 640, wSize.y * 0.5f - 200);
 	window.draw(pName);
 	window.draw(Score);
 }
