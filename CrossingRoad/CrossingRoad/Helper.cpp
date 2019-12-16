@@ -63,5 +63,4 @@ void DrawBoard(int x, int y, int width, int height)//height %6 =0
 	cout << char(217);
 	GotoXY(x, y + height);
 	cout << char(192);
-
 }

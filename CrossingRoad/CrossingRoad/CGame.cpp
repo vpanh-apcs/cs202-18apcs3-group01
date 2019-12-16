@@ -34,13 +34,15 @@ void CGAME::init()
 	GotoXY(0, 0);
 }
 
-void CGAME::drawGame()
-{
-	
-}
-
 void CGAME::displaySFML() 
 {
+	sf::Texture player;
+	player.loadFromFile("image/player_front.png");
+	sf::RectangleShape rectPlayer(sf::Vector2f(player.getSize().x, player.getSize().y));
+	rectPlayer.setTextureRect(sf::IntRect(0, 0, player.getSize().x, player.getSize().y));
+	rectPlayer.setScale(2.0f, 2.0f);
+	rectPlayer.setTexture(&player);
+	rectPlayer.setOrigin(player.getSize().x * 0.5f, player.getSize().y);
 	sf::RenderWindow window(sf::VideoMode(640, 640), "Crossing Road");
 	while (window.isOpen()) 
 	{
@@ -58,36 +60,36 @@ void CGAME::displaySFML()
 				switch (event.key.code)
 				{
 				case sf::Keyboard::Key::P: pauseGame(); break;
-				case sf::Keyboard::Key::A: people.move('A', map); people.updateMap(map); break;
-				case sf::Keyboard::Key::S: people.move('S', map); people.updateMap(map); break;
-				case sf::Keyboard::Key::W: people.move('W', map); people.updateMap(map); break;
-				case sf::Keyboard::Key::D: people.move('D', map); people.updateMap(map); break;
+				case sf::Keyboard::Key::A: people.move('A', map); break;
+				case sf::Keyboard::Key::S:
+					people.setScore(level);
+					if (people.getPos().x == 19)
+					{
+						nextLevel();
+					}
+					else
+						people.move('S', map); 
+					break;
+				case sf::Keyboard::Key::W: people.move('W', map); break;
+				case sf::Keyboard::Key::D: people.move('D', map); break;
 				}
 					/*people.move(char(event.key.code), map);
 					people.show();*/
 				/*GotoXY(10, 10);
 				cout << people.getPos().x;*/
-				if (!map[people.getPos().y][people.getPos().x] == 4)
-				{
-					// ko nhan key nua neu khong people van di chuyen duoc 
-					// do da bo phan` check dead cua people 
-					deadGame();
-				}
-
-				people.setScore(level);
-
+				
+				/*people.setScore(level);
 				if (people.getPos().x == 19)
 				{
 					nextLevel();
 				}
-				
+				*/
 				//break;
 				
 			
 				//while (event.type != sf::Event::KeyReleased) {};
 			}
 		}
-		drawGame();
 		window.clear();
 		for (int i = 0; i < height; i++)
 		{
@@ -109,7 +111,6 @@ void CGAME::displaySFML()
 				if (map[i][j] == 0) continue;
 				sf::Texture texture;
 				switch (map[i][j]) {
-				case 1: texture.loadFromFile("image/player_front.png"); break;
 				case 3: texture.loadFromFile("image/tree.png"); break;
 				case 4:
 					if (!direction) texture.loadFromFile("image/player_right.png");
@@ -125,6 +126,8 @@ void CGAME::displaySFML()
 				window.draw(rect);
 			}
 		}
+		rectPlayer.setPosition(people.getPos().y * 32 + 16, people.getPos().x * 32 + 32);
+		window.draw(rectPlayer);
 		window.display();
 	}
 }
@@ -146,14 +149,10 @@ void CGAME::routesMove()
 			}
 			routes[i]->updateMap(map);
 		}	
-		/*GotoXY(0, 25);
-		for (int i = 0; i < height; i++)
+		if (map[people.getPos().x][people.getPos().y] >= 4)
 		{
-			for (int j = 0; j < width; j++)
-				cout << map[i][j];
-			cout << endl;
-		}*/
-		//Sleep(500);
+			deadGame();
+		}
 		//570-level*70<0 ? Sleep(1) : Sleep(570-level*70);
 		(7 - level) * 101 <= 0 ?   Sleep(1):Sleep((7 - level ) * 101);
 	}
@@ -166,12 +165,13 @@ void CGAME::nextLevel()
 	/*GotoXY(10, 0);
 	cout << level << "  speed : "<< (7 - level) * 101 <<endl;*/
 	people.showinfo();
-	people.unshow();
-	people.setPos(Pos(0, Random(0, 19)));
+	map[people.getPos().x][people.getPos().y] = 0;
+	people.setPos(Pos(0, people.getPos().y));
 	level++;
-//	Sleep(500);
+	Sleep(500);
+	init();
 	people.updateMap(map);
-	people.show();
+	
 	//displaySFML();
 
 	/*GotoXY(10, 2);
@@ -182,7 +182,7 @@ void CGAME::pauseGame()
 {
 	pause = true;
 	//menu pause game;
-	Sleep(5000);
+	//Sleep(5000);
 	pause = false;
 }
 

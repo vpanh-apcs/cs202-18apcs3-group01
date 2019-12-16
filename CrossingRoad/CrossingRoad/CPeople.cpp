@@ -17,19 +17,6 @@ void CPEOPLE::showinfo()
 	cout << "Score : " << score;
 }
 
-void CPEOPLE::show()
-{
-	GotoXY(position.y, position.x);
-	cout << "P";
-	GotoXY(position.y, position.x);
-}
-
-void CPEOPLE::unshow()
-{
-	GotoXY(position.y, position.x);
-	cout << " ";
-}
-
 void CPEOPLE::Up()
 {
 	position.x -= 1;
@@ -87,10 +74,10 @@ void CPEOPLE::move(char key, int map[20][20])
 	Pos lstPos = position;
 	switch (key)
 	{
-	case 'W':  unshow(); Up(); break;
-	case 'A':  unshow(); Left(); break;
-	case 'S':  unshow(); Down(); break;
-	case 'D':  unshow(); Right(); break;
+	case 'W':  Up(); break;
+	case 'A':  Left(); break;
+	case 'S':  Down(); break;
+	case 'D':  Right(); break;
 	}
 	//show();
 	/*GotoXY(20, 2);

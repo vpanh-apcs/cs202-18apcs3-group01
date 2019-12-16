@@ -11,8 +11,6 @@ class CPEOPLE
 	void Right();
 public:
 	CPEOPLE(Pos t);
-	void unshow();
-	void show();
 	void showinfo();
 	void updateMap(int map[20][20]);
 	void move(char key,int map[20][20]);
