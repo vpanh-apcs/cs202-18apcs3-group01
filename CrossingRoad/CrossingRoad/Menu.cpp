@@ -2,10 +2,11 @@
 
 Menu::Menu(float width, float height, vector<string> items)
 {
-	if (!font.loadFromFile("arial.ttf"))
+	if (!font.loadFromFile("futur.ttf"))
 	{
 		// handle error
 	}
+	float t = (height / (5 + 1)) + 70;
 	mChildren = items;
 	menu.resize(mChildren.size());
 
@@ -16,7 +17,7 @@ Menu::Menu(float width, float height, vector<string> items)
 		else
 			menu[i].setFillColor(sf::Color::White);
 		menu[i].setString(mChildren[i]);
-		menu[i].setPosition(sf::Vector2f(width / 2, height / (mChildren.size() + 1) * (i + 1)));
+		menu[i].setPosition(sf::Vector2f(width * 0.5f - 90, t + 50 * i));
 	}
 
 	selectedItemIndex = 0;

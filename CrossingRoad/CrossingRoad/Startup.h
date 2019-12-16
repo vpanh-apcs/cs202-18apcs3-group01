@@ -2,9 +2,14 @@
 
 class Startup
 {
+	CGAME* game = NULL;
 public:
 	Startup();
-	CGAME LoadGame();
 	void Settings();
+	CGAME* LoadGame();
+	CGAME* highScoreBoard();
+	~Startup()
+	{
+		delete game;
+	};
 };
-

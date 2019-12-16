@@ -15,6 +15,7 @@ class CGAME
 	bool stop;
 	bool pause;
 	char key = '0';
+	int highScore[5];
 	
 public:
 	//int map[10][10];
@@ -39,4 +40,11 @@ public:
 	void routesMove();
 	void displaySFML();
 	void nextLevel();
+
+	int topScore(int scr);
+	void loadHighscore();
+	void saveHighscore();
+	void infoDisplay(sf::RenderWindow& window);
+	void displayHighscore(sf::RenderWindow& window);
+	void HighscoreBoard();
 };

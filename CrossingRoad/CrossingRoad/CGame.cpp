@@ -1,5 +1,60 @@
 #include "CGame.h"
 
+void CGAME::saveGame()
+{
+	
+	time_t init = time(0);
+	struct tm currentTime;
+	localtime_s(&currentTime, &init);
+	char str[26];
+	asctime_s(str, sizeof str, &currentTime);
+	string info = string(str);
+	info.erase(info.end() - 1);
+	info = people.getName() + " " + to_string(people.getScore()) + " " + to_string(level) + " " + info;
+	string path = people.getName() + to_string(people.getScore()) + to_string(level) +
+		to_string(currentTime.tm_hour) + to_string(currentTime.tm_min) + to_string(currentTime.tm_sec) +
+		to_string(currentTime.tm_mday) + to_string(currentTime.tm_mon) + to_string(currentTime.tm_year);
+	
+	ofstream file;
+	file.open("SavedGames.txt", ios::out | ios::app);
+	file << info << endl;
+	file << path << endl;
+	file.close();
+
+	file.open(path + ".txt", ios::out | ios::app);
+	file << str;
+	people.save(file);
+	file << width << " " << height << endl;
+	file << level << endl;
+	for (int i = 0; i < height; i++)
+		routes[i]->save(file);
+	file.close();
+}
+void CGAME::loadGame(string patht)
+{
+	int inttemp;
+	ifstream file;
+	string temp;
+	string path = patht + ".txt";
+	file.open(path);
+	getline(file, temp, '\n');
+	people.load(file);
+	file >> width >> height;
+	file >> level;
+	for (int i = 0; i < height; i++)
+	{
+		file >> inttemp;
+		if (inttemp == 0)
+			routes[i] = new LeDuong(i, width);
+		else
+			routes[i] = new Duong(i, width, 0);
+		routes[i]->load(file);
+	}
+	file.close();
+}
+
+
+
 CGAME::CGAME()
 {
 };
@@ -7,6 +62,7 @@ CGAME::CGAME()
 void CGAME::init()
 {
 	GameSetting a;
+	loadHighscore();
 	height = a.getGameHeight();
 	width = a.getGameWidth();
 	for (int i = 0; i < height; i++)
@@ -75,20 +131,27 @@ void CGAME::displaySFML()
 				switch (event.key.code)
 				{
 				case sf::Keyboard::Key::P: pauseGame(); break;
-				case sf::Keyboard::Key::A: player.loadFromFile("image/player_left.png"); people.move('A', map); break;
+				case sf::Keyboard::Key::A:
+				case sf::Keyboard::Key::Left:
+					people.move('A', map); break;
 				case sf::Keyboard::Key::S:
-					player.loadFromFile("image/player_front.png");
-					people.setScore(level); people.showinfo();
+				case sf::Keyboard::Key::Down:
+					people.setScore(level); 
+					people.showinfo();
 					if (people.getPos().x == 19)
 					{
 						nextLevel();
-						Sleep(0);
+						Sleep(200);
 					}
 					else
 						people.move('S', map);
 					break;
-				case sf::Keyboard::Key::W: player.loadFromFile("image/player_behind.png"); people.move('W', map); break;
-				case sf::Keyboard::Key::D: player.loadFromFile("image/player_right.png"); people.move('D', map); break;
+				case sf::Keyboard::Key::W: 
+				case sf::Keyboard::Key::Up: 
+					people.move('W', map); break;
+				case sf::Keyboard::Key::D:
+				case sf::Keyboard::Key::Right:
+					people.move('D', map); break;
 				}
 				people.setScore(level);
 				if (map[people.getPos().x][people.getPos().y] >= 4)
@@ -103,8 +166,12 @@ void CGAME::displaySFML()
 			sf::Texture lane;
 			sf::RectangleShape rLane(sf::Vector2f(16 * width, 16));
 			int typeLane = routes[i]->getType();
-			bool direction = 0;
-			if (typeLane == 1) lane.loadFromFile("image/grass.png");
+			bool direction = 0, signal = 0;
+			if (typeLane == 1)
+			{
+				lane.loadFromFile("image/grass.png");
+				signal = routes[i]->getSignal();
+			}
 			else {
 				lane.loadFromFile("image/road.png");
 				direction = routes[i]->getDirection();
@@ -126,8 +193,8 @@ void CGAME::displaySFML()
 				{
 				case 3: texture.loadFromFile("image/tree.png"); break;
 				case 4:
-					if (!direction) texture.loadFromFile("image/player_right.png");
-					else texture.loadFromFile("image/player_left.png");
+					if (!signal) texture.loadFromFile("image/trafficlight_green.png");
+					else texture.loadFromFile("image/trafficlight_red.png");
 					break;
 				case 5:
 					if (!direction) texture.loadFromFile("image/bikeright.png");
@@ -138,12 +205,12 @@ void CGAME::displaySFML()
 					else texture.loadFromFile("image/carleft.png");
 					break;
 				case 7:
-					if (!direction) texture.loadFromFile("image/player_right.png");
-					else texture.loadFromFile("image/player_left.png");
+					if (!direction) texture.loadFromFile("image/birdright.png");
+					else texture.loadFromFile("image/birdleft.png");
 					break;
 				case 8:
-					if (!direction) texture.loadFromFile("image/player_right.png");
-					else texture.loadFromFile("image/player_left.png");
+					if (!direction) texture.loadFromFile("image/horseright.png");
+					else texture.loadFromFile("image/horseleft.png");
 					break;
 				}
 				sf::RectangleShape rect(sf::Vector2f(texture.getSize().x, texture.getSize().y));
@@ -155,8 +222,9 @@ void CGAME::displaySFML()
 				window.draw(rect);
 			}
 		}
+		if (stop == true) displayHighscore(window);
+		infoDisplay(window);
 		rectPlayer.setPosition(people.getPos().y * 32 + 16, people.getPos().x * 32 + 32);
-		rectPlayer.setTexture(&player);
 		window.draw(rectPlayer);
 		if (pause) pauseMenu.draw(window);
 		window.display();
@@ -175,8 +243,8 @@ void CGAME::routesMove()
 		{
 			if (routes[i]->getType() == 1)
 			{
-				routes[i]->move(level);
 				signal = routes[i]->getSignal();
+				routes[i]->move(level);
 			}
 			else
 				if (signal == false)
@@ -238,50 +306,134 @@ void CGAME::startGame()
 	trdRoutes.join();
 }
 
-void CGAME::saveGame()
+//highscore
+
+void CGAME::saveHighscore()
 {
-	ofstream file;
-	time_t init = time(0);
-	struct tm currentTime;
-	localtime_s(&currentTime, &init);
-	file.open("SavedGames.txt", ios::out | ios::app);
-	char str[26];
-	asctime_s(str, sizeof str, &currentTime);
-	file << str;
-	file.close();
-	string path = string(str);
-	path.erase(path.end()-1); 
-	path += ".txt";
-	file.open(path, ios::out | ios::app);
-	file << str;
-	people.save(file);
-	file << width << " " << height << endl;
-	file << level << endl;
-	for (int i = 0; i < height; i++)
-		routes[i]->save(file);
-	file.close();
-}
-void CGAME::loadGame(string patht)
-{
-	int inttemp;
-	ifstream file;
-	string temp;
-	string path = patht + ".txt";
-	file.open(path);
-	getline(file, temp, '\n');
-	people.load(file);
-	file >> width >> height;
-	file >> level;
-	for (int i = 0; i < height; i++)
+	ofstream fout;
+	fout.open("highscore.txt");
+	for (size_t i = 0; i < 5; i++)
 	{
-		file >> inttemp;
-		if (inttemp == 0)
-			routes[i] = new LeDuong(i, width);
-		else
-			routes[i] = new Duong(i, width, 0);
-		routes[i]->load(file);
+		fout << highScore[i] << endl;
 	}
-	file.close();
+	fout.close();
+}
+void CGAME::loadHighscore()
+{
+	ifstream fin;
+	fin.open("highscore.txt");
+	int x;
+	for (size_t i = 0; i < 5; i++)
+	{
+		fin >> x;
+		highScore[i]=x;
+	}
+	fin.close();
 }
 
 
+
+int CGAME::topScore(int scr)
+{
+	if (scr > highScore[4])
+	{
+		if (highScore[0] <= scr)
+		{
+			highScore[0] = scr;
+			return 1;
+		}
+		else
+		{
+			for (int i = 4; i >= 0; i--)
+			{
+				if (highScore[i] > scr)
+				{
+					highScore[i + 1] = scr;
+					return i + 2;
+				}
+			}
+		}
+	}
+	return NULL;
+}
+
+//--------------- display-----------------------------
+void CGAME::infoDisplay(sf::RenderWindow& window)
+{
+	sf::Font font;
+	sf::Text Level;
+	font.loadFromFile("futur.ttf");
+	Level.setString("LEVEL: " + to_string(level));
+	Level.setFont(font);
+	Level.setFillColor(sf::Color::White);
+	Level.scale(0.75, 0.75);
+	Level.setPosition(160.f / 3 + 640, window.getSize().y * 0.5f - 300);
+	window.draw(Level);
+	people.display(window);
+}
+void CGAME::displayHighscore(sf::RenderWindow& window)
+{
+	//vector<int> hs;
+	float t = window.getSize().y * 0.5f - 200;
+	//hs = loadHighscore();
+	sf::Font font;
+	sf::Text temp;
+	font.loadFromFile("futur.ttf");
+	temp.setString("HIGH SCORE");
+	temp.setFont(font);
+	temp.setFillColor(sf::Color::White);
+	temp.scale(0.5, 0.5);
+	temp.setPosition(160.f / 3 + 640, t + 100);
+	window.draw(temp);
+	int top = topScore(people.getScore());
+	for (int i = 0; i < 5; i++)
+	{
+		font.loadFromFile("futur.ttf");
+		temp.setString(to_string(highScore[i]));
+		temp.setFont(font);
+		temp.setFillColor(sf::Color::White);
+		temp.setPosition(160.f / 3 + 640, t + (i + 3) * 50);
+		window.draw(temp);
+	}
+
+	if (top != NULL)
+	{
+		if (top == 1)
+			temp.setString("New highest score ");
+		else
+			temp.setString("You get top " + to_string(top));
+		saveHighscore();
+	}
+	else
+	{
+		temp.setString("Try the next time");
+	}
+
+	temp.setPosition(160.f / 3 + 640 - 40, t + (5 + 3) * 50);
+	window.draw(temp);
+}
+void CGAME::HighscoreBoard()
+{
+	loadHighscore();
+	sf::RenderWindow window(sf::VideoMode(800, 640), "Crossing Road");
+	sf::Font font;
+	sf::Text temp;
+	float t = window.getSize().y * 0.5f - 200;
+	font.loadFromFile("futur.ttf");
+	temp.setString("HIGH SCORE");
+	temp.setFont(font);
+	temp.setFillColor(sf::Color::White);
+	temp.scale(0.5, 0.5);
+	temp.setPosition(160.f / 3 + 300, t + 100);
+	window.draw(temp);
+	int top = topScore(people.getScore());
+	for (int i = 0; i < 5; i++)
+	{
+		font.loadFromFile("futur.ttf");
+		temp.setString(to_string(highScore[i]));
+		temp.setFont(font);
+		temp.setFillColor(sf::Color::White);
+		temp.setPosition(160.f / 3 + 300, t + (i + 3) * 50);
+		window.draw(temp);
+	}
+}

@@ -22,4 +22,5 @@ public:
 	void setScore(int level);
 	void save(ofstream& file);
 	void load(ifstream &file);
+	void display(sf::RenderWindow& window);
 };
