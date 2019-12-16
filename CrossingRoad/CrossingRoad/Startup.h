@@ -5,4 +5,6 @@ class Startup
 public:
 	Startup();
 	CGAME LoadGame();
+	void Settings();
 };
+

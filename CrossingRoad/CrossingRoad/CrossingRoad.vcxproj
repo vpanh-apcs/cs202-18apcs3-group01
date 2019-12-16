@@ -132,6 +132,7 @@
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="ObstacleFactory.h" />
     <ClInclude Include="Route.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="Startup.h" />
     <ClInclude Include="TrafficLight.h" />
   </ItemGroup>
@@ -148,6 +149,7 @@
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="ObstacleFactory.cpp" />
     <ClCompile Include="Route.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Startup.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -75,9 +75,9 @@ void CGAME::displaySFML()
 				switch (event.key.code)
 				{
 				case sf::Keyboard::Key::P: pauseGame(); break;
-				case sf::Keyboard::Key::A: people.move('A', map); break;
+				case sf::Keyboard::Key::A: player.loadFromFile("image/player_left.png"); people.move('A', map); break;
 				case sf::Keyboard::Key::S:
-
+					player.loadFromFile("image/player_front.png");
 					people.setScore(level); people.showinfo();
 					if (people.getPos().x == 19)
 					{
@@ -87,8 +87,8 @@ void CGAME::displaySFML()
 					else
 						people.move('S', map);
 					break;
-				case sf::Keyboard::Key::W: people.move('W', map); break;
-				case sf::Keyboard::Key::D: people.move('D', map); break;
+				case sf::Keyboard::Key::W: player.loadFromFile("image/player_behind.png"); people.move('W', map); break;
+				case sf::Keyboard::Key::D: player.loadFromFile("image/player_right.png"); people.move('D', map); break;
 				}
 				people.setScore(level);
 				if (map[people.getPos().x][people.getPos().y] >= 4)
@@ -156,6 +156,7 @@ void CGAME::displaySFML()
 			}
 		}
 		rectPlayer.setPosition(people.getPos().y * 32 + 16, people.getPos().x * 32 + 32);
+		rectPlayer.setTexture(&player);
 		window.draw(rectPlayer);
 		if (pause) pauseMenu.draw(window);
 		window.display();
