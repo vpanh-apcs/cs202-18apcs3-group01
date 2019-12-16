@@ -44,8 +44,7 @@ Startup::Startup()
 						game->startGame();
 					break;
 				case 2: // High Scores
-					game = highScoreBoard();
-					if (game == NULL)
+					highScoreBoard();
 						break;
 					break;
 				case 3: // Settings
@@ -108,7 +107,7 @@ CGAME* Startup::LoadGame()
 	file.close();
 }
 
-CGAME* Startup::highScoreBoard()
+void Startup::highScoreBoard()
 {
 	string temp;
 	ifstream file;
@@ -132,15 +131,7 @@ CGAME* Startup::highScoreBoard()
 		{
 			if (event.type == sf::Event::EventType::KeyPressed &&
 				event.key.code == sf::Keyboard::Key::Enter)
-				if (loadMenu.GetPressedItem() != tempvector.size() - 1)
-				{
-					CGAME* a = new CGAME();
-					//a->HighscoreBoard();
-					window.close();
-					return a;
-				}
-				else return NULL;
-			loadMenu.moveMenu(event);
+				return;
 		}
 		window.clear();
 		loadMenu.draw(window);

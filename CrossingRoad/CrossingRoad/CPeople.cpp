@@ -6,16 +6,6 @@ CPEOPLE::CPEOPLE(Pos t)
 	position = t;
 	score = 0;
 }
-void CPEOPLE::showinfo()
-{
-	int x = 10;
-	int y = 1;
-	DrawBoard(x, y, 40, 20);
-	GotoXY(x+1, y + 3);
-	cout << "Name : " << name;
-	GotoXY(x+1, y + 6);
-	cout << "Score : " << score;
-}
 
 void CPEOPLE::Up()
 {
