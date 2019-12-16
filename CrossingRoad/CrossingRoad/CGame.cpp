@@ -90,7 +90,7 @@ void CGAME::displaySFML()
 				//break;
 				if (map[people.getPos().x][people.getPos().y] >= 4)
 				{
-					//deadGame();
+					deadGame();
 				}
 			
 				//while (event.type != sf::Event::KeyReleased) {};
@@ -166,29 +166,21 @@ void CGAME::routesMove()
 		while (pause) {}
 		for (int i = 0; i < height; i++)
 		{
-<<<<<<< HEAD
-			if ((routes[i]->getType() == 1) || (routes[i]->getType() == 2) && (signal == false))
-			{
-				routes[i]->move(level);
-=======
 			if (routes[i]->getType() == 1)
->>>>>>> 409de0c4af819af24d3568fa7ae57da6cbedd4ea
+
 				signal = routes[i]->getSignal();
 			else
 				if (signal == false)
-					routes[i]->move();
+					routes[i]->move(level);
 			routes[i]->updateMap(map);
 		}	
 		if (map[people.getPos().x][people.getPos().y] >= 4)
 		{
-			//deadGame();
+			deadGame();
 		}
 		//570-level*70<0 ? Sleep(1) : Sleep(570-level*70);
-<<<<<<< HEAD
+
 		(7 - level) * 101 <= 0 ?   Sleep(101):Sleep((7 - level ) * 101);
-=======
-		(7 - level) * 101 <= 0 ?  Sleep(101) : Sleep((7 - level ) * 101);
->>>>>>> 409de0c4af819af24d3568fa7ae57da6cbedd4ea
 	}
 };
 

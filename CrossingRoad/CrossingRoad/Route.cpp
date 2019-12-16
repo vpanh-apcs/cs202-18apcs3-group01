@@ -101,15 +101,9 @@ void Duong::init(int level)
 		}
 	}
 }
-<<<<<<< HEAD
 void Duong::move(int level)
-{	
-	if ((queue == 0)&&(obstacles.size()<level + int(level/1.25)))
-=======
-void Duong::move()
 {
-	if ((queue == 0)/*&&(obstacles.size()<5)*/)
->>>>>>> 409de0c4af819af24d3568fa7ae57da6cbedd4ea
+	if ((queue == 0) && (obstacles.size() < level + int(level / 1.25)))
 	{
 		obstacles.push_back(ObstacleFactory::getRandomMovingObstacle(Pos(index, direction == 0 ? -1 : length), direction));
 		//queue = Random(1, int(sqrt(level*Random(1,3))));
