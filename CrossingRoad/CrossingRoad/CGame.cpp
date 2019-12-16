@@ -156,7 +156,6 @@ void CGAME::displaySFML()
 				if (map[people.getPos().x][people.getPos().y] >= 4)
 				{
 					deadGame();
-					window.close();
 				}
 			}
 		}
