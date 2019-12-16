@@ -32,8 +32,6 @@ void Obstacle::save(ofstream& file)
 void Obstacle::load(ifstream& file)
 {
 	//file.open("Obstacle.txt");
-	if (file.fail())
-		return;
 	file >> position.x >> position.y >> direction >> hitbox;
 	//file.close();
 }

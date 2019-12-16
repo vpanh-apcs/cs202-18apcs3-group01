@@ -128,6 +128,7 @@
     <ClInclude Include="CPeople.h" />
     <ClInclude Include="GameSetting.h" />
     <ClInclude Include="Helper.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="ObstacleFactory.h" />
     <ClInclude Include="Route.h" />
@@ -143,6 +144,7 @@
     <ClCompile Include="GameSetting.cpp" />
     <ClCompile Include="Helper.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="ObstacleFactory.cpp" />
     <ClCompile Include="Route.cpp" />

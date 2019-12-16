@@ -1,8 +1,4 @@
-#include "Helper.h"
-#include <SFML/Graphics.hpp>
-#include <windows.h>
-#include <limits>
-
+#include "Menu.h"
 class GameSetting
 {
 	static int GameWidth;

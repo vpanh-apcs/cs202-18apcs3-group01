@@ -10,6 +10,8 @@
 #include <conio.h>
 #include <math.h>
 #include <iomanip>
+#include <SFML/Graphics.hpp>
+#include <limits>
 using namespace std;
 
 const int unitsize = 4;

@@ -1,5 +1,4 @@
 ﻿#include "Route.h"
-
 class CGAME 
 {
 	//CTRUCK* axt;
