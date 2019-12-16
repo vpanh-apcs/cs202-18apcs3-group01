@@ -33,7 +33,44 @@ void CGAME::init()
 	}
 	GotoXY(0, 0);
 }
+//--------------- display-----------------------------
+void CGAME::levelDisplay(sf::RenderWindow& window)
+{
+	sf::Font font;
+	sf::Text Level;
+	font.loadFromFile("futur.ttf");
+	Level.setString("LEVEL: " + to_string(level));
+	Level.setFont(font);
+	Level.setFillColor(sf::Color::White);
+	Level.scale(0.75, 0.75);
+	Level.setPosition(160.f / 3 + 640, window.getSize().y * 0.5f - 50);
+	window.draw(Level);
+}
+void CGAME::displayHighscore(sf::RenderWindow& window)
+{
+	vector<int> hs;
+	float t = window.getSize().y * 0.5f - 50;
+	hs = loadHighscore();
+	sf::Font font;
+	sf::Text temp;
+	font.loadFromFile("futur.ttf");
+	temp.setString("HIGH SCORE");
+	temp.setFont(font);
+	temp.setFillColor(sf::Color::White);
+	temp.scale(0.5, 0.5);
+	temp.setPosition(160.f / 3 + 640, t + 100);
+	window.draw(temp);
 
+	for (int i = 0; i < hs.size(); i++)
+	{
+		font.loadFromFile("futur.ttf");
+		temp.setString(to_string(hs[i]));
+		temp.setFont(font);
+		temp.setFillColor(sf::Color::White);
+		temp.setPosition(160.f / 3 + 640, t + (i + 3) * 50);
+		window.draw(temp);
+	}
+}
 void CGAME::displaySFML()
 {
 	Menu pauseMenu = Menu(640, 640, { "Resume","Save Game", "Main Menu" });
@@ -155,6 +192,9 @@ void CGAME::displaySFML()
 				window.draw(rect);
 			}
 		}
+		if (stop == true) displayHighscore(window);
+		levelDisplay(window);
+		people.displayScore(window);
 		rectPlayer.setPosition(people.getPos().y * 32 + 16, people.getPos().x * 32 + 32);
 		window.draw(rectPlayer);
 		if (pause) pauseMenu.draw(window);
@@ -169,14 +209,12 @@ void CGAME::routesMove()
 	bool signal = false;
 	while (!stop)
 	{
-		while ((pause)&&(!stop)) {}
+		while (pause) {}
 		for (int i = 0; i < height; i++)
 		{
 			if (routes[i]->getType() == 1)
-			{
-				routes[i]->move(level);
+
 				signal = routes[i]->getSignal();
-			}
 			else
 				if (signal == false)
 					routes[i]->move(level);
@@ -243,15 +281,10 @@ void CGAME::saveGame()
 	time_t init = time(0);
 	struct tm currentTime;
 	localtime_s(&currentTime, &init);
-	file.open("SavedGames.txt", ios::out | ios::app);
+	string path = "temp.txt";
+	file.open(path, ios::out | ios::app);
 	char str[26];
 	asctime_s(str, sizeof str, &currentTime);
-	file << str;
-	file.close();
-	string path = string(str);
-	path.erase(path.end()-1); 
-	path += ".txt";
-	file.open(path, ios::out | ios::app);
 	file << str;
 	people.save(file);
 	file << width << " " << height << endl;
@@ -260,12 +293,12 @@ void CGAME::saveGame()
 		routes[i]->save(file);
 	file.close();
 }
-void CGAME::loadGame(string patht)
+void CGAME::loadGame()
 {
 	int inttemp;
 	ifstream file;
 	string temp;
-	string path = patht + ".txt";
+	string path = "temp.txt";
 	file.open(path);
 	getline(file, temp, '\n');
 	people.load(file);
@@ -281,6 +314,20 @@ void CGAME::loadGame(string patht)
 		routes[i]->load(file);
 	}
 	file.close();
+}
+vector<int>CGAME::loadHighscore()
+{
+	ifstream fin;
+	fin.open("highscore.txt");
+	int x;
+	vector<int>list;
+	for (size_t i = 0; i < 5; i++)
+	{
+		fin >> x;
+		list.push_back(x);
+	}
+	fin.close();
+	return list;
 }
 
 
