@@ -1,5 +1,60 @@
 #include "CGame.h"
 
+void CGAME::saveGame()
+{
+	
+	time_t init = time(0);
+	struct tm currentTime;
+	localtime_s(&currentTime, &init);
+	char str[26];
+	asctime_s(str, sizeof str, &currentTime);
+	string info = string(str);
+	info.erase(info.end() - 1);
+	info = people.getName() + " " + to_string(people.getScore()) + " " + to_string(level) + " " + info;
+	string path = people.getName() + to_string(people.getScore()) + to_string(level) +
+		to_string(currentTime.tm_hour) + to_string(currentTime.tm_min) + to_string(currentTime.tm_sec) +
+		to_string(currentTime.tm_mday) + to_string(currentTime.tm_mon) + to_string(currentTime.tm_year);
+	
+	ofstream file;
+	file.open("SavedGames.txt", ios::out | ios::app);
+	file << info << endl;
+	file << path << endl;
+	file.close();
+
+	file.open(path + ".txt", ios::out | ios::app);
+	file << str;
+	people.save(file);
+	file << width << " " << height << endl;
+	file << level << endl;
+	for (int i = 0; i < height; i++)
+		routes[i]->save(file);
+	file.close();
+}
+void CGAME::loadGame(string patht)
+{
+	int inttemp;
+	ifstream file;
+	string temp;
+	string path = patht + ".txt";
+	file.open(path);
+	getline(file, temp, '\n');
+	people.load(file);
+	file >> width >> height;
+	file >> level;
+	for (int i = 0; i < height; i++)
+	{
+		file >> inttemp;
+		if (inttemp == 0)
+			routes[i] = new LeDuong(i, width);
+		else
+			routes[i] = new Duong(i, width, 0);
+		routes[i]->load(file);
+	}
+	file.close();
+}
+
+
+
 CGAME::CGAME()
 {
 };
@@ -36,7 +91,6 @@ void CGAME::init()
 //--------------- display-----------------------------
 void CGAME::levelDisplay(sf::RenderWindow& window)
 {
-
 	sf::Font font;
 	sf::Text Level;
 	font.loadFromFile("futur.ttf");
@@ -74,8 +128,7 @@ void CGAME::displayHighscore(sf::RenderWindow& window)
 }
 void CGAME::displaySFML()
 {
-	Menu pauseMenu = Menu(640, 640, { "Resume","Save Game", "Main Menu" }); 
-	TrafficLight a;
+	Menu pauseMenu = Menu(640, 640, { "Resume","Save Game", "Main Menu" });
 	sf::Texture player;
 	player.loadFromFile("image/player_front.png");
 	sf::RectangleShape rectPlayer(sf::Vector2f(player.getSize().x, player.getSize().y));
@@ -165,10 +218,8 @@ void CGAME::displaySFML()
 				{
 				case 3: texture.loadFromFile("image/tree.png"); break;
 				case 4:
-					a.adjustSignal();
-					a.changeSignal();
-					if (a.getSignal()) texture.loadFromFile("image/trafficlight_green.png");
-					else texture.loadFromFile("image/trafficlight_red.png");
+					if (!direction) texture.loadFromFile("image/player_right.png");
+					else texture.loadFromFile("image/player_left.png");
 					break;
 				case 5:
 					if (!direction) texture.loadFromFile("image/bikeright.png");
@@ -179,14 +230,13 @@ void CGAME::displaySFML()
 					else texture.loadFromFile("image/carleft.png");
 					break;
 				case 7:
-					if (!direction) texture.loadFromFile("image/birdright.png");
-					else texture.loadFromFile("image/birdleft.png");
+					if (!direction) texture.loadFromFile("image/player_right.png");
+					else texture.loadFromFile("image/player_left.png");
 					break;
 				case 8:
-					if (!direction) texture.loadFromFile("image/horseright.png");
-					else texture.loadFromFile("image/horseleft.png");
+					if (!direction) texture.loadFromFile("image/player_right.png");
+					else texture.loadFromFile("image/player_left.png");
 					break;
-					
 				}
 				sf::RectangleShape rect(sf::Vector2f(texture.getSize().x, texture.getSize().y));
 				rect.setTextureRect(sf::IntRect(0, 0, texture.getSize().x, texture.getSize().y));
@@ -214,7 +264,7 @@ void CGAME::routesMove()
 	bool signal = false;
 	while (!stop)
 	{
-		while (pause) {}
+		while ((pause)&&(!stop)) {}
 		for (int i = 0; i < height; i++)
 		{
 			if (routes[i]->getType() == 1)
@@ -280,46 +330,6 @@ void CGAME::startGame()
 	trdRoutes.join();
 }
 
-void CGAME::saveGame()
-{
-	ofstream file;
-	time_t init = time(0);
-	struct tm currentTime;
-	localtime_s(&currentTime, &init);
-	string path = "temp.txt";
-	file.open(path, ios::out | ios::app);
-	char str[26];
-	asctime_s(str, sizeof str, &currentTime);
-	file << str;
-	people.save(file);
-	file << width << " " << height << endl;
-	file << level << endl;
-	for (int i = 0; i < height; i++)
-		routes[i]->save(file);
-	file.close();
-}
-void CGAME::loadGame()
-{
-	int inttemp;
-	ifstream file;
-	string temp;
-	string path = "temp.txt";
-	file.open(path);
-	getline(file, temp, '\n');
-	people.load(file);
-	file >> width >> height;
-	file >> level;
-	for (int i = 0; i < height; i++)
-	{
-		file >> inttemp;
-		if (inttemp == 0)
-			routes[i] = new LeDuong(i, width);
-		else
-			routes[i] = new Duong(i, width, 0);
-		routes[i]->load(file);
-	}
-	file.close();
-}
 vector<int>CGAME::loadHighscore()
 {
 	ifstream fin;
@@ -334,5 +344,4 @@ vector<int>CGAME::loadHighscore()
 	fin.close();
 	return list;
 }
-
 
