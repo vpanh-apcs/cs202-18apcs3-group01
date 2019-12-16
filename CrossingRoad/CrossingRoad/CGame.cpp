@@ -20,7 +20,7 @@ void CGAME::init()
 		if (queue == 0)
 		{
 			routes[i] = new LeDuong(i,width);
-			routes[i]->init();
+			routes[i]->init(level);
 			direction = Random(0, 1);
 			queue = Random(2, 3);
 		}
@@ -28,7 +28,7 @@ void CGAME::init()
 		{
 			queue--;
 			routes[i] = new Duong(i,width,direction);
-			routes[i]->init();
+			routes[i]->init(level);
 		}
 	}
 	GotoXY(0, 0);
@@ -43,7 +43,7 @@ void CGAME::displaySFML()
 	rectPlayer.setScale(2.0f, 2.0f);
 	rectPlayer.setTexture(&player);
 	rectPlayer.setOrigin(player.getSize().x * 0.5f, player.getSize().y);
-	sf::RenderWindow window(sf::VideoMode(640, 640), "Crossing Road");
+	sf::RenderWindow window(sf::VideoMode(800, 640), "Crossing Road");
 	while (window.isOpen()) 
 	{
 		//updateLevel();
@@ -77,13 +77,14 @@ void CGAME::displaySFML()
 					people.show();*/
 				/*GotoXY(10, 10);
 				cout << people.getPos().x;*/
+				people.setScore(level);
+				//sf::Font font;
+				//sf::String name(people.getName());
+
+				//name.setPosition(60, 10);
 				
-				/*people.setScore(level);
-				if (people.getPos().x == 19)
-				{
-					nextLevel();
-				}
-				*/
+				
+				
 				//break;
 				
 			
@@ -144,17 +145,17 @@ void CGAME::routesMove()
 		{
 			if ((routes[i]->getType() == 1) || (routes[i]->getType() == 2) && (signal == false))
 			{
-				routes[i]->move();
+				routes[i]->move(level);
 				signal = routes[i]->getSignal();
 			}
 			routes[i]->updateMap(map);
 		}	
 		if (map[people.getPos().x][people.getPos().y] >= 4)
 		{
-			deadGame();
+			//deadGame();
 		}
 		//570-level*70<0 ? Sleep(1) : Sleep(570-level*70);
-		(7 - level) * 101 <= 0 ?   Sleep(1):Sleep((7 - level ) * 101);
+		(7 - level) * 101 <= 0 ?   Sleep(101):Sleep((7 - level ) * 101);
 	}
 };
 
@@ -167,8 +168,12 @@ void CGAME::nextLevel()
 	people.showinfo();
 	map[people.getPos().x][people.getPos().y] = 0;
 	people.setPos(Pos(0, people.getPos().y));
+	for (size_t i = 0; i < 20; i++)
+	{
+		routes[i]->~Route();
+	}
 	level++;
-	Sleep(500);
+	//Sleep(500);
 	init();
 	people.updateMap(map);
 	

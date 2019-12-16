@@ -6,7 +6,7 @@ LeDuong::LeDuong(int indext, int lengtht)
 	index = indext;
 	length = lengtht;
 }
-void LeDuong::init()
+void LeDuong::init(int level)
 {
 	for (int i = 0; i < length; i++)
 	{
@@ -70,11 +70,11 @@ Duong::Duong(int indext, int lengtht, bool directiont)
 	length = lengtht;
 	direction = directiont;
 }
-void Duong::init()
+void Duong::init(int level)
 {
 	for (int i = 0; i < length; i++)
 	{
-		if ((queue == 0) && (obstacles.size() < 5))
+		if ((queue == 0) && (obstacles.size() < level+int(level/1.25)))
 		{
 			obstacles.push_back(ObstacleFactory::getRandomMovingObstacle(Pos(index, direction == 0 ? -1 : length), direction));
 			queue = Random(1, 10);
@@ -86,11 +86,12 @@ void Duong::init()
 		}
 	}
 }
-void Duong::move()
-{
-	if ((queue == 0)&&(obstacles.size()<5))
+void Duong::move(int level)
+{	
+	if ((queue == 0)&&(obstacles.size()<level + int(level/1.25)))
 	{
 		obstacles.push_back(ObstacleFactory::getRandomMovingObstacle(Pos(index, direction == 0 ? -1 : length), direction));
+		//queue = Random(1, int(sqrt(level*Random(1,3))));
 		queue = Random(1, 10);
 	}
 	if (queue > 0) queue--;
@@ -100,7 +101,9 @@ void Duong::move()
 		obstacles[i]->move();
 		if ((obstacles[i]->getPos().y >= length) || (obstacles[i]->getPos().y < 0))
 		{
-			//delete obstacles[i];
+			Obstacle* temp = obstacles[i];
+			delete temp;
+			//obstacles[i]->~Obstacle();
 			obstacles.erase(obstacles.begin());
 		}
 		//else
@@ -134,4 +137,20 @@ void Duong::load(ifstream& file)
 		file >> type >> x >> y;
 		obstacles[i] = ObstacleFactory::getMovingObstacle(type, Pos(x, y), direction);
 	}
+}
+Duong::~Duong()
+{
+	for (int i = obstacles.size() - 1; i >= 0; i--)
+	{
+		delete obstacles[i];
+	}
+	obstacles.clear();
+}
+LeDuong::~LeDuong()
+{
+	for (int i = trees.size() - 1; i >= 0; i--)
+	{
+		delete trees[i];
+	}
+	trees.clear();
 }

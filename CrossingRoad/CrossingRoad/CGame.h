@@ -39,7 +39,7 @@ public:
 	//void updatePosAnimal();//Thực hiện cho CDINAUSOR & CBIRD di chuyển
 	void routesMove();
 	void displaySFML();
-	void updateLevel();
 	void nextLevel();
+	int getLevel() { return level; }
 	void test();
 };
