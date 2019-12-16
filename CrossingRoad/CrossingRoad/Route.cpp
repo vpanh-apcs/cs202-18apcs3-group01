@@ -10,7 +10,7 @@ void LeDuong::init(int level)
 {
 	for (int i = 0; i < length; i++)
 	{
-		if ((queue == 5) && (TF == false))
+		if ((Random(35, 71)==71) && (TF == false))
 		{
 			trafficlight = TrafficLight(Pos(index, -1), 4);
 			TF = true;
@@ -47,6 +47,11 @@ void LeDuong::updateMap(int map[10][20])
 void LeDuong::save(ofstream& file)
 {
 	file << 0 << " " << trees.size() << endl;
+	file << TF << endl;
+	if (TF)
+	{
+		trafficlight.save(file);
+	}
 	for (int i = 0; i < trees.size(); i++)
 	{
 		trees[i]->save(file);
@@ -57,6 +62,16 @@ void LeDuong::load(ifstream& file)
 	int size, x, y, type;
 	file >> size;
 	trees.resize(size);
+	file >> TF;
+	if (TF)
+	{
+		bool signal;
+		int rate;
+		file >> x >> y >> signal >> rate;
+		trafficlight = TrafficLight(Pos(x,y), rate);
+		if (trafficlight.getSignal() != signal)
+			trafficlight.changeSignal();
+	}
 	for (int i = 0; i < trees.size(); i++)
 	{
 		file >> type >> x >> y;
@@ -86,9 +101,15 @@ void Duong::init(int level)
 		}
 	}
 }
+<<<<<<< HEAD
 void Duong::move(int level)
 {	
 	if ((queue == 0)&&(obstacles.size()<level + int(level/1.25)))
+=======
+void Duong::move()
+{
+	if ((queue == 0)/*&&(obstacles.size()<5)*/)
+>>>>>>> 409de0c4af819af24d3568fa7ae57da6cbedd4ea
 	{
 		obstacles.push_back(ObstacleFactory::getRandomMovingObstacle(Pos(index, direction == 0 ? -1 : length), direction));
 		//queue = Random(1, int(sqrt(level*Random(1,3))));
@@ -105,6 +126,7 @@ void Duong::move(int level)
 			delete temp;
 			//obstacles[i]->~Obstacle();
 			obstacles.erase(obstacles.begin());
+			i--;
 		}
 		//else
 			//obstacles[i]->show();
@@ -113,10 +135,10 @@ void Duong::move(int level)
 void Duong::updateMap(int map[10][20])
 {
 	for (int i = 0; i < length; i++)
-		map[index][i] = map[index][i]==1 ? 1 : 0;
+		map[index][i] = map[index][i] == 1 ? 1 : 0;
 	for (int i = 0; i < obstacles.size(); i++)
 	{
-		map[index][obstacles[i]->getPos().y] = 4;
+		map[index][obstacles[i]->getPos().y] = obstacles[i]->getType();
 	}
 }
 void Duong::save(ofstream& file)
