@@ -105,3 +105,28 @@ void CPEOPLE::load(ifstream &file)
 	file >> position.x >> position.y;
 	file >> score;
 }
+void CPEOPLE::displayScore(sf::RenderWindow& window)
+{
+	sf::Vector2f wSize(window.getSize());
+
+	sf::Text pName;
+	sf::Text Score;
+	sf::Font font;
+
+	font.loadFromFile("futur.ttf");
+	pName.setFont(font);
+	pName.setScale(0.5, 0.5);
+	pName.setFillColor(sf::Color::White);
+
+	Score.setFont(font);
+	Score.setScale(0.5, 0.5);
+	Score.setFillColor(sf::Color::White);
+
+	Score.setString("Score: " + to_string(score));
+	pName.setString(name);
+
+	pName.setPosition(160.f / 3 + 640, wSize.y * 0.5f);
+	Score.setPosition(160.f / 3 + 640, wSize.y * 0.5f + 30);
+	window.draw(pName);
+	window.draw(Score);
+}
