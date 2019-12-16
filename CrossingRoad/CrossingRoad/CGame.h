@@ -40,6 +40,4 @@ public:
 	void routesMove();
 	void displaySFML();
 	void nextLevel();
-	int getLevel() { return level; }
-	void test();
 };

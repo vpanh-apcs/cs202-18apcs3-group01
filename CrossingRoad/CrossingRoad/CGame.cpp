@@ -1,9 +1,9 @@
 #include "CGame.h"
 
 CGAME::CGAME()
-{	
+{
 };
- 
+
 void CGAME::init()
 {
 	GameSetting a;
@@ -19,7 +19,7 @@ void CGAME::init()
 	{
 		if (queue == 0)
 		{
-			routes[i] = new LeDuong(i,width);
+			routes[i] = new LeDuong(i, width);
 			routes[i]->init(level);
 			direction = Random(0, 1);
 			queue = Random(2, 3);
@@ -27,14 +27,14 @@ void CGAME::init()
 		else
 		{
 			queue--;
-			routes[i] = new Duong(i,width,direction);
+			routes[i] = new Duong(i, width, direction);
 			routes[i]->init(level);
 		}
 	}
 	GotoXY(0, 0);
 }
 
-void CGAME::displaySFML() 
+void CGAME::displaySFML()
 {
 	sf::Texture player;
 	player.loadFromFile("image/player_front.png");
@@ -44,39 +44,39 @@ void CGAME::displaySFML()
 	rectPlayer.setTexture(&player);
 	rectPlayer.setOrigin(player.getSize().x * 0.5f, player.getSize().y);
 	sf::RenderWindow window(sf::VideoMode(800, 640), "Crossing Road");
-	while (window.isOpen()) 
+	while (window.isOpen())
 	{
 		//updateLevel();
 		sf::Event event;
-		while (window.pollEvent(event)) 
+		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::EventType::Closed)
 			{
 				window.close();
 				stop = true;
 			}
-			if ((event.type == sf::Event::KeyPressed)&&(!stop)&&(!pause)) 
+			if ((event.type == sf::Event::KeyPressed) && (!stop) && (!pause))
 			{
 				switch (event.key.code)
 				{
 				case sf::Keyboard::Key::P: pauseGame(); break;
 				case sf::Keyboard::Key::A: people.move('A', map); break;
 				case sf::Keyboard::Key::S:
-					
-					people.setScore(level);people.showinfo();
+
+					people.setScore(level); people.showinfo();
 					if (people.getPos().x == 19)
 					{
 						nextLevel();
 						Sleep(0);
 					}
 					else
-						people.move('S', map); 
+						people.move('S', map);
 					break;
 				case sf::Keyboard::Key::W: people.move('W', map); break;
 				case sf::Keyboard::Key::D: people.move('D', map); break;
 				}
-					/*people.move(char(event.key.code), map);
-					people.show();*/
+				/*people.move(char(event.key.code), map);
+				people.show();*/
 				/*GotoXY(10, 10);
 				cout << people.getPos().x;*/
 				people.setScore(level);
@@ -84,15 +84,15 @@ void CGAME::displaySFML()
 				//sf::String name(people.getName());
 
 				//name.setPosition(60, 10);
-				
-				
-				
+
+
+
 				//break;
 				if (map[people.getPos().x][people.getPos().y] >= 4)
 				{
 					deadGame();
 				}
-			
+
 				//while (event.type != sf::Event::KeyReleased) {};
 			}
 		}
@@ -113,11 +113,11 @@ void CGAME::displaySFML()
 			rLane.setPosition(0, i * 32);
 			rLane.setScale(2.0f, 2.0f);
 			window.draw(rLane);
-			for (int j = 0; j < width; j++) 
+			for (int j = 0; j < width; j++)
 			{
 				if (map[i][j] == 0) continue;
 				sf::Texture texture;
-				switch (map[i][j]) 
+				switch (map[i][j])
 				{
 				case 3: texture.loadFromFile("image/tree.png"); break;
 				case 4:
@@ -157,7 +157,7 @@ void CGAME::displaySFML()
 }
 
 void CGAME::routesMove()
-{	
+{
 	for (int i = 0; i < height; i++)
 		routes[i]->updateMap(map);
 	bool signal = false;
@@ -173,14 +173,14 @@ void CGAME::routesMove()
 				if (signal == false)
 					routes[i]->move(level);
 			routes[i]->updateMap(map);
-		}	
+		}
 		if (map[people.getPos().x][people.getPos().y] >= 4)
 		{
 			deadGame();
 		}
 		//570-level*70<0 ? Sleep(1) : Sleep(570-level*70);
 
-		(7 - level) * 101 <= 0 ?   Sleep(101):Sleep((7 - level ) * 101);
+		(7 - level) * 101 <= 0 ? Sleep(101) : Sleep((7 - level) * 101);
 	}
 };
 
@@ -201,7 +201,7 @@ void CGAME::nextLevel()
 	//Sleep(500);
 	init();
 	people.updateMap(map);
-	
+
 	//displaySFML();
 
 	/*GotoXY(10, 2);
@@ -240,7 +240,7 @@ void CGAME::saveGame()
 	struct tm currentTime;
 	localtime_s(&currentTime, &init);
 	string path = "temp.txt";
-	file.open(path, ios::out|ios::app);
+	file.open(path, ios::out | ios::app);
 	char str[26];
 	asctime_s(str, sizeof str, &currentTime);
 	file << str;
@@ -266,16 +266,12 @@ void CGAME::loadGame()
 	{
 		file >> inttemp;
 		if (inttemp == 0)
-			routes[i] = new LeDuong(i,width);
+			routes[i] = new LeDuong(i, width);
 		else
-			routes[i] = new Duong(i,width,0);
+			routes[i] = new Duong(i, width, 0);
 		routes[i]->load(file);
 	}
 	file.close();
 }
 
 
-void CGAME::test()
-{
-
-}
