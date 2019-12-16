@@ -169,12 +169,14 @@ void CGAME::routesMove()
 	bool signal = false;
 	while (!stop)
 	{
-		while (pause) {}
+		while ((pause)&&(!stop)) {}
 		for (int i = 0; i < height; i++)
 		{
 			if (routes[i]->getType() == 1)
-
+			{
+				routes[i]->move(level);
 				signal = routes[i]->getSignal();
+			}
 			else
 				if (signal == false)
 					routes[i]->move(level);
@@ -241,10 +243,15 @@ void CGAME::saveGame()
 	time_t init = time(0);
 	struct tm currentTime;
 	localtime_s(&currentTime, &init);
-	string path = "temp.txt";
-	file.open(path, ios::out | ios::app);
+	file.open("SavedGames.txt", ios::out | ios::app);
 	char str[26];
 	asctime_s(str, sizeof str, &currentTime);
+	file << str;
+	file.close();
+	string path = string(str);
+	path.erase(path.end()-1); 
+	path += ".txt";
+	file.open(path, ios::out | ios::app);
 	file << str;
 	people.save(file);
 	file << width << " " << height << endl;
@@ -253,12 +260,12 @@ void CGAME::saveGame()
 		routes[i]->save(file);
 	file.close();
 }
-void CGAME::loadGame()
+void CGAME::loadGame(string patht)
 {
 	int inttemp;
 	ifstream file;
 	string temp;
-	string path = "temp.txt";
+	string path = patht + ".txt";
 	file.open(path);
 	getline(file, temp, '\n');
 	people.load(file);

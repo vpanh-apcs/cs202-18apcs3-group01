@@ -4,4 +4,5 @@ class Startup
 {
 public:
 	Startup();
+	CGAME LoadGame();
 };
