@@ -1,0 +1,22 @@
+﻿  CGame.cpp
+  CPeople.cpp
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Helper.h(13,10): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  GameSetting.cpp
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Helper.h(13,10): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  Helper.cpp
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Helper.h(13,10): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  Main.cpp
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Helper.h(13,10): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  Menu.cpp
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Helper.h(13,10): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  Obstacle.cpp
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Helper.h(13,10): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  ObstacleFactory.cpp
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Helper.h(13,10): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  Route.cpp
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Helper.h(13,10): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  Sound.cpp
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Helper.h(13,10): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+  Startup.cpp
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Sound.cpp(13,10): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Helper.h(13,10): fatal error C1083: Cannot open include file: 'SFML/Graphics.hpp': No such file or directory

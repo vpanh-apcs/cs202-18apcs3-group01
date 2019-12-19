@@ -11,7 +11,7 @@ Startup::Startup()
 	MusicPlayer::sInstance->play(Music::MissionTheme);
 	sf::RenderWindow window(sf::VideoMode(640, 640), "Crossing Road");
 	window.setMouseCursorVisible(false);
-	Menu mainMenu = Menu(640, 640, { "New Game","Load Game","high Scores","Settings","Quit" });
+	Menu mainMenu = Menu(640, 640, { "New Game","Load Game","High Scores","Settings","Quit" });
 	sf::Texture background;
 
 	background.loadFromFile("image/background.png");
@@ -86,8 +86,8 @@ CGAME* Startup::LoadGame()
 	tempvector.pop_back();
 	paths.pop_back();
 	tempvector.push_back("Exit");
-	Menu loadMenu = Menu(640, 640, tempvector);
-	sf::RenderWindow window(sf::VideoMode(640, 640), "Crossing Road");
+	Menu loadMenu = Menu(250, 640, tempvector);
+	sf::RenderWindow window(sf::VideoMode(800, 640), "Crossing Road");
 	window.setMouseCursorVisible(false);
 	while (window.isOpen())
 	{
@@ -126,7 +126,6 @@ void Startup::highScoreBoard()
 		tempvector.push_back(temp);
 	}
 	//tempvector.pop_back();
-	tempvector.push_back("Exit");
 	Menu loadMenu = Menu(640, 640, tempvector);
 	sf::RenderWindow window(sf::VideoMode(640, 640), "Crossing Road");
 	window.setMouseCursorVisible(false);

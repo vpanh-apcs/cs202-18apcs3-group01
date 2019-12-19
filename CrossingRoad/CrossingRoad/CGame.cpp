@@ -133,23 +133,27 @@ void CGAME::displaySFML()
 				case sf::Keyboard::Key::P: pauseGame(); break;
 				case sf::Keyboard::Key::A:
 				case sf::Keyboard::Key::Left:
+					player.loadFromFile("image/player_left.png");
 					people.move('A', map); break;
 				case sf::Keyboard::Key::S:
 				case sf::Keyboard::Key::Down:
+					player.loadFromFile("image/player_front.png");
 					people.setScore(level); 
 					if (people.getPos().x == 19)
 					{
 						nextLevel();
-						Sleep(200);
+						Sleep(0);
 					}
 					else
 						people.move('S', map);
 					break;
 				case sf::Keyboard::Key::W: 
 				case sf::Keyboard::Key::Up: 
+					player.loadFromFile("image/player_behind.png");
 					people.move('W', map); break;
 				case sf::Keyboard::Key::D:
 				case sf::Keyboard::Key::Right:
+					player.loadFromFile("image/player_right.png");
 					people.move('D', map); break;
 				}
 				people.setScore(level);
@@ -204,13 +208,25 @@ void CGAME::displaySFML()
 					else texture.loadFromFile("image/carleft.png");
 					break;
 				case 7:
-					if (!direction) texture.loadFromFile("image/birdright.png");
-					else texture.loadFromFile("image/birdleft.png");
+					if (j % 2 == 0) {
+						if (!direction) texture.loadFromFile("image/birdrightup.png");
+						else texture.loadFromFile("image/birdleftup.png");
+					}
+					else
+						if (!direction) texture.loadFromFile("image/birdrightdown.png");
+						else texture.loadFromFile("image/birdleftdown.png");
 					break;
+
 				case 8:
-					if (!direction) texture.loadFromFile("image/horseright.png");
-					else texture.loadFromFile("image/horseleft.png");
+					if (j % 2 == 0) {
+						if (!direction) texture.loadFromFile("image/horserightdown.png");
+						else texture.loadFromFile("image/horseleftdown.png");
+					}
+					else if (!direction) texture.loadFromFile("image/horserightup.png");
+					else texture.loadFromFile("image/horseleftup.png");
+
 					break;
+
 				}
 				sf::RectangleShape rect(sf::Vector2f(texture.getSize().x, texture.getSize().y));
 				rect.setTextureRect(sf::IntRect(0, 0, texture.getSize().x, texture.getSize().y));
@@ -221,11 +237,12 @@ void CGAME::displaySFML()
 				window.draw(rect);
 			}
 		}
-		if (stop == true) displayHighscore(window);
 		infoDisplay(window);
 		rectPlayer.setPosition(people.getPos().y * 32 + 16, people.getPos().x * 32 + 32);
+		rectPlayer.setTexture(&player);
 		window.draw(rectPlayer);
 		if (pause) pauseMenu.draw(window);
+		if (stop) window.close();
 		window.display();
 	}
 }
@@ -291,7 +308,52 @@ void CGAME::pauseGame()
 
 void CGAME::deadGame()
 {
-	stop = true;
+	pause = !pause;
+	Menu deadMenu = Menu(640, 640, {"Restart","Exit"});
+	sf::RenderWindow window(sf::VideoMode(640, 640), "Crossing Road");
+	window.setMouseCursorVisible(false);
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::EventType::KeyPressed &&
+				event.key.code == sf::Keyboard::Key::Enter)
+			{
+				if (deadMenu.GetPressedItem() == 0)
+				{
+					map[people.getPos().x][people.getPos().y] = 0;
+					people.setPos(Pos(0, 10));
+					for (size_t i = 0; i < 20; i++)
+					{
+						routes[i]->~Route();
+					}
+					level=1;
+					init();
+					people.updateMap(map);
+					pause = !pause;
+				}
+				else
+					stop = true;
+				window.close();
+			};
+			deadMenu.moveMenu(event);
+		}
+		window.clear();
+		sf::Font font;
+		sf::Text temp;
+		float t = window.getSize().y * 0.5f - 200;
+		font.loadFromFile("futur.ttf");
+		temp.setString("Your Score: " + to_string(people.getScore()));
+		temp.setFont(font);
+		temp.setFillColor(sf::Color::White);
+		temp.scale(1, 1);
+		temp.setPosition(640 * 0.5f - 90, t + 50 * 1-60);
+		window.draw(temp);
+		displayHighscore(window);
+		deadMenu.draw(window);
+		window.display();
+	}
 }
 
 void CGAME::startGame()

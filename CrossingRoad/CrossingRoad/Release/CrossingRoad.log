@@ -1,0 +1,144 @@
+﻿  CGame.cpp
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,81): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,81): warning C4244:         with
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,81): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,81): warning C4244:             T=unsigned int
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,81): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,81): warning C4244:         and
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,81): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,81): warning C4244:             T=float
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,81): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,61): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,61): warning C4244:         with
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,61): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,61): warning C4244:             T=unsigned int
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,61): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,61): warning C4244:         and
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,61): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,61): warning C4244:             T=float
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(98,61): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(102,66): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(102,66): warning C4244:         with
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(102,66): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(102,66): warning C4244:             T=unsigned int
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(102,66): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(170,45): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(170,45): warning C4244:         with
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(170,45): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(170,45): warning C4244:             T=float
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(170,45): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(188,27): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,80): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,80): warning C4244:         with
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,80): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,80): warning C4244:             T=unsigned int
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,80): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,80): warning C4244:         and
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,80): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,80): warning C4244:             T=float
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,80): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,59): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,59): warning C4244:         with
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,59): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,59): warning C4244:             T=unsigned int
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,59): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,59): warning C4244:         and
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,59): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,59): warning C4244:             T=float
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(231,59): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(235,65): warning C4244: 'argument': conversion from 'T' to 'float', possible loss of data
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(235,65): warning C4244:         with
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(235,65): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(235,65): warning C4244:             T=unsigned int
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(235,65): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(236,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(236,29): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(241,78): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  CPeople.cpp
+  GameSetting.cpp
+  Helper.cpp
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\CGame.cpp(241,49): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Main.cpp
+  Menu.cpp
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Helper.cpp(20,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Menu.cpp(13,20): warning C4018: '<': signed/unsigned mismatch
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Menu.cpp(32,20): warning C4018: '<': signed/unsigned mismatch
+  Obstacle.cpp
+  ObstacleFactory.cpp
+  Route.cpp
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Menu.cpp(52,30): warning C4018: '<': signed/unsigned mismatch
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Route.cpp(42,20): warning C4018: '<': signed/unsigned mismatch
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Route.cpp(55,20): warning C4018: '<': signed/unsigned mismatch
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Route.cpp(75,20): warning C4018: '<': signed/unsigned mismatch
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Route.cpp(92,41): warning C4018: '<': signed/unsigned mismatch
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Route.cpp(106,40): warning C4018: '<': signed/unsigned mismatch
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Route.cpp(113,20): warning C4018: '<': signed/unsigned mismatch
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Route.cpp(133,20): warning C4018: '<': signed/unsigned mismatch
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Route.cpp(141,20): warning C4018: '<': signed/unsigned mismatch
+  Sound.cpp
+  Startup.cpp
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Route.cpp(151,20): warning C4018: '<': signed/unsigned mismatch
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(20,30): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(20,30): warning C4244:         with
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(20,30): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(20,30): warning C4244:             T=unsigned int
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(20,30): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(20,30): warning C4244:         and
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(20,30): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(20,30): warning C4244:             T=float
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(20,30): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(21,30): warning C4244: '=': conversion from 'T' to 'T', possible loss of data
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(21,30): warning C4244:         with
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(21,30): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(21,30): warning C4244:             T=unsigned int
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(21,30): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(21,30): warning C4244:         and
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(21,30): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(21,30): warning C4244:             T=float
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(21,30): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,48): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,48): warning C4244:         with
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,48): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,48): warning C4244:             T=float
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,48): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,48): warning C4244:         and
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,48): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,48): warning C4244:             T=int
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,48): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,41): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,41): warning C4244:         with
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,41): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,41): warning C4244:             T=float
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,41): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,41): warning C4244:         and
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,41): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,41): warning C4244:             T=int
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(25,41): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(163,20): warning C4018: '<': signed/unsigned mismatch
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,104): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,104): warning C4244:         with
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,104): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,104): warning C4244:             T=unsigned int
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,104): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,104): warning C4244:         and
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,104): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,104): warning C4244:             T=float
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,104): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,55): warning C4244: 'argument': conversion from 'T' to 'T', possible loss of data
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,55): warning C4244:         with
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,55): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,55): warning C4244:             T=unsigned int
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,55): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,55): warning C4244:         and
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,55): warning C4244:         [
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,55): warning C4244:             T=float
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(170,55): warning C4244:         ]
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(226,32): warning C4018: '<': signed/unsigned mismatch
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(237,21): warning C4018: '<': signed/unsigned mismatch
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\ObstacleFactory.cpp(17): warning C4715: 'ObstacleFactory::getMovingObstacle': not all control paths return a value
+D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\CrossingRoad\Startup.cpp(114): warning C4715: 'Startup::LoadGame': not all control paths return a value
+  All 862 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  CrossingRoad.vcxproj -> D:\CS ĐH\CS202\cs202-18apcs3-group01\CrossingRoad\Release\CrossingRoad.exe
